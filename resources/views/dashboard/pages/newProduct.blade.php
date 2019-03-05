@@ -1,5 +1,9 @@
 @extends('dashboard.layouts.master')
 
+@section('js')
+
+
+@endsection
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -41,9 +45,14 @@
                         <option value=""></option>
                     </select>
                 </div>
+                <label class="label label-primary">Slug</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="product_slug" placeholder="Write slug">
+                </div>
                 <label class="label label-primary">description</label>
                 <div class="form-group">
-                    <textarea class="form-control" name="product_description" placeholder="Enter product description"></textarea>
+                    <textarea id="messageArea" name="product_description" rows="7" class="form-control ckeditor" placeholder="Write your message.."></textarea>
+                    {{--<textarea class="form-control" name="product_description" placeholder="Enter product description"></textarea>--}}
                 </div>
                 <input type="submit" class="btn btn-primary btn-block" value="Add">
 

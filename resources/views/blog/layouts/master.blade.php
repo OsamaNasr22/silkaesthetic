@@ -25,6 +25,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
 </head>
 
 <body>
@@ -40,6 +41,7 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
 <script src="{{asset('js/silka.js')}}"></script>
+
 
 @yield('js')
 

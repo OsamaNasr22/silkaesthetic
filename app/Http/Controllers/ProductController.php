@@ -59,25 +59,61 @@ class ProductController extends Controller
             'image.*'=>'image|max:15360'
         ]);
 
+//            $image = explode('/',Storage::putFile('public/product',$request->file('cover')));
+//        dd(last($image));
         $product = new Product();
+
         $product->title = $request['product_title'];
-        $product->description = $request['product_description'];
+
+        $product->description = html_entity_decode($request['product_description']);
+
         $product->category_id = $request['category_id'];
-        $cover= ($request->has('cover'))?$request->file('cover'):null;
-        $product->cover = (!is_null($cover))?Storage::putFile('public\product', $cover) : $cover;
+
+//        $cover= ($request->has('cover'))?$request->file('cover'):null;
+
+        //add cover if exists
+        if ($cover = $request->file('cover')){
+            $coverImg= explode('/',Storage::putFile('public\product', $cover));
+            $product->cover = last($coverImg);
+        }
+
+
+        //add extra images
+
+        if ($images=$request->file('extraImages')){
+            $arr_images=[];
+            for ($i=0,$c=count($images);$i<$c;$i++){
+                $img= explode('/', Storage::putFile('public/extra_images',$images[$i]));
+                $arr_images[]=last($img);
+            }
+            $product->extra_images= ($arr_images)? implode(',',$arr_images): null;
+
+        }
+        //add slug
+        $product->slug= $request['product_slug'];
+
 
         $state = $product->save();
+        //add images if founded
         if ($state) {
-            $images = ($request->has('image')) ? $request->file('image') : null;
-
-//            $images = (! is_null($images)) ? (is_array($images))? $request->file('image') :[$request->file('image')] : null;
-            if(!is_null($images)){
+//            $images = ($request->has('image')) ? $request->file('image') : null;
+            if ($images= $request->file('image')){
                 for ($i = 0; $i < count($images); $i++) {
                     $img = new Image();
-                    $img->image_url = Storage::putFile('public\product', $images[$i]);
+                    $productImg= explode('/',Storage::putFile('public\product', $images[$i]));
+                    $img->image_url = last($productImg);
                     $product->images()->save($img);
                 }
             }
+////            $images = (! is_null($images)) ? (is_array($images))? $request->file('image') :[$request->file('image')] : null;
+//            if(!is_null($images)){
+//                for ($i = 0; $i < count($images); $i++) {
+//                    $img = new Image();
+//                    $img->image_url = Storage::putFile('public\product', $images[$i]);
+//                    $product->images()->save($img);
+//                }
+//            }
+
             return redirect()->back()->with(['success' => 'product added successfully']);
         }else{
             return redirect()->back()->with(['fail' => 'wrong in add product try again']);
