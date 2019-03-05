@@ -19,9 +19,19 @@
             </a>
             <ul class="dropdown-menu dropdown-user">
 
-                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                {{--<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>--}}
                 </li>
-                <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                <li><a href="login.html"
+                       href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"
+                    >
+                        <i class="fa fa-sign-out fa-fw"></i>
+
+                        {{ __('Logout') }}</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </li>
             </ul>
             <!-- /.dropdown-user -->
@@ -35,7 +45,7 @@
             <ul class="nav" id="side-menu">
 
                 <li>
-                    <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    <a href="{{route('dashboard')}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Categories<span class="fa arrow"></span></a>

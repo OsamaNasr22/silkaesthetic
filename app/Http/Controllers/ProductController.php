@@ -55,9 +55,10 @@ class ProductController extends Controller
             'product_title'=>'',
             'product_description'=>'',
             'category_id'=>'',
-            'cover'=>'',
-            'image'=>''
+            'cover'=>'image|max:20480',
+            'image.*'=>'image|max:15360'
         ]);
+
         $product = new Product();
         $product->title = $request['product_title'];
         $product->description = $request['product_description'];
@@ -68,7 +69,8 @@ class ProductController extends Controller
         $state = $product->save();
         if ($state) {
             $images = ($request->has('image')) ? $request->file('image') : null;
-            $images = (! is_null($images)) ? (is_array($images))? $request->file('image') :[$request->file('image')] : null;
+
+//            $images = (! is_null($images)) ? (is_array($images))? $request->file('image') :[$request->file('image')] : null;
             if(!is_null($images)){
                 for ($i = 0; $i < count($images); $i++) {
                     $img = new Image();

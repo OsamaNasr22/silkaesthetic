@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Route::middleware(['web'])->group(function (){
 
@@ -22,6 +22,8 @@ Route::middleware(['web'])->group(function (){
     Route::get('/test','BlogController@test');
 
     Route::prefix('admin')->group(function (){
+        Route::get('/','DashboardController@index')->name('dashboard');
+
         Route::get('products/img/{id}','ProductController@deleteImage');
         Route::resources([
             'categories'=> 'CategoryController',

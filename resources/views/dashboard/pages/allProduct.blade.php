@@ -12,35 +12,40 @@
 
         <div class="row">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover ">
-                    <thead>
-                    <tr>
-                        <th>#ID</th>
-                        <th>Product title</th>
-                        <th>cover</th>
-                        <th>Manage</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    @forelse($products as $product)
-                        <tr >
-                            <td>{{$product['id']}}</td>
-                            <td>{{$product['title']}}</td>
-                            <td>{{$product['description']}}</td>
-                            <td id="manage">
-                                <a class='delete' href="" data-id="{{$product['id']}}"><i class="fa fa-remove"></i></a>
-                                <a href="{{route('products.edit',$product['id'])}}" ><i class="fa fa-edit"></i></a>
-                            </td>
+                @if($products)
+                    <table class="table table-striped table-bordered table-hover ">
+                        <thead>
+                        <tr>
+                            <th>#ID</th>
+                            <th>Product title</th>
+                            <th>cover</th>
+                            <th>Manage</th>
                         </tr>
+                        </thead>
+                        <tbody>
 
-                    @empty
-                        <div class="alert alert-warning">No products added yet </div>
-                    @endforelse
+                        @forelse($products as $product)
+                            <tr >
+                                <td>{{$product['id']}}</td>
+                                <td>{{$product['title']}}</td>
+                                <td>{{$product['description']}}</td>
+                                <td id="manage">
+                                    <a class='delete' href="" data-id="{{$product['id']}}"><i class="fa fa-remove"></i></a>
+                                    <a href="{{route('products.edit',$product['id'])}}" ><i class="fa fa-edit"></i></a>
+                                </td>
+                            </tr>
+
+                        @empty
+                            <div class="alert alert-warning">No products added yet </div>
+                        @endforelse
 
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+@else
+                    <div class="alert alert-warning">No products added yet </div>
+
+                @endif
             </div>
 
         </div>

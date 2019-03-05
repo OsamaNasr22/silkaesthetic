@@ -46,7 +46,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['category_name' => 'required|alpha']);
+        $this->validate($request, ['category_name' => 'required|alpha_dash']);
 
         return (new Category())->addCategory($request['category_name']);
 }

@@ -12,33 +12,38 @@
 
         <div class="row">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>#ID</th>
-                        <th>Category Name</th>
-                        <th>Manage</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    @forelse($categories as $category)
-                        <tr >
-                            <td>{{$category['id']}}</td>
-                            <td>{{$category['name']}}</td>
-                            <td id="manage">
-                                <a class='delete' href="" data-id="{{$category['id']}}"><i class="fa fa-remove"></i></a>
-                                <a href="{{route('categories.edit',$category['id'])}}" ><i class="fa fa-edit"></i></a>
-                            </td>
+                @if($categories)
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>#ID</th>
+                            <th>Category Name</th>
+                            <th>Manage</th>
                         </tr>
+                        </thead>
+                        <tbody>
+
+                        @forelse($categories as $category)
+                            <tr >
+                                <td>{{$category['id']}}</td>
+                                <td>{{$category['name']}}</td>
+                                <td id="manage">
+                                    <a class='delete' href="" data-id="{{$category['id']}}"><i class="fa fa-remove"></i></a>
+                                    <a href="{{route('categories.edit',$category['id'])}}" ><i class="fa fa-edit"></i></a>
+                                </td>
+                            </tr>
 
                         @empty
-                        <div class="alert alert-warning">No categories added yet </div>
+                            <div class="alert alert-warning">No categories added yet </div>
                         @endforelse
 
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+
+                @else
+                    <div class="alert alert-warning">No categories added yet </div>
+                @endif
             </div>
 
         </div>
