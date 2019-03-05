@@ -32,7 +32,7 @@
     <![endif]-->
     <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
     <script type="text/javascript">
-        CKEDITOR.replace( 'product_description',
+        CKEDITOR.replaceAll( 'messageArea',
             {
                 customConfig : 'config.js',
                 toolbar : 'simple'

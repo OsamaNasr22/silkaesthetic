@@ -59,8 +59,6 @@ class ProductController extends Controller
             'image.*'=>'image|max:15360'
         ]);
 
-//            $image = explode('/',Storage::putFile('public/product',$request->file('cover')));
-//        dd(last($image));
         $product = new Product();
 
         $product->title = $request['product_title'];
@@ -69,7 +67,7 @@ class ProductController extends Controller
 
         $product->category_id = $request['category_id'];
 
-//        $cover= ($request->has('cover'))?$request->file('cover'):null;
+
 
         //add cover if exists
         if ($cover = $request->file('cover')){
@@ -146,9 +144,9 @@ class ProductController extends Controller
     {
         //
         $images= $product->images->toArray();
+
         for($i=0 ; $i<count($images); $i++){
-            $img= explode('\\',$images[$i]['image_url']);
-            $images[$i]['image_url']= asset("storage/" .end($img)) ;
+            $images[$i]['image_url']= asset("storage/product/" .$images[$i]['image_url']) ;
         }
         $data= $this->prepareProduct($product);
 
@@ -178,25 +176,62 @@ class ProductController extends Controller
             $product->category_id= $request['category_id'];
         $cover= ($request->has('cover'))? $request->file('cover'):null;
 
-        if(is_null($cover)){
-            $product->cover = $product->cover;
+
+
+
+        //add cover if exists
+        if ($cover = $request->file('cover')){
+            Storage::delete('public/product/'.$product->cover);
+            $coverImg= explode('/',Storage::putFile('public\product', $cover));
+            $product->cover = last($coverImg);
         }else{
-            //delete old cover from server
-            Storage::delete($product->cover);
-            //add new one
-           $product->cover= Storage::putFile('public\product', $cover);
+            $product->cover = $product->cover;
         }
 
-            if($product->update()){
-                $images = ($request->has('image')) ? $request->file('image') : null;
-                $images = (! is_null($images)) ? (is_array($images))? $request->file('image') :[$request->file('image')] : null;
-                if(!is_null($images)){
-                    for ($i = 0; $i < count($images); $i++) {
-                        $img = new Image();
-                        $img->image_url = Storage::putFile('public\product', $images[$i]);
-                        $product->images()->save($img);
-                    }
+
+//        if(is_null($cover)){
+//            $product->cover = $product->cover;
+//        }else{
+//            //delete old cover from server
+//            Storage::delete($product->cover);
+//            //add new one
+//           $product->cover= Storage::putFile('public\product', $cover);
+//        }
+
+
+        if ($images=$request->file('extraImages')){
+            $arr_images=$product->extra_images;
+            for ($i=0,$c=count($images);$i<$c;$i++){
+                $img= explode('/', Storage::putFile('public/extra_images',$images[$i]));
+                $arr_images[]=last($img);
+            }
+            $product->extra_images= ($arr_images)? implode(',',$arr_images): null;
+
+        }
+        //add slug
+        $product->slug= $request['product_slug'];
+
+
+        if($product->update()){
+//                $images = ($request->has('image')) ? $request->file('image') : null;
+//                $images = (! is_null($images)) ? (is_array($images))? $request->file('image') :[$request->file('image')] : null;
+//                if(!is_null($images)){
+//                    for ($i = 0; $i < count($images); $i++) {
+//                        $img = new Image();
+//                        $img->image_url = Storage::putFile('public\product', $images[$i]);
+//                        $product->images()->save($img);
+//                    }
+//                }
+
+
+            if ($images= $request->file('image')){
+                for ($i = 0; $i < count($images); $i++) {
+                    $img = new Image();
+                    $productImg= explode('/',Storage::putFile('public\product', $images[$i]));
+                    $img->image_url = last($productImg);
+                    $product->images()->save($img);
                 }
+            }
                 return redirect()->back()->with(['success' => 'product updated successfully']);
             }else{
 
@@ -231,8 +266,12 @@ class ProductController extends Controller
     }
     private function prepareProduct(Product $product){
         $data= $product->toArray();
-        $img= explode('\\', $data['cover']);
-        $data['cover']= asset("storage/" .end($img));
+
+        $extra_images=array_map(function($image){
+            return 'storage/extra_images/'.$image;
+        }, explode(',',$data['extra_images']));
+        $data['cover']= asset("storage/product/" .$data['cover']);
+        $data['extra_images']=$extra_images;
         return $data;
     }
     public function deleteImage($id){

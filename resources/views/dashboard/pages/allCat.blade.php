@@ -28,8 +28,8 @@
                                 <td>{{$category['id']}}</td>
                                 <td>{{$category['name']}}</td>
                                 <td id="manage">
-                                    <a class='delete' href="" data-id="{{$category['id']}}"><i class="fa fa-remove"></i></a>
-                                    <a href="{{route('categories.edit',$category['id'])}}" ><i class="fa fa-edit"></i></a>
+                                    <a class='delete' href="" data-id="{{$category['id']}}"><i class="fa fa-remove"></i> Delete</a>
+                                    <a href="{{route('categories.edit',$category['id'])}}" ><i class="fa fa-edit"></i> Edit</a>
                                 </td>
                             </tr>
 

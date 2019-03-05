@@ -72,6 +72,9 @@
                     <!-- /.nav-second-level -->
                 </li>
 
+                <li>
+                    <a href="{{route('settings.index')}}"><i class="fa fa-dashboard fa-fw"></i> Settings</a>
+                </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>

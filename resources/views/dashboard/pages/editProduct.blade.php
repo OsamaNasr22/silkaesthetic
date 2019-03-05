@@ -11,7 +11,7 @@
         <!-- /.row -->
 
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <form  action="{{route('products.update',$product['id']) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     {{method_field('PUT')}}
@@ -27,6 +27,10 @@
                     <div class="form-group">
                         <input class="form-control" type="file" name="image[]" multiple>
                     </div>
+                    <label class="label label-success">extra images</label>
+                    <div class="form-group">
+                        <input class="form-control" type="file" name="extraImages[]" multiple>
+                    </div>
                     <label class="label label-success">category</label>
                     <div class="form-group">
 
@@ -41,9 +45,16 @@
                             <option value=""></option>
                         </select>
                     </div>
-                    <label class="label label-success">description</label>
+                    <label class="label label-primary">Slug</label>
                     <div class="form-group">
-                        <textarea class="form-control" name="product_description" placeholder="Enter product description">{{$product['description']}}</textarea>
+                        <input type="text" class="form-control" name="product_slug" placeholder="Write slug" value="{{$product['slug']}}">
+                    </div>
+                    <label class="label label-primary">description</label>
+                    <div class="form-group">
+                        <textarea id="messageArea" name="product_description" rows="7" class="form-control ckeditor" placeholder="Write your message..">
+                            {{html_entity_decode($product['description'])}}
+                        </textarea>
+                        {{--<textarea class="form-control" name="product_description" placeholder="Enter product description"></textarea>--}}
                     </div>
                     <input type="submit" class="btn btn-success btn-block" value="Add">
 
@@ -52,20 +63,34 @@
 
 
             <h1>Cover</h1>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="col-sm-12">
                     <img class="img-responsive" src="{{$product['cover']}} ">
                 </div>
-                <h1>images</h1>
-                @forelse($images as $image)
-                    <div class="col-sm-4">
+                <div class="col-md-12">
+                    <h1>images</h1>
+                    @forelse($images as $image)
+                        <div class="col-sm-4">
+                            <a href="#" class="delete" data-id="{{$image['id']}}"><i class="fa fa-remove " ></i></a>
+                            <img class="img-responsive" src="{{$image['image_url']}}">
+                        </div>
 
-                        <a href="#" class="delete" data-id="{{$image['id']}}"><i class="fa fa-remove " ></i></a>
-                        <img class="img-responsive" src="{{$image['image_url']}}">
-                    </div>
-
-                        @empty
+                    @empty
                     @endforelse
+                </div>
+
+                <div class="col-md-12">
+                    <h1>ExtraImages</h1>
+                    @forelse($product['extra_images'] as $image)
+                        <div class="col-sm-4">
+                            <a href="#"><i class="fa fa-remove " ></i></a>
+                            <img class="img-responsive" src="{{asset($image)}}">
+                        </div>
+
+                    @empty
+                    @endforelse
+
+                </div>
 
 
             </div>

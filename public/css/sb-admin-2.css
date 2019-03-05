@@ -443,19 +443,21 @@ table.dataTable thead .sorting:after {
   display: none;
 }
  #manage a{
-   font-size: 25px ;;
-   margin-left: 5px;
+   /*font-size: 25px ;*/
+   /*margin-left: 5px;*/
+   padding: 5px 8px;
+   border-radius: 5px;
  }
  #manage a:nth-of-type(2){
-   padding: 5px 8px;
+   /*padding: 5px 8px;*/
    background-color: forestgreen;
    color: #fff8b3;
-   border-radius: 10px;
+   /*border-radius: 10px;*/
  }
 
 #manage a:nth-of-type(1){
-  padding: 5px 8px;
+  /*padding: 5px 8px;*/
   background-color: darkred;
   color: #fff8b3;
-  border-radius: 10px;
+  /*border-radius: 10px;*/
 }

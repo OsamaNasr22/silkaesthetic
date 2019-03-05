@@ -17,17 +17,16 @@
 
 Route::middleware(['web'])->group(function (){
 
-
-
     Route::get('/test','BlogController@test');
 
     Route::prefix('admin')->group(function (){
         Route::get('/','DashboardController@index')->name('dashboard');
 
         Route::get('products/img/{id}','ProductController@deleteImage');
+        Route::resource('settings','SettingController')->only(['index','update']);
         Route::resources([
             'categories'=> 'CategoryController',
-            'products'=>'ProductController',
+            'products'=>'ProductController'
         ]);
 
     });

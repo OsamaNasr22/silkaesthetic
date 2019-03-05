@@ -18,7 +18,7 @@
                         <tr>
                             <th>#ID</th>
                             <th>Product title</th>
-                            <th>cover</th>
+                            <th>slug</th>
                             <th>Manage</th>
                         </tr>
                         </thead>
@@ -28,10 +28,10 @@
                             <tr >
                                 <td>{{$product['id']}}</td>
                                 <td>{{$product['title']}}</td>
-                                <td>{{$product['description']}}</td>
+                                <td>{{$product['slug']}}</td>
                                 <td id="manage">
-                                    <a class='delete' href="" data-id="{{$product['id']}}"><i class="fa fa-remove"></i></a>
-                                    <a href="{{route('products.edit',$product['id'])}}" ><i class="fa fa-edit"></i></a>
+                                    <a class='delete' href="" data-id="{{$product['id']}}"><i class="fa fa-remove"></i> Delete</a>
+                                    <a href="{{route('products.edit',$product['id'])}}" ><i class="fa fa-edit"></i> Edit</a>
                                 </td>
                             </tr>
 
