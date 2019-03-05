@@ -25,13 +25,17 @@
                 <div class="form-group">
                     <input class="form-control" type="file" name="image[]" multiple>
                 </div>
+                <label class="label label-primary">extra images</label>
+                <div class="form-group">
+                    <input class="form-control" type="file" name="extraImages[]" multiple>
+                </div>
                 <label class="label label-primary">category</label>
                 <div class="form-group">
                     <select class="form-control" name="category_id">
                         @forelse($categories as $category)
                             <option value="{{$category['id']}}">{{$category['name']}}</option>
                         @empty
-                            <option>no category added yet</option>
+                            <   option>no category added yet</option>
 
                             @endforelse
                         <option value=""></option>

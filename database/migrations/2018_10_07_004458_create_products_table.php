@@ -20,9 +20,9 @@ class CreateProductsTable extends Migration
             $table->mediumText('description');
             $table->string('cover');
             $table->unsignedInteger('category_id');
+            $table->string('extra_images')->nullable();
+            $table->string('slug');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
-
-
         });
     }
 
