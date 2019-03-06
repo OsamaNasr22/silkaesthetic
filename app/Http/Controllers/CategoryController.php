@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Option;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -46,9 +48,46 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['category_name' => 'required|alpha_dash']);
 
-        return (new Category())->addCategory($request['category_name']);
+       // dd($request->all());
+        $this->validate($request, [
+            'category_name' => 'required|string',
+            'cover'  =>'required|image|mimes:jpeg,jpg,png|max:15000',
+            'titles.*'=>'nullable|string',
+            'desc.*'=>'nullable|string',
+            'optionImages.*'=>'image|mimes:jpeg,jpg,png|max:1024',
+        ]);
+//        dd($request->all());
+        $category = new Category();
+        $category->name= $request['category_name'];
+        if ($image=$request->file('cover')){
+            $image = explode('/',Storage::putFile('public/product',$image));
+            $category->cover= last($image);
+        }
+        $category->save();
+        $images= $request->file('optionImages');
+        if ($request['titles']){
+            foreach ($request['titles'] as $i => $value)
+            {
+                $option = new Option();
+                $option->key= $value;
+                $option->value= $request['desc'][$i];
+                if ($images){
+                    if ($image = $images[$i]){
+                        $image = explode('/',Storage::putFile('public/extra_images',$image));
+                        $option->image= last($image);
+                    }
+                }
+                $category->options()->save($option);
+            }
+        }else{$category->save();}
+        return redirect()->back()->with(['success'=>'Category added successfully']);
+
+
+
+
+//
+//        return (new Category())->addCategory($request['category_name']);
 }
     /**
      * Display the specified resource.
@@ -70,8 +109,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-
-        return view('dashboard.pages.editCat',['category'=>$category->toArray()]);
+        $options=$category->options;
+        return view('dashboard.pages.editCat',['category'=>$category->toArray() ,'options'=>$options]);
     }
 
     /**
@@ -83,16 +122,84 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
-        $this->validate($request ,[
-            'category_name'=>'required|alpha'
+//        //
+//        $this->validate($request ,[
+//            'category_name'=>'required|alpha'
+//        ]);
+//        if($category->updateCat($category,$request['category_name'])){
+//
+//            return redirect()->back()->with(['success'=>'category updated successfully']);
+//        }
+//        return redirect()->back()->with(['fail'=>'invalid operation'
+//        ]);
+        $this->validate($request, [
+            'category_name' => 'required|string',
+            'cover'  =>'nullable|image|mimes:jpeg,jpg,png|max:15000',
+            'titles.*'=>'nullable|string',
+            'desc.*'=>'nullable|string',
+            'optionImages.*'=>'nullable|image|mimes:jpeg,jpg,png|max:1024',
+            'editTitles.*'=>'nullable|string',
+            'editDesc.*'=>'nullable|string',
+            'editImage.*'=>'nullable|image|mimes:jpeg,jpg,png|max:1024',
         ]);
-        if($category->updateCat($category,$request['category_name'])){
 
-            return redirect()->back()->with(['success'=>'category updated successfully']);
+
+        $category->name= $request['category_name'];
+        if ($image=$request->file('cover')){
+            //delete old cover
+            if ($category->cover)
+            Storage::delete('public/product/'.$category->cover);
+
+            //add new one
+            $image = explode('/',Storage::putFile('public/product',$image));
+            $category->cover= last($image);
         }
-        return redirect()->back()->with(['fail'=>'invalid operation'
-        ]);
+        $category->update();
+        $images= $request->file('optionImages');
+
+
+        if ($request['editTitles']){
+            $images=$request->file('editImage');
+
+            foreach ($request['editTitles'] as $i => $value) {
+                $option= Option::find($i);
+                $option->key= $value;
+                $option->value=$request['editDesc'][$i];
+                if (isset($images[$i])){
+                    $image=$images[$i];
+                    if ($option->image) Storage::delete('public/extra_images/'.$option->image);
+                    $image = explode('/',Storage::putFile('public/extra_images',$image));
+                    $option->image= last($image);
+                }
+                $option->update();
+            }
+        }
+
+
+        if ($request['titles']){
+            foreach ($request['titles'] as $i => $value)
+           {
+                $option = new Option();
+                $option->key= $value;
+                $option->value= $request['desc'][$i];
+                if ($images){
+                    if ($image = $images[$i]){
+                        $image = explode('/',Storage::putFile('public/extra_images',$image));
+                        $option->image= last($image);
+                    }
+                }
+                $category->options()->save($option);
+            }
+
+        }else{$category->save();}
+
+        return redirect()->back()->with(['success'=>'Category added successfully']);
+
+
+
+
+
+
     }
 
     /**
@@ -104,7 +211,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-
+        foreach ($category->options->toArray() as $item){
+            if ($item['image']) Storage::delete('public/extra_images/'.$item['image']);
+        }
+        if($category->cover) Storage::delete('public/product/'.$category->cover);
         return ($category->delete())? response()->json('category deleted successfully',200): response()->json('faild in delete category',400);
     }
 }

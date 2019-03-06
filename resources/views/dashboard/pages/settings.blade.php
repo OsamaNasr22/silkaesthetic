@@ -45,9 +45,8 @@
 
                 <div id="optionContainer">
                     @forelse($settings->extra_options as $key=>$value)
-
                         <div class="form-group">
-                            <label class="label label-primary">more options</label>
+                            <label class="label label-primary">in about section</label>
                             <span class="pull-right"><i class="fa fa-remove"></i></span>
                             <input class="form-control" type="text" name="titles[]" value="{{$key}}" placeholder="enter title">
                             <br>

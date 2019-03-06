@@ -28,8 +28,12 @@ Route::middleware(['web'])->group(function (){
             'categories'=> 'CategoryController',
             'products'=>'ProductController'
         ]);
-
+        Route::get('/api/option/delete/{id}',[
+            'uses'=>'OptionController@destroy'
+        ]);
     });
+
+
 
     Route::get('/home' ,'BlogController');
     Route::get('/' ,'BlogController');

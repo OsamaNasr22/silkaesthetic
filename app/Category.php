@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    public function options(){
+        return $this->hasMany(Option::class);
+    }
+
    public function products(){
        return $this->hasMany(Product::class);
    }
@@ -15,7 +19,6 @@ class Category extends Model
        if(is_null($name)){
            return redirect()->back()->with(['fail'=>'invalid operation']);
        }
-
        $cat = new $this;
       $cat->name= $name;
        return ($cat->save())?redirect()->back()->with(['success'=>'category added successfully']): redirect()->back()->with(

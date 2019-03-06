@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Option;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class OptionController extends Controller
 {
@@ -78,8 +79,12 @@ class OptionController extends Controller
      * @param  \App\Option  $option
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Option $option)
+    public function destroy($id)
     {
-        //
+        $option= Option::find($id);
+        if(!$option) return response()->json('option not found',404);
+        Storage::delete('public/extra_images/'.$option->image);
+        $option->delete();
+        return response()->json('Option deleted successfully',200);
     }
 }
