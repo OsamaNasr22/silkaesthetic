@@ -41,7 +41,7 @@
                         @empty
                             <   option>no category added yet</option>
 
-                            @endforelse
+                        @endforelse
                         <option value=""></option>
                     </select>
                 </div>

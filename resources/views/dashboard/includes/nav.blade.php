@@ -75,6 +75,18 @@
                 <li>
                     <a href="{{route('settings.index')}}"><i class="fa fa-dashboard fa-fw"></i> Settings</a>
                 </li>
+                <li>
+                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Banners<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a  href="{{route('sliders.create')}}">Add new</a>
+                        </li>
+                        <li>
+                            <a href="{{route('sliders.index')}}">All Banners</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>

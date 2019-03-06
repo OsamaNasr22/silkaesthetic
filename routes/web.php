@@ -24,12 +24,15 @@ Route::middleware(['web'])->group(function (){
 
         Route::get('products/img/{id}','ProductController@deleteImage');
         Route::resource('settings','SettingController')->only(['index','update']);
+        Route::resource('sliders','SliderController')->only(['index','store','destroy','create']);
         Route::resources([
             'categories'=> 'CategoryController',
             'products'=>'ProductController'
         ]);
         Route::get('/api/option/delete/{id}',[
             'uses'=>'OptionController@destroy'
+        ]); Route::delete('/api/product/deleteExtraImage/{id}/{url}',[
+            'uses'=>'ProductController@deleteExtra'
         ]);
     });
 

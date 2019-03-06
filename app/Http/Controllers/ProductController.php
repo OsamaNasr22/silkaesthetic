@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+
+    static $id;
     /**
      * Display a listing of the resource.
      *
@@ -143,6 +145,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         //
+        static::$id= $product->id;
         $images= $product->images->toArray();
 
         for($i=0 ; $i<count($images); $i++){
@@ -200,7 +203,7 @@ class ProductController extends Controller
 
 
         if ($images=$request->file('extraImages')){
-            $arr_images=$product->extra_images;
+            $arr_images=is_array($product->extra_images)?$product->extra_images : [];
             for ($i=0,$c=count($images);$i<$c;$i++){
                 $img= explode('/', Storage::putFile('public/extra_images',$images[$i]));
                 $arr_images[]=last($img);
@@ -266,12 +269,16 @@ class ProductController extends Controller
     }
     private function prepareProduct(Product $product){
         $data= $product->toArray();
+       if ($data['extra_images']){
+           $arr=explode(',',$data['extra_images']);
+           $extra_images=array_map(function($image){
+               return 'storage/extra_images/'.$image;
+           },$arr);
+           $data['extra_images']=$extra_images;
+       }
 
-        $extra_images=array_map(function($image){
-            return 'storage/extra_images/'.$image;
-        }, explode(',',$data['extra_images']));
         $data['cover']= asset("storage/product/" .$data['cover']);
-        $data['extra_images']=$extra_images;
+
         return $data;
     }
     public function deleteImage($id){
@@ -280,5 +287,18 @@ class ProductController extends Controller
         Storage::delete($image->image_url);
         return ($image->delete())? response()->json('Image deleted successfully',200):response()->json('Delete image faild try again',200);
     }
+
+        public function deleteExtra($id,$image){
+
+        $product= Product::find($id);
+
+        Storage::delete('public/extra_images/'.$image);
+        $arr= explode(',' ,$product->extra_images);
+        $arr = array_diff($arr,[$image]);
+        $extra=count($arr)>0 ? implode(',',$arr):null;
+        $product->extra_images = $extra ;
+        $product->update();
+        return response()->json('done',200);
+        }
 
 }

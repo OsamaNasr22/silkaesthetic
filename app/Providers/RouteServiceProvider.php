@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Category;
 use App\Product;
 use App\Setting;
+use App\Slider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -31,6 +32,7 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot();
         Route::model('category',Category::class);
         Route::model('product',Product::class);
+        Route::model('slider',Slider::class);
         Route::model('setting',Setting::class);
     }
 

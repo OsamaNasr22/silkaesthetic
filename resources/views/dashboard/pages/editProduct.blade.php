@@ -67,30 +67,38 @@
                 <div class="col-sm-12">
                     <img class="img-responsive" src="{{$product['cover']}} ">
                 </div>
-                <div class="col-md-12">
-                    <h1>images</h1>
-                    @forelse($images as $image)
-                        <div class="col-sm-4">
-                            <a href="#" class="delete" data-id="{{$image['id']}}"><i class="fa fa-remove " ></i></a>
-                            <img class="img-responsive" src="{{$image['image_url']}}">
-                        </div>
+      @if($images)
+                    <div class="col-md-12">
+                        <h1>images</h1>
+                        @forelse($images as $image)
+                            <div class="col-sm-4">
+                                <a href="#" class="delete" data-id="{{$image['id']}}"><i class="fa fa-remove " ></i></a>
+                                <img class="img-responsive" src="{{$image['image_url']}}">
+                            </div>
 
-                    @empty
-                    @endforelse
+                        @empty
+                        @endforelse
+                    </div>
+
+                @endif
+
+                    @if($product['extra_images'])
+                    <div class="col-md-12">
+                        <h1>ExtraImages</h1>
+                        @forelse($product['extra_images'] as $image)
+                            <div class="col-sm-4">
+                                <a href="#" class="removeExtra" data-id="{{$product['id']}}" data-url="{{$image}}"><i class="fa fa-remove" ></i></a>
+                                <img class="img-responsive" src="{{asset($image)}}">
+                            </div>
+
+                        @empty
+
+                        @endforelse
                 </div>
 
-                <div class="col-md-12">
-                    <h1>ExtraImages</h1>
-                    @forelse($product['extra_images'] as $image)
-                        <div class="col-sm-4">
-                            <a href="#"><i class="fa fa-remove " ></i></a>
-                            <img class="img-responsive" src="{{asset($image)}}">
-                        </div>
+                @endif
 
-                    @empty
-                    @endforelse
 
-                </div>
 
 
             </div>
@@ -131,6 +139,47 @@
                       });
                   }
               }
+
+
+
+
+
+            })
+
+            $('.removeExtra').on('click',function (e) {
+                e.preventDefault();
+                let url=$(this).attr('data-url') ,
+                    parent= $(this).parent(),
+                    id=$(this).attr('data-id');
+                    state= true
+                ;
+                url = url.split('/').pop();
+
+                if(confirm('This image will be deleted , Are you sure ?')){
+                    if(state){
+                        state = false;
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            'url':`http://localhost:8000/admin/api/product/deleteExtraImage/${id}/${url}` ,
+                            'type':'delete',
+                            'dataType':'json',
+                            'contentType':false,
+                            'cacheProcess':false,
+                            'success':function (data) {
+                                console.log(data);
+                                state= true;
+                                parent.remove();
+                            },
+                            'error':function (error) {
+                                state= true;
+                            }
+                        });
+                    }
+                }
 
 
 

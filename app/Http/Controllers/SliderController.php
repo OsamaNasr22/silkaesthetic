@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SliderController extends Controller
 {
@@ -15,6 +16,8 @@ class SliderController extends Controller
     public function index()
     {
         //
+        $sliders= Slider::all()->toArray();
+        return  view('dashboard.pages.sliders',compact('sliders'));
     }
 
     /**
@@ -25,6 +28,7 @@ class SliderController extends Controller
     public function create()
     {
         //
+        return view('dashboard.pages.addSlider');
     }
 
     /**
@@ -36,6 +40,16 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,[
+            'image'=>'required|image|mimes:jpeg,jpg,png,gif|max:1024',
+            'type'=>'required|string'
+        ]);
+        $image = explode('/',Storage::putFile('public/banners',$request->file('image')));
+        $slider = new Slider();
+        $slider->image= last($image);
+        $slider->type=$request['type'];
+        $slider->save();
+        return redirect()->back()->with(['success'=>'Banner add successfully']);
     }
 
     /**
@@ -49,37 +63,11 @@ class SliderController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Slider  $slider
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Slider $slider)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Slider  $slider
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Slider $slider)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Slider  $slider
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Slider $slider)
     {
         //
+        if ($slider->image) Storage::delete('public/banners/'.$slider->image);
+        $slider->delete();
+        return response()->json('deleted successfully',200);
     }
 }
