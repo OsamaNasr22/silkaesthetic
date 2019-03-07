@@ -37,7 +37,8 @@ Route::middleware(['web'])->group(function (){
     });
 
 
-
+    Route::resource('categories','CategoryController')->only(['show']);
+    Route::resource('products','ProductController')->only(['show']);
     Route::get('/home' ,'BlogController');
     Route::get('/' ,'BlogController');
     Route::post('sendMail',[

@@ -55,7 +55,7 @@ header nav ul li:last-of-type{
 header h3:first-of-type{
     background-color: #F1F5F4;
     margin: 0;
-    padding: 28px 0;
+    padding: 14px 0;
     font-family: Arial , Tahoma;
     font-weight: 100;
     letter-spacing: 25px;
@@ -243,10 +243,14 @@ z-index: 10;
 }
 .res-work ul li{
     padding: 10px 0;
+    font-size: 20px;
     border-top: 1px solid #fff;
 }
 .res-work ul li:last-of-type{
     border-radius: 0 0 10px 10px;
+}
+.res-work ul li:hover a, .our-work ul li:hover a{
+    color: #fff;
 }
 .res-work ul li:hover {
     background-color:#1BBDE8 ;
@@ -258,6 +262,9 @@ z-index: 10;
 }
 .products .product-item{
     margin-bottom: 25px;
+}
+.our-work ul li a , .res-work ul li a{
+    color: #001D32;
 }
 
 
@@ -481,4 +488,12 @@ footer p:last-child a{
     text-align: center;
 
 }
+
+.carousel-inner .active.left  { left: -33%;             }
+.carousel-inner .active.right { left: 33%;              }
+.carousel-inner .next         { left: 33%               }
+.carousel-inner .prev         { left: -33%              }
+.carousel-control.left        { background-image: none; }
+.carousel-control.right       { background-image: none; }
+.carousel-inner .item         { background: white;      }
 

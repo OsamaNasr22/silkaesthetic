@@ -1,5 +1,7 @@
 $(function () {
 
+
+
     $('input:not([type="submit"])').on('focus',function () {
         let input= $(this);
         let text = input.attr('placeholder');

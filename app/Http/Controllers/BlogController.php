@@ -18,7 +18,9 @@ class BlogController extends Controller
     public function __invoke()
     {
         // TODO: Implement __invoke() method.
-        return view('blog.pages.home');
+        $categories= Category::all();
+
+        return view('blog.pages.home',compact('categories'));
     }
 
     public function categories(){

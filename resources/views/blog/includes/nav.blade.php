@@ -14,7 +14,7 @@
         <ul class="text-center list-inline">
             <li>Home</li>
             <li>About</li>
-            <li>Products</li>
+            <li>Categories</li>
             <li>Contact us</li>
         </ul>
     </div>

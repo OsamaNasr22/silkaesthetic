@@ -36,10 +36,10 @@
                         <div class="item-footer">
                             <h3>Follow us</h3>
                             <ul>
-                                <li><a href="#"><i class="fa fa-whatsapp"> </i></a></li>
+                                <li><a href="#"><i class="fa fa-facebook-official"> </i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin-square"> </i></a></li>
                                 <li><a href="#"><i class="fa fa-instagram"> </i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter-square"> </i></a></li>
-                                <li><a href="#"><i class="fa fa-facebook-official"> </i></a></li>
                             </ul>
                         </div>
                     </div>

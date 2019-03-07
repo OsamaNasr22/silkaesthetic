@@ -133,6 +133,7 @@ class ProductController extends Controller
     {
         //
 
+        return view('blog.pages.product');
 
     }
 

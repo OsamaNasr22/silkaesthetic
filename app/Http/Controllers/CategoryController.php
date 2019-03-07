@@ -98,7 +98,7 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         //
-        print_r($category);
+        return view('blog.pages.category');
     }
 
     /**
