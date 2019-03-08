@@ -11,130 +11,57 @@
     <main>
         <div class="category_cover">
             <img src="{{asset('images/moderne-vrouw-poseren-met-make-up_23-2147647712.png')}}" class="img-responsive">
-
-
-
-
         </div>
-
-
-     {{--   <div id="myCarousel" class="carousel slide">
-
-            <div class="carousel-inner">
-                <div class="item active">
-                    <div class="col-xs-4"><a href="#"><img src="http://placehold.it/500/bbbbbb/fff&amp;text=1" class="img-responsive img-circle"></a></div>
-                </div>
-                <div class="item">
-                    <div class="col-xs-4"><a href="#"><img src="http://placehold.it/500/CCCCCC&amp;text=2" class="img-responsive img-circle"></a></div>
-                </div>
-                <div class="item">
-                    <div class="col-xs-4"><a href="#"><img src="http://placehold.it/500/eeeeee&amp;text=3" class="img-responsive img-circle"></a></div>
-                </div>
-                <div class="item">
-                    <div class="col-xs-4"><a href="#"><img src="http://placehold.it/500/f4f4f4&amp;text=4" class="img-responsive img-circle"></a></div>
-                </div>
-                <div class="item">
-                    <div class="col-xs-4"><a href="#"><img src="http://placehold.it/500/fcfcfc/333&amp;text=5" class="img-responsive img-circle"></a></div>
-                </div>
-                <div class="item">
-                    <div class="col-xs-4"><a href="#"><img src="http://placehold.it/500/f477f4/fff&amp;text=6" class="img-responsive img-circle"></a></div>
-                </div>
-            </div>
-
-            <!-- Controls -->
-            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="color: #000;left: -12px"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="color: #000;right: -12px"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>--}}
         <div class="demo">
-      {{--      <div class="item">
-                <div class="clearfix" style="max-width:474px;">
-                    <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-                        <li data-thumb="img/thumb/cS-1.jpg">
-                            <img src="https://via.placeholder.com/150" />
-                        </li>
-                        <li data-thumb="img/thumb/cS-2.jpg">
-                            <img src="https://via.placeholder.com/150" />
-                        </li>
-                        <li data-thumb="img/thumb/cS-3.jpg">
-                            <img src="https://via.placeholder.com/150" />
-                        </li>
-                        <li data-thumb="img/thumb/cS-4.jpg">
-                            <img src="https://via.placeholder.com/150" />
-                        </li>
-                        <li data-thumb="img/thumb/cS-5.jpg">
-                            <img src="https://via.placeholder.com/150" />
-                        </li>
-                        <li data-thumb="img/thumb/cS-6.jpg">
-                            <img src="https://via.placeholder.com/150" />
-                        </li>
-                        <li data-thumb="img/thumb/cS-7.jpg">
-                            <img src="https://via.placeholder.com/150" />
-                        </li>
-                        <li data-thumb="img/thumb/cS-8.jpg">
-                            <img src="https://via.placeholder.com/150" />
-                        </li>
-                        <li data-thumb="img/thumb/cS-9.jpg">
-                            <img src="https://via.placeholder.com/150" />
-                        </li>
-                        <li data-thumb="img/thumb/cS-10.jpg">
-                            <img src="https://via.placeholder.com/150" />
-                        </li>
-                        <li data-thumb="img/thumb/cS-11.jpg">
-                            <img src="https://via.placeholder.com/150" />
-                        </li>
-                        <li data-thumb="img/thumb/cS-12.jpg">
-                            <img src="https://via.placeholder.com/150" />
-                        </li>
-                        <li data-thumb="img/thumb/cS-13.jpg">
-                            <img src="https://via.placeholder.com/150" />
-                        </li>
-                        <li data-thumb="img/thumb/cS-14.jpg">
-                            <img src="https://via.placeholder.com/150" />
-                        </li>
-                        <li data-thumb="img/thumb/cS-15.jpg">
-                            <img src="https://via.placeholder.com/150" />
-                        </li>
-                    </ul>
-                </div>
-            </div>--}}
             <div class="item">
                 <ul id="content-slider" class="content-slider">
-                    <li>
-                        <img src="https://via.placeholder.com/150">
+                    <li >
+                        <img class="selected img-circle" src="https://via.placeholder.com/150">
                     </li>  <li>
-                        <img src="https://via.placeholder.com/150">
+                        <img class="img-circle" src="https://via.placeholder.com/150">
                     </li>  <li>
-                        <img src="https://via.placeholder.com/150">
+                        <img class="img-circle" src="https://via.placeholder.com/150">
                     </li>  <li>
-                        <img src="https://via.placeholder.com/150">
+                        <img class="img-circle" src="https://via.placeholder.com/150">
                     </li>
-                    {{--<li>--}}
-                        {{--<h3>2</h3>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<h3>3</h3>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<h3>4</h3>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<h3>5</h3>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<h3>6</h3>--}}
-                    {{--</li>--}}
                 </ul>
             </div>
 
         </div>
 
-        <div class=""></div>
+        <div class="category_description">
+            <div class="container">
+               <div class="row">
+                   <h2 class="desc_heading">| Product name</h2>
+                   <div class="desc_body">
+                    <p>
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    </p>
+                   </div>
+               </div>
+            </div>
+        </div>
+        <div class="extra_images">
+            <div class="container">
+                <div class="row">
+                    <h2 class="extra_heading">| Look more!</h2>
+                    <div class="col-xs-12 col-md-6">
+                        <img style="width: 100%" class="img-responsive" src="https://via.placeholder.com/456x323">
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <img style="width: 100%"  class="img-responsive" src="https://via.placeholder.com/456x323">
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
 
@@ -180,6 +107,7 @@
           /*background-color: #ed3020;*/
           text-align: center;
           color: #FFF;
+
       }
       .content-slider h3 {
           margin: 0;
@@ -197,13 +125,35 @@
             max-height: 482px;
             width: 100%;
         }
+        .selected{
+            border: 1px solid #333  ;
+        }
+
+        .desc_heading , .extra_heading{
+            color: #10C8E5;
+            font-family: "Raleway", Tahoma;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        .category_description{
+            padding: 20px;
+        }
+        .desc_body{
+            padding: 20px;
+            line-height: 2.4em;
+            font-size: 18px;
+        }
+        .extra_images{
+            padding: 50px 20px 70px 20px;
+        }
+
+
+        .
 
 
     </style>
 
 @endsection
-
-
 @section('js')
     <script src="{{asset('js/lightslider.min.js')}}"></script>
 <script>
@@ -213,6 +163,7 @@
            keyPress:true
        });
        $('#image-gallery').lightSlider({
+           autoWidth: "106",
            gallery:true,
            item:1,
            thumbItem:9,
