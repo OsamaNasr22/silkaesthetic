@@ -2,14 +2,14 @@
     <div class="our-work">
         <div class="container">
             <h2 class="text-center">
-                OUR WORK
+               {{category_name}}
             </h2>
-            <div class="our-work-nav text-center">
-                <ul class="list-inline nav-work" >
-                    <li class="active" @click="fetchProducts()">ALL</li>
-                    <li v-for="category in categories" @click="fetchProducts(category.link)">{{category.name}}</li>
-                </ul>
-            </div>
+           <!-- <div class="our-work-nav text-center">
+            <ul class="list-inline nav-work" >
+                <li class="active" @click="fetchProducts()">ALL</li>
+                <li v-for="category in categories" @click="fetchProducts(category.link)">{{category.name}}</li>
+            </ul>
+        </div>
             <div class="res-work text-center">
                 <p>our work<i class="fa fa-arrow-down"></i></p>
                 <ul>
@@ -17,11 +17,10 @@
                     <li v-for="category in categories" @click="fetchProducts(category.link)">{{category.name}}</li>
                 </ul>
 
-            </div>
+            </div>-->
 
             <div class="products">
                 <div class="row">
-
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center" v-for="product in products" >
                         <div class="product-item" >
                             <p class="cover-text" ><a v-bind:href="product.link">{{product.title}}</a></p>
@@ -50,7 +49,7 @@
                             </a>
                         </li>
 
-                        <li v-for="i in pagination.last_page" v-bind:class="[{active :(pagination.current_page == i)}]" @click.prevent="fetchProducts('http://localhost:8000/api/products?page='+i)"><a href="#">{{i}}</a></li>
+                        <li v-for="i in pagination.last_page" v-bind:class="[{active :(pagination.current_page == i)}]" @click.prevent="fetchProducts(`http://localhost:8000/api/products/${category}?page=${i}`)"><a href="#">{{i}}</a></li>
 
                         <li   v-bind:class="[{disabled : !pagination.next_page}]">
 
@@ -73,36 +72,41 @@
 
 <script>
     export default {
+        props: ['category'],
         data(){
             return {
+                category_id:this.category,
                 show: false,
                 products :[],
-                categories:[],
+                // categories:[],
+                category_name:'',
                 pagination : {}
 
 
             }  ;
         },
+
         created(){
-            this.fetchCategories();
+            console.log(this.category_id);
+            // this.fetchCategories();
             this.fetchProducts();
         },
       
         methods:{
             fetchProducts(url= null){
                     let vm = this;
-                url = url || 'api/products';
+                url = url || 'http://localhost:8000/api/products/'+this.category_id;
                 fetch(url).then(res => res.json()).then( res => {
                     this.products= res.data;
-                    console.log(res);
+                    this.category_name=res.data[0]['category_name']
                     vm.preparePagination(res.links,res.meta);
                 });
             } ,
-            fetchCategories(){
-                fetch('api/categories').then(res => res.json()).then(res => {
-                                this.categories = res.data;
-                })
-            },
+            // fetchCategories(){
+            //     fetch('api/categories').then(res => res.json()).then(res => {
+            //                     this.categories = res.data;
+            //     })
+            // },
             preparePagination(links,meta){
                 let pagination = {
                     first_page_link : links.first,

@@ -43,11 +43,15 @@
                     <input type="text" class="form-control" name="linkedin" value="{{$settings->linkedin}}" placeholder="enter instagram page link">
                 </div>
 
+                <label class="label label-primary">About us</label>
+                <div class="form-group">
+                    <textarea class="form-control" name="about_us" rows="4">{{$settings->about_us}}</textarea>
+                </div>
+
                 <div id="optionContainer">
                     @forelse($settings->extra_options as $key=>$value)
                         <div class="form-group">
                             <label class="label label-primary">in about section</label>
-                            <span class="pull-right"><i class="fa fa-remove"></i></span>
                             <input class="form-control" type="text" name="titles[]" value="{{$key}}" placeholder="enter title">
                             <br>
                             <textarea  name="desc[]" rows="4" class="form-control" placeholder="Write your message..">{{$value}}</textarea>

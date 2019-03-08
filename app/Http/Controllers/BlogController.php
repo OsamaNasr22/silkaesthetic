@@ -43,7 +43,7 @@ class BlogController extends Controller
     }
 
     public function productsByCategory($category_id){
-        $products= Category::find($category_id)->products()->paginate(3);
+        $products= Category::find($category_id)->products()->paginate(6);
         return new ProductCollection($products);
     }
 }

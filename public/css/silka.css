@@ -116,8 +116,11 @@ header .slider{
 
 
 .about-us ,.our-work {
-    padding-top: 100px;
+    padding-top: 30px;
     padding-bottom: 100px;
+}
+.our-work h2{
+    margin-bottom: 70px;
 }
 
 

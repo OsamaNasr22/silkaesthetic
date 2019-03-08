@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Setting;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -32,8 +33,8 @@ class SendMessage extends Mailable
      */
     public function build()
     {
-
-        $this->to('os.ns2013@gmail.com')->from($this->data['sender'])->subject('New message');
+        $settings= Setting::find(1);
+        $this->to($settings->email)->from($this->data['sender'])->subject('New message');
         return $this->markdown('emails.sendMessage')->with([
             'message'=>$this->data['message'],
             'sender'=>$this->data['sender'],

@@ -94,7 +94,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="btn btn-primary pull-right" style="background-color: #1BBDE8; border: 1px solid #1BBDE8; padding: 10px 30px; border-radius: 20px" >Products</a>
+                        <a class="btn btn-primary pull-right" style="background-color: #1BBDE8; border: 1px solid #1BBDE8; padding: 10px 30px; border-radius: 20px" href="{{route('category.products',1)}}" >Products</a>
                     </div>
                 </div>
 

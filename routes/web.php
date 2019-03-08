@@ -36,7 +36,7 @@ Route::middleware(['web'])->group(function (){
         ]);
     });
 
-
+    Route::get('categories/{category}/products','CategoryController@CategoryProducts')->name('category.products');
     Route::resource('categories','CategoryController')->only(['show']);
     Route::resource('products','ProductController')->only(['show']);
     Route::get('/home' ,'BlogController');

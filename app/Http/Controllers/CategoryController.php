@@ -217,4 +217,9 @@ class CategoryController extends Controller
         if($category->cover) Storage::delete('public/product/'.$category->cover);
         return ($category->delete())? response()->json('category deleted successfully',200): response()->json('faild in delete category',400);
     }
+    public function CategoryProducts(Category $category){
+        $category= $category->toArray();
+
+        return view('blog.pages.products',compact('category'));
+    }
 }

@@ -19,19 +19,16 @@ class Product extends JsonResource
         return [
             'id'=>$this->id,
             'title'=>$this->title,
-            'desc'=>$this->description,
-            'cover'=>$this->cover($this->cover),
-            'category_id'=>$this->category_id,
-            'link' => route('products.show',$this->id)
+//            'desc'=>$this->description,
+            'cover'=>asset('storage/product/'.$this->cover),
+            'slug'=>$this->slug,
+            'category_name'=>\App\Category::find($this->category_id)->name,
+            'link' => route('products.show',$this->id),
+
         ];
     }
 
 
-    private function cover($cover){
 
-        $img= explode('\\',$cover);
-        $cover= asset("storage/" .end($img));
-        return $cover;
-    }
 
 }

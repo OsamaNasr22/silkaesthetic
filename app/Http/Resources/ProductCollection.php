@@ -18,13 +18,13 @@ class ProductCollection extends ResourceCollection
          'data'=>Product::collection($this->collection)
        ];
     }
-    public function with($request)
-    {
-        $category_name= $this->collection->map(function ($pro){
-            return \App\Category::find($pro->category_id)->name;
-        });
-        return [
-            'category_name'=>$category_name
-        ];
-    }
+//    public function with($request)
+//    {
+//        $category_name= $this->collection->map(function ($pro){
+//            return \App\Category::find($pro->category_id)->name;
+//        });
+//        return [
+//            'category_name'=>$category_name
+//        ];
+//    }
 }

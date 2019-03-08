@@ -23,6 +23,7 @@ class CreateSettingsTable extends Migration
             $table->string('twitter');
             $table->string('insta');
             $table->string('linkedin');
+            $table->string('about_us');
             $table->mediumText('extra_options')->nullable();
         });
     }

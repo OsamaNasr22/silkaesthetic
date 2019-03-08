@@ -37,6 +37,8 @@ class SettingController extends Controller
     public function update(Request $request, Setting $setting)
     {
 
+
+
         $this->validate($request,[
            'site_name'=>'required',
            'logo'=>'image|mimes:jpeg,png,jpg|max:15360',
@@ -46,7 +48,8 @@ class SettingController extends Controller
             'insta'=>'nullable|url',
             'linkedin'=>'nullable|url',
             'title.*'=>'nullable|alpha_dash',
-            'desc.*'=>'nullable|string'
+            'desc.*'=>'nullable|string',
+            'about_us'=>'required|string'
         ]);
         $setting->name= $request['site_name'];
         if ($image=$request->file('logo')){
@@ -55,6 +58,7 @@ class SettingController extends Controller
             $setting->logo = last($image);
         }
         $setting->email=$request['email'];
+        $setting->about_us=$request['about_us'];
         $setting->facebook= $request['facebook'];
         $setting->twitter= $request['twitter'];
         $setting->linkedin= $request['linkedin'];
