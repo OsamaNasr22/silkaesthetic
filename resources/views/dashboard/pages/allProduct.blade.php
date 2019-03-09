@@ -1,4 +1,5 @@
 @extends('dashboard.layouts.master')
+@section('title') Products @endsection
 
 @section('content')
     <div class="container-fluid">

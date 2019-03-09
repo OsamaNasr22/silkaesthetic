@@ -1,4 +1,5 @@
 @extends('dashboard.layouts.master')
+@section('title') Settings @endsection
 
 @section('content')
     <div class="container-fluid">
@@ -58,10 +59,11 @@
                         </div>
                     @empty
                     @endforelse
+                    <a class="pull-right" href="#" id="addOption">add option</a>
                 </div>
 
 
-                <a class="pull-right" href="#" id="addOption">add option</a>
+
 
                 {{--<label class="label label-primary">description</label>--}}
                 {{--<div class="form-group">--}}
@@ -75,4 +77,40 @@
 
     </div>
     @endsection
+@section('js')
+<script>
+    $(function () {
 
+
+        $('#optionContainer').on('click','#addOption',function (e) {
+                e.preventDefault();
+            var parent= $('#optionContainer');
+            var childern= parent.children('.form-group');
+
+                if (childern.length <= 1 ) {
+                    var div = $('<div/>', {'class': 'form-group'});
+                    div.append(
+                        $('<label/>', {'class': 'label label-primary', "text": 'in about section'}),
+                        $('<input/>', {
+                            'class': 'form-control',
+                            "type": 'text',
+                            'placeholder': 'enter title',
+                            'name': 'titles[]'
+                        }),
+                        $('<br/>'),
+                        $('<textarea/>', {
+                            'class': 'form-control',
+                            'name': 'desc[]',
+                            'rows': '4',
+                            'placeholder': 'enter description'
+                        }),
+                    );
+                    $(this).before(div);
+                }
+
+
+            });
+
+    });
+</script>
+    @endsection

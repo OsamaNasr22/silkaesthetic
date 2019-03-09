@@ -1,4 +1,5 @@
 @extends('blog.layouts.master')
+@section('title') {{$product['title']}} @endsection
 
 @section('content')
     <header>
@@ -148,6 +149,7 @@
             padding: 20px;
             line-height: 2.4em;
             font-size: 18px;
+            word-break: break-all;
         }
         .extra_images{
             padding: 50px 20px 70px 20px;
@@ -165,7 +167,14 @@
         .demo li img.active{
             opacity: 1;
         }
-        .
+      .lSAction>.lSNext {
+          background-position: -155px -28px
+      }
+      .lSAction>.lSPrev {
+          background-position: -70px -28px
+      }
+
+      .
 
 
     </style>

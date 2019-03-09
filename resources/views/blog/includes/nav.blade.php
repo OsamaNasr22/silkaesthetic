@@ -12,10 +12,11 @@
 
 
         <ul class="text-center list-inline">
-            <li>Home</li>
-            <li>About</li>
-            <li>Categories</li>
-            <li>Contact us</li>
+            <li><a href="http://localhost:8000/">Home</a></li>
+            <li><a href="http://localhost:8000/#about">About</a></li>
+            <li><a href="http://localhost:8000/#categories">Categories</a></li>
+            <li><a href="http://localhost:8000/#contact-us">Contact us</a></li>
+
         </ul>
     </div>
 </nav>

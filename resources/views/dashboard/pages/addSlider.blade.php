@@ -1,4 +1,5 @@
 @extends('dashboard.layouts.master')
+@section('title') Add Banner @endsection
 
 @section('content')
 

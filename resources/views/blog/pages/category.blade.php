@@ -1,4 +1,5 @@
 @extends('blog.layouts.master')
+@section('title') {{$category['name']}} @endsection
 
 @section('content')
     <header>

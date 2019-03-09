@@ -47524,6 +47524,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['category'],
@@ -47611,13 +47615,18 @@ var render = function() {
               },
               [
                 _c("div", { staticClass: "product-item" }, [
-                  _c("p", { staticClass: "cover-text" }, [
-                    _c("a", { attrs: { href: product.link } }, [
-                      _vm._v(_vm._s(product.title))
+                  _c("div", { staticClass: "cover" }, [
+                    _c("div", { staticClass: "text" }, [
+                      _c("h3", [_vm._v(_vm._s(product.title))]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(_vm._s(product.slug) + " .... "),
+                        _c("a", { attrs: { href: product.link } }, [
+                          _vm._v("learn more")
+                        ])
+                      ])
                     ])
                   ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "cover" }),
                   _vm._v(" "),
                   _c("div", { staticClass: "image" }, [
                     _c("img", {

@@ -23,8 +23,12 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center" v-for="product in products" >
                         <div class="product-item" >
-                            <p class="cover-text" ><a v-bind:href="product.link">{{product.title}}</a></p>
+                            <!--<p class="cover-text" ><a v-bind:href="product.link">{{product.title}}</a></p>-->
                             <div class="cover">
+                                <div class="text">
+                                    <h3>{{product.title}}</h3>
+                                    <p>{{product.slug}} .... <a v-bind:href="product.link">learn more</a> </p>
+                                </div>
                             </div>
                             <div class="image">
                                 <img v-bind:src="product.cover" class="img-responsive">

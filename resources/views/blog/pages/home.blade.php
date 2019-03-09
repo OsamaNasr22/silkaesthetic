@@ -1,4 +1,5 @@
 @extends('blog.layouts.master')
+@section('title') Home @endsection
 
 @section('content')
 
@@ -15,7 +16,7 @@
     </header>
 
     <main>
-        <div class="about-us">
+        <div class="about-us" id="about">
             <div class="container">
 
                 <h2 class="text-center">About us</h2>
@@ -52,7 +53,7 @@
             </div>
         </div>
         {{--<our-work></our-work>--}}
-        <div class="our-work">
+        <div class="our-work" id="categories">
             <div class="container">
                 <h2 class="text-center">
                     OUR CATEGORIES
@@ -84,9 +85,12 @@
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center"  >
                                 <div class="product-item" >
 
-                                    <p class="cover-text" ><a href="{{route('categories.show',$category->id)}}">{{$category->name}}</a></p>
+                                    {{--<p class="cover-text" ><a href="{{route('categories.show',$category->id)}}">{{$category->name}}</a></p>--}}
 
                                     <div class="cover">
+                                        <div class="text-category ">
+                                            <p><a href="{{route('categories.show',$category->id)}}">{{$category->name}}</a></p>
+                                        </div>
                                     </div>
 
                                         <div class="image">
@@ -151,7 +155,7 @@
                 </ul>
             </div>
         </div>--}}
-        <div class="contact-us">
+        <div class="contact-us" id="contact-us">
             <div class="container">
                 <h2 class="text-center">Contact us</h2>
                 <div class="form">

@@ -5,7 +5,7 @@
                 <div class="info">
                     <div class="col-md-3">
                         <div class="item-footer">
-                            <h3>About Silkaesthetic</h3>
+                            <h3>About {{$settings->name}}</h3>
                             <p>{{$settings->about_us}}</p>
                             <br>
                         </div>

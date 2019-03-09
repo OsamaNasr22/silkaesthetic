@@ -1,5 +1,6 @@
 
 @extends('blog.layouts.master')
+@section('title') {{$category['name']}} | Products @endsection
 
 @section('content')
     <header>
@@ -16,7 +17,6 @@
 @endsection
 
 @section('style')
-
 
 
 @endsection

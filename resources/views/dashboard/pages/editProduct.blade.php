@@ -1,10 +1,11 @@
 @extends('dashboard.layouts.master')
+@section('title') Edit product @endsection
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Add new product</h1>
+                <h1 class="page-header">Edit product</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -45,18 +46,18 @@
                             <option value=""></option>
                         </select>
                     </div>
-                    <label class="label label-primary">Slug</label>
+                    <label class="label label-success">Slug</label>
                     <div class="form-group">
                         <input type="text" class="form-control" name="product_slug" placeholder="Write slug" value="{{$product['slug']}}">
                     </div>
-                    <label class="label label-primary">description</label>
+                    <label class="label label-success">description</label>
                     <div class="form-group">
                         <textarea id="messageArea" name="product_description" rows="7" class="form-control ckeditor" placeholder="Write your message..">
                             {!! html_entity_decode($product['description']) !!}
                         </textarea>
                         {{--<textarea class="form-control" name="product_description" placeholder="Enter product description"></textarea>--}}
                     </div>
-                    <input type="submit" class="btn btn-success btn-block" value="Add">
+                    <input type="submit" class="btn btn-success btn-block" value="Edit">
 
                 </form>
             </div>
