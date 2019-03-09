@@ -70,4 +70,9 @@ class SliderController extends Controller
         $slider->delete();
         return response()->json('deleted successfully',200);
     }
+
+    public function getSliderType(){
+        $slider= Slider::where('type','slider')->get();
+        return $slider;
+    }
 }

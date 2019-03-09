@@ -6,6 +6,10 @@ use App\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Class SettingController
+ * @package App\Http\Controllers
+ */
 class SettingController extends Controller
 {
     /**
@@ -81,7 +85,12 @@ class SettingController extends Controller
         //
     }
 
-    private function prepareOptions($arr1,$arr2){
+    /**
+     * @param $arr1
+     * @param $arr2
+     * @return string
+     */
+    private function prepareOptions($arr1, $arr2){
         $str='';
         for ($i=0,$c=count($arr1);$i<$c;$i++){
             $str.= "{$arr1[$i]}:{$arr2[$i]},";
@@ -90,6 +99,11 @@ class SettingController extends Controller
         $str= rtrim($str,',');
         return $str;
     }
+
+    /**
+     * @param $str
+     * @return array
+     */
     private function returnOptions($str){
         $arr2=[];
         $arr= explode(',',$str);
@@ -100,4 +114,14 @@ class SettingController extends Controller
         }
         return $arr2;
     }
+
+    /**
+     * @return array|mixed
+     */
+    public function prepareAllSettings(){
+        $settings= Setting::all()->first();
+        if (! $settings->toArray()) return [];
+        $settings->extra_options=$this->returnOptions($settings->extra_options);
+        return $settings;
+   }
 }

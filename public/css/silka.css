@@ -103,6 +103,8 @@ header .slider{
 }
 .carousel-inner .item img{
     width: 100%;
+    min-height: 600px;
+    max-height: 600px;
 }
 .slider-cover{
     position: absolute;

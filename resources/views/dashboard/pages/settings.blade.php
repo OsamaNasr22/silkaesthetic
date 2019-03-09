@@ -63,12 +63,6 @@
 
                 <a class="pull-right" href="#" id="addOption">add option</a>
 
-
-
-
-
-
-
                 {{--<label class="label label-primary">description</label>--}}
                 {{--<div class="form-group">--}}
                     {{--<textarea id="messageArea" name="product_description" rows="7" class="form-control ckeditor" placeholder="Write your message.."></textarea>--}}

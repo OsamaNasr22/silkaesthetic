@@ -3,23 +3,31 @@
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            @for($i=0,$c=count($sliders);$i<$c;$i++)
+                <li data-target="#carousel-example-generic" data-slide-to="{{$i}}" class="{{$i==0?'active':''}}"></li>
+
+            @endfor
+            {{--<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>--}}
+            {{--<li data-target="#carousel-example-generic" data-slide-to="1"></li>--}}
+            {{--<li data-target="#carousel-example-generic" data-slide-to="2"></li>--}}
         </ol>
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
-            <div class="item active">
-                <img src="{{asset('images\WhatsAppImage2018-09-11at23.49.22.png')}}" alt="..." >
+            @forelse($sliders as $key => $value)
+                <div class="item {{$key == 0 ? 'active': ''}}">
+                    <img src="{{asset('storage/banners/'.$value->image)}}" alt="..." >
+                </div>
+                @empty
 
-            </div>
-            <div class="item">
-                <img src="{{asset('images\WhatsAppImage2018-09-11at23.49.22.png')}}" alt="..." >
+                @endforelse
 
-            </div>  <div class="item">
-                <img src="{{asset('images\WhatsAppImage2018-09-11at23.49.22.png')}}" alt="..." >
+            {{--<div class="item">--}}
+                {{--<img src="{{asset('images\WhatsAppImage2018-09-11at23.49.22.png')}}" alt="..." >--}}
 
-            </div>
+            {{--</div>  <div class="item">--}}
+                {{--<img src="{{asset('images\WhatsAppImage2018-09-11at23.49.22.png')}}" alt="..." >--}}
+
+            {{--</div>--}}
 
         </div>
 

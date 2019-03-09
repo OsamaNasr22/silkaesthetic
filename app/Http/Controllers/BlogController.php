@@ -19,10 +19,11 @@ class BlogController extends Controller
     {
         // TODO: Implement __invoke() method.
         $categories= Category::all();
-
-        return view('blog.pages.home',compact('categories'));
+        $settings = (new  SettingController())->prepareAllSettings();
+        $sliders =(new SliderController())->getSliderType();
+//        dd($sliders);
+        return view('blog.pages.home',compact('categories','settings','sliders'));
     }
-
     public function categories(){
         return new CategoryCollection(Category::all());
     }

@@ -19,26 +19,31 @@
             <div class="container">
 
                 <h2 class="text-center">About us</h2>
-                <p class="lead text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry s standard dummy text ever since the 1500s
-                    and scrambled it to make a type specimen book. </p>
+                <p class="lead text-center">{{$settings->about_us}}</p>
 
                 <div class="about-us-items">
                     <div class="row">
-                        <div class="col-sm-12 col-md-6 ">
-                            <div class="item-u">
-                                <h6><img src="{{asset('images\flag@2x.png')}}" width="30" height="30">Our Goals</h6>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-                            </div>
-
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="item-u">
-                                <h6><i class="fa fa-eye"></i>Our Vision</h6>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                        @forelse($settings->extra_options as $key => $value)
+                            <div class="col-sm-12 col-md-6 ">
+                                <div class="item-u">
+                                    <h6>
+                                        {{--<img src="{{asset('images\flag@2x.png')}}" width="30" height="30">--}}
+                                        {{$key}}</h6>
+                                        <p>{{$value}}</p>
+                                </div>
 
                             </div>
-                        </div>
+                            @empty
+
+                            @endforelse
+
+                        {{--<div class="col-sm-12 col-md-6">--}}
+                            {{--<div class="item-u">--}}
+                                {{--<h6><i class="fa fa-eye"></i>Our Vision</h6>--}}
+                                {{--<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>--}}
+
+                            {{--</div>--}}
+                        {{--</div>--}}
                     </div>
                 </div>
 
