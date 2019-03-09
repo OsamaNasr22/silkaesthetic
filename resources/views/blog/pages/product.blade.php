@@ -10,12 +10,22 @@
     </header>
     <main>
         <div class="category_cover">
-            <img src="{{asset('images/moderne-vrouw-poseren-met-make-up_23-2147647712.png')}}" class="img-responsive">
+            <img src="{{$product['cover']}}" class="img-responsive" id="currentImage">
         </div>
         <div class="demo">
             <div class="item">
                 <ul id="content-slider" class="content-slider">
-                    <li >
+
+                    <li class="image">
+                        <img width="150" height="150" class="selected img-circle active"  src="{{$product['cover']}}">
+                    </li>
+                    @forelse($product['images'] as $key =>$image)
+                        <li class="image">
+                            <img width="150" height="150" class=" img-circle" src="{{asset('storage/product/'.$image['image_url'])}}">
+                        </li>
+                    @empty
+                        @endforelse
+                 {{--   <li >
                         <img class="selected img-circle" src="https://via.placeholder.com/150">
                     </li>  <li>
                         <img class="img-circle" src="https://via.placeholder.com/150">
@@ -23,7 +33,7 @@
                         <img class="img-circle" src="https://via.placeholder.com/150">
                     </li>  <li>
                         <img class="img-circle" src="https://via.placeholder.com/150">
-                    </li>
+                    </li>--}}
                 </ul>
             </div>
 
@@ -32,18 +42,10 @@
         <div class="category_description">
             <div class="container">
                <div class="row">
-                   <h2 class="desc_heading">| Product name</h2>
+                   <h2 class="desc_heading">| {{$product['title']}}</h2>
                    <div class="desc_body">
                     <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                        {!! html_entity_decode($product['description']) !!}
                     </p>
                    </div>
                </div>
@@ -53,12 +55,16 @@
             <div class="container">
                 <div class="row">
                     <h2 class="extra_heading">| Look more!</h2>
-                    <div class="col-xs-12 col-md-6">
-                        <img style="width: 100%" class="img-responsive" src="https://via.placeholder.com/456x323">
-                    </div>
-                    <div class="col-xs-12 col-md-6">
-                        <img style="width: 100%"  class="img-responsive" src="https://via.placeholder.com/456x323">
-                    </div>
+                    @forelse($product['extra_images'] as $image)
+                        <div class="col-xs-12 col-md-6">
+                            <img style="width: 100%" class="img-responsive" src="{{asset($image)}}">
+                        </div>
+                        @empty
+                        @endforelse
+
+                    {{--<div class="col-xs-12 col-md-6">--}}
+                        {{--<img style="width: 100%"  class="img-responsive" src="https://via.placeholder.com/456x323">--}}
+                    {{--</div>--}}
                 </div>
             </div>
         </div>
@@ -146,8 +152,19 @@
         .extra_images{
             padding: 50px 20px 70px 20px;
         }
+        .extra_images img{
+            min-height:450px ;
+            max-height: 450px;
 
-
+        }
+        .demo li img{
+            opacity: 0.7;
+            transition: opacity .10s ease-in-out;
+            max-height: 100%;
+        }
+        .demo li img.active{
+            opacity: 1;
+        }
         .
 
 
@@ -155,6 +172,40 @@
 
 @endsection
 @section('js')
+
+    <script>
+        (function () {
+            const currentImage= document.querySelector('#currentImage');
+
+
+            $('#content-slider').on('click','.image',changeCurrent);
+            // images.forEach((image) =>{
+            //
+            //     // image.addEventListener('click',changeCurrent)
+            //     // image.querySelector('img').classList.remove('selected', 'active')
+            // });
+            function changeCurrent(e) {
+                const images = document.querySelectorAll('.image');
+                images.forEach((image) => image.querySelector('img').classList.remove('selected', 'active'));
+                let image= this.querySelector('img');
+                let src= image.src;
+                this.querySelector('img').classList.add('selected','active');
+                currentImage.classList.remove('active');
+                currentImage.src = src;
+                // image.addEventListener('transitionend',function () {
+                //
+                //     // image.classList.add('active');
+                // });
+
+            }
+
+
+
+        })();
+
+
+    </script>
+
     <script src="{{asset('js/lightslider.min.js')}}"></script>
 <script>
    $(function () {

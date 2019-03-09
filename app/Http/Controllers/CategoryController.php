@@ -214,6 +214,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        if ($category->products->toArray()){
+            foreach ($category->products as $product){
+                (new ProductController())->destroy($product);
+            }
+        }
+
         foreach ($category->options->toArray() as $item){
             if ($item['image']) Storage::delete('public/extra_images/'.$item['image']);
         }
@@ -221,8 +227,11 @@ class CategoryController extends Controller
         return ($category->delete())? response()->json('category deleted successfully',200): response()->json('faild in delete category',400);
     }
     public function CategoryProducts(Category $category){
-        $category= $category->toArray();
 
-        return view('blog.pages.products',compact('category'));
+        if ( ! $category->products->toArray()) return redirect()->back();
+            $category= $category->toArray();
+        $settings = (new  SettingController())->prepareAllSettings();
+
+        return view('blog.pages.products',compact('category','settings'));
     }
 }

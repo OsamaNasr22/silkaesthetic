@@ -132,8 +132,10 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         //
+        $settings = (new  SettingController())->prepareAllSettings();
+        $product=$this->prepareProduct($product);
 
-        return view('blog.pages.product');
+        return view('blog.pages.product',compact('settings','product'));
 
     }
 
@@ -153,6 +155,7 @@ class ProductController extends Controller
             $images[$i]['image_url']= asset("storage/product/" .$images[$i]['image_url']) ;
         }
         $data= $this->prepareProduct($product);
+
 
         return view('dashboard.pages.editProduct',['product'=>$data ,'categories'=>Category::all()->toArray() ,'images'=>$images]);
     }
@@ -193,29 +196,19 @@ class ProductController extends Controller
         }
 
 
-//        if(is_null($cover)){
-//            $product->cover = $product->cover;
-//        }else{
-//            //delete old cover from server
-//            Storage::delete($product->cover);
-//            //add new one
-//           $product->cover= Storage::putFile('public\product', $cover);
-//        }
-
 
         if ($images=$request->file('extraImages')){
+            $product->extra_images=explode(',',$product->extra_images);
             $arr_images=is_array($product->extra_images)?$product->extra_images : [];
             for ($i=0,$c=count($images);$i<$c;$i++){
                 $img= explode('/', Storage::putFile('public/extra_images',$images[$i]));
                 $arr_images[]=last($img);
             }
-            $product->extra_images= ($arr_images)? implode(',',$arr_images): null;
 
+            $product->extra_images= ($arr_images)? implode(',',array_filter($arr_images)): null;
         }
         //add slug
         $product->slug= $request['product_slug'];
-
-
         if($product->update()){
 //                $images = ($request->has('image')) ? $request->file('image') : null;
 //                $images = (! is_null($images)) ? (is_array($images))? $request->file('image') :[$request->file('image')] : null;
@@ -260,10 +253,17 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $deleted=[];
-        foreach ($product->images->toArray() as $image){
-            $deleted[]=$image['image_url'];
+        if ($images=$product->extra_images){
+            $images=explode(',',$images);
+            $images=array_map(function($image){
+                return 'public/extra_images/'.$image;
+            },$images);
         }
-        $deleted[]= $product->cover;
+        foreach ($product->images->toArray() as $image){
+            $deleted[]='public/product/'.$image['image_url'];
+        }
+        $deleted[]= 'public/product/'.$product->cover;
+        if ($images) $deleted = array_merge($deleted,$images);
         Storage::delete($deleted);
         return ($product->delete())? response()->json('product deleted successfully',200):response()->json('product deleted successfully',
             400);
@@ -277,9 +277,10 @@ class ProductController extends Controller
            },$arr);
            $data['extra_images']=$extra_images;
        }
-
         $data['cover']= asset("storage/product/" .$data['cover']);
 
+       $data['images']=$product->images->toArray();
+//       dd($data);
         return $data;
     }
     public function deleteImage($id){
