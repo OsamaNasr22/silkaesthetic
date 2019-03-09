@@ -10,24 +10,51 @@
     </header>
     <main>
         <div class="category_cover">
-            <img src="{{asset('images/moderne-vrouw-poseren-met-make-up_23-2147647712.png')}}" class="img-responsive">
+            <img src="{{asset('storage/product/'.$category['cover'])}}" class="img-responsive">
         </div>
             <div class="tabs">
 
                 <div class="container">
-                    <h3 class="">| Filler</h3>
+                    <h3 class="">| {{$category['name']}}</h3>
                     <div class="row">
                         <div>
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Introduction</a></li>
-                                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Benifits</a></li>
-                                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-                                <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+                                @forelse($category['options'] as $key=> $option)
+                                    <li role="presentation" class="{{$key==0?'active':''}}"><a href="#{{$option['key']}}" aria-controls="home" role="tab" data-toggle="tab">{{$option['key']}}</a></li>
+                                @empty
+
+                                    @endforelse
+                                {{--<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Introduction</a></li>--}}
+                                {{--<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Benifits</a></li>--}}
+                                {{--<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>--}}
+                                {{--<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>--}}
                             </ul>
 
                             <!-- Tab panes -->
                             <div class="tab-content">
+                                @forelse($category['options'] as $key => $option)
+                                    <div role="tabpanel" class="tab-pane {{$key==0?'active':''}}" id="{{$option['key']}}">
+                                        <div class="media">
+                                            <div class="row">
+                                                <div class="media-left">
+                                                    @if($option['image'])
+                                                        <a href="#">
+                                                            <img class="media-object" src="{{asset('storage/extra_images/'.$option['image'])}}" alt="...">
+                                                        </a>
+                                                        @endif
+
+                                                </div>
+                                                <div class="media-body">
+                                                    {!! html_entity_decode($option['value']) !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @empty
+
+                                    @endforelse
+{{--
                                 <div role="tabpanel" class="tab-pane active" id="home">
                                     <div class="media">
                                        <div class="row">
@@ -37,23 +64,26 @@
                                                </a>
                                            </div>
                                            <div class="media-body">
-                                               {{--<h4 class="media-heading">Media heading</h4>--}}
+                                               --}}
+{{--<h4 class="media-heading">Media heading</h4>--}}{{--
+
                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                                            </div>
                                        </div>
                                     </div>
                                 </div>
-                                <div role="tabpanel" class="tab-pane" id="profile">
+--}}
+                                {{--<div role="tabpanel" class="tab-pane" id="profile">
                                     <div class="media">
 
                                             <div class="media-left">
-                                                {{--<a href="#">--}}
-                                                    {{--<img class="media-object" src="https://via.placeholder.com/300x300" alt="...">--}}
-                                                {{--</a>--}}
+                                                --}}{{--<a href="#">--}}{{--
+                                                    --}}{{--<img class="media-object" src="https://via.placeholder.com/300x300" alt="...">--}}{{--
+                                                --}}{{--</a>--}}{{--
                                             </div>
                                             <div class="media-body">
-                                                {{--<h4 class="media-heading">Media heading</h4>--}}
+                                                --}}{{--<h4 class="media-heading">Media heading</h4>--}}{{--
                                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                                             </div>
@@ -69,7 +99,7 @@
                                                 </a>
                                             </div>
                                             <div class="media-body">
-                                                {{--<h4 class="media-heading">Media heading</h4>--}}
+                                                --}}{{--<h4 class="media-heading">Media heading</h4>--}}{{--
                                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                                             </div>
@@ -85,16 +115,16 @@
                                                 </a>
                                             </div>
                                             <div class="media-body">
-                                                {{--<h4 class="media-heading">Media heading</h4>--}}
+                                                --}}{{--<h4 class="media-heading">Media heading</h4>--}}{{--
                                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>--}}
                             </div>
                         </div>
-                        <a class="btn btn-primary pull-right" style="background-color: #1BBDE8; border: 1px solid #1BBDE8; padding: 10px 30px; border-radius: 20px" href="{{route('category.products',1)}}" >Products</a>
+                        <a class="btn btn-primary pull-right" style="background-color: #1BBDE8; border: 1px solid #1BBDE8; padding: 10px 30px; border-radius: 20px" href="{{route('category.products',$category['id'])}}" >Products</a>
                     </div>
                 </div>
 
@@ -112,6 +142,10 @@
 
 @section('style')
     <style>
+        .media-body{
+            word-break: break-all;
+            padding: 20px;
+        }
         .tabs{
             padding: 30px 10px;
             background-color: #fff;
@@ -142,6 +176,12 @@
             min-height: 482px;
             max-height: 482px;
             width: 100%;
+        }
+        .media-left img{
+            min-width: 300px;
+            max-width: 300px;
+            min-height: 300px;
+            max-height: 300px;
         }
     </style>
 

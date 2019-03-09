@@ -31,7 +31,7 @@
                         <input type="text" class="form-control" name="editTitles[{{$option['id']}}]" placeholder="Enter the option name" value="{{$option['key']}}">
                         <input type="file" name="editImage[{{$option['id']}}]" class="form-control">
                         <textarea id="messageArea" name="editDesc[{{$option['id']}}]" rows="7" class="form-control ckeditor" placeholder="Write the description of this option">
-                            {{$option['value']}}
+                          {!! html_entity_decode($option['value']) !!}
                         </textarea>
                         </div>
                         @empty

@@ -12,7 +12,7 @@ class CategoryController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('show');
     }
 
     /**
@@ -71,7 +71,7 @@ class CategoryController extends Controller
             {
                 $option = new Option();
                 $option->key= $value;
-                $option->value= $request['desc'][$i];
+                $option->value= htmlspecialchars($request['desc'][$i]);
                 if ($images){
                     if ($image = $images[$i]){
                         $image = explode('/',Storage::putFile('public/extra_images',$image));
@@ -97,8 +97,11 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
-        return view('blog.pages.category');
+        $options=$category->options->toArray();
+        $category->options=$options;
+        $settings = (new  SettingController())->prepareAllSettings();
+
+        return view('blog.pages.category',compact('category','settings'));
     }
 
     /**
@@ -164,7 +167,7 @@ class CategoryController extends Controller
             foreach ($request['editTitles'] as $i => $value) {
                 $option= Option::find($i);
                 $option->key= $value;
-                $option->value=$request['editDesc'][$i];
+                $option->value=htmlspecialchars($request['editDesc'][$i]);
                 if (isset($images[$i])){
                     $image=$images[$i];
                     if ($option->image) Storage::delete('public/extra_images/'.$option->image);
@@ -181,7 +184,7 @@ class CategoryController extends Controller
            {
                 $option = new Option();
                 $option->key= $value;
-                $option->value= $request['desc'][$i];
+                $option->value= htmlspecialchars($request['desc'][$i]);
                 if ($images){
                     if ($image = $images[$i]){
                         $image = explode('/',Storage::putFile('public/extra_images',$image));

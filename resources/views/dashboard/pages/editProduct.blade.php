@@ -52,7 +52,7 @@
                     <label class="label label-primary">description</label>
                     <div class="form-group">
                         <textarea id="messageArea" name="product_description" rows="7" class="form-control ckeditor" placeholder="Write your message..">
-                            {{html_entity_decode($product['description'])}}
+                            {!! html_entity_decode($product['description']) !!}
                         </textarea>
                         {{--<textarea class="form-control" name="product_description" placeholder="Enter product description"></textarea>--}}
                     </div>

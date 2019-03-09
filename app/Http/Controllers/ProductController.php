@@ -19,7 +19,7 @@ class ProductController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('show');
     }
 
     public function index()
@@ -65,7 +65,7 @@ class ProductController extends Controller
 
         $product->title = $request['product_title'];
 
-        $product->description = html_entity_decode($request['product_description']);
+        $product->description = htmlspecialchars($request['product_description']);
 
         $product->category_id = $request['category_id'];
 
@@ -176,7 +176,7 @@ class ProductController extends Controller
             ]);
 
             $product->title= $request['product_title'];
-            $product->description= $request['product_description'];
+            $product->description= htmlspecialchars($request['product_description']);
             $product->category_id= $request['category_id'];
         $cover= ($request->has('cover'))? $request->file('cover'):null;
 
