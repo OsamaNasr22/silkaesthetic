@@ -43,6 +43,7 @@
 
 <body>
 <div id="wrapper">
+
     @include('dashboard.includes.nav')
     <div id="page-wrapper">
         @include('dashboard.includes.messeges')

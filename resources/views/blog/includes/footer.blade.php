@@ -14,10 +14,10 @@
                         <div class="item-footer">
                             <h3>Quick links</h3>
                             <ul >
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">Products</a></li>
-                                <li><a href="#">Contact us</a></li>
+                                <li><a href="http://www.silkaesthetic.com/">Home</a></li>
+                                <li><a href="http://www.silkaesthetic.com/#about">About</a></li>
+                                <li><a href="http://www.silkaesthetic.com/#categories">Categories</a></li>
+                                <li><a href="http://www.silkaesthetic.com/#contact-us">Contact us</a></li>
                             </ul>
                         </div>
                     </div>

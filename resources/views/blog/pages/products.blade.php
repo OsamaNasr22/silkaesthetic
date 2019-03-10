@@ -1,6 +1,6 @@
 
 @extends('blog.layouts.master')
-@section('title') {{$category['name']}} | Products @endsection
+@section('title') {{$category['name']}} | ProductsX @endsection
 
 @section('content')
     <header>

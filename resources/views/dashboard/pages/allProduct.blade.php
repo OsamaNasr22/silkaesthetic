@@ -78,7 +78,7 @@
                             }
                         });
                         $.ajax({
-                            'url':`http://localhost:8000/admin/products/${id}`,
+                            'url':`http://www.silkaesthetic.com/admin/products/${id}`,
                             'type':'delete',
                             'dataType':'json',
                             'contentType':false,

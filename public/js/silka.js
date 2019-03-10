@@ -1,5 +1,11 @@
 $(function () {
 
+    $('.spinner').fadeOut(500,function(){
+        $(this).parent().fadeOut(1000);
+        $('body').css({overflow:"auto"});
+        $('.loading').remove();
+    });
+
 
 
     $('input:not([type="submit"])').on('focus',function () {
@@ -78,7 +84,7 @@ let flag= false;
        if(flag === false){
           flag= true;
            $.ajax({
-               url:'http://localhost:8000/sendMail',
+               url:'http://www.silkaesthetic.com/sendMail',
                type:'post',
                dateType:'json',
                processData: false,

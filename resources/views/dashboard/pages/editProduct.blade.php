@@ -125,7 +125,7 @@
                   if(state){
                       state = false;
                       $.ajax({
-                          'url':`http://localhost:8000/admin/products/img/${id}` ,
+                          'url':`http://www.silkaesthetic.com/admin/products/img/${id}` ,
                           'type':'get',
                           'dataType':'json',
                           'contentType':false,
@@ -165,7 +165,7 @@
                             }
                         });
                         $.ajax({
-                            'url':`http://localhost:8000/admin/api/product/deleteExtraImage/${id}/${url}` ,
+                            'url':`http://www.silkaesthetic.com/admin/api/product/deleteExtraImage/${id}/${url}` ,
                             'type':'delete',
                             'dataType':'json',
                             'contentType':false,

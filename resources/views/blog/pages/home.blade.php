@@ -122,7 +122,7 @@
                                 </a>
                             </li>
 
-                            <li v-for="i in pagination.last_page" v-bind:class="[{active :(pagination.current_page == i)}]" @click.prevent="fetchProducts('http://localhost:8000/api/products?page='+i)"><a href="#">{{i}}</a></li>
+                            <li v-for="i in pagination.last_page" v-bind:class="[{active :(pagination.current_page == i)}]" @click.prevent="fetchProducts('http://www.silkaesthetic.com/api/products?page='+i)"><a href="#">{{i}}</a></li>
 
                             <li   v-bind:class="[{disabled : !pagination.next_page}]">
 
