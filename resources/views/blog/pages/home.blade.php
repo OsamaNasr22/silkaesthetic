@@ -122,7 +122,7 @@
                                 </a>
                             </li>
 
-                            <li v-for="i in pagination.last_page" v-bind:class="[{active :(pagination.current_page == i)}]" @click.prevent="fetchProducts('http://www.silkaesthetic.com/api/products?page='+i)"><a href="#">{{i}}</a></li>
+                            <li v-for="i in pagination.last_page" v-bind:class="[{active :(pagination.current_page == i)}]" @click.prevent="fetchProducts('http://localhost:8000/api/products?page='+i)"><a href="#">{{i}}</a></li>
 
                             <li   v-bind:class="[{disabled : !pagination.next_page}]">
 
@@ -160,31 +160,31 @@
                 <h2 class="text-center">Contact us</h2>
                 <div class="form">
 
-                    @foreach($errors->all() as $error)
-                        {{$error}}
-                        @endforeach
+                    {{--@foreach($errors->all() as $error)--}}
+                        {{--{{$error}}--}}
+                        {{--@endforeach--}}
 
 
-                            <div class="alert message" style="display: none">
+                            {{--<div class="alert message" style="display: none">--}}
 
-                            </div>
+                            {{--</div>--}}
 
 
                     <form action="{{route('mail.send')}}" method="post" id="sendMail">
                         @csrf
                         <div class="row">
                             <div class="form-group col-sm-12">
-                                <input name="name" type="text" placeholder="Name" value="Name" :autocomplete="'off'"  >
+                                <input name="name" type="text" placeholder="Name" value="{{(old('name'))?? "Name" }}" :autocomplete="'off'"  >
                             </div>
                             <div class="form-group col-sm-12 col-md-6">
-                                <input  name="sender" type="email" placeholder="E-mail" value="E-mail" autocomplete="off" >
+                                <input  name="sender" type="email" placeholder="E-mail" value="{{(old('sender'))?? "E-mail" }}" autocomplete="off" >
                             </div>
                             <div class="form-group col-sm-12 col-md-6">
-                                <input name="phone" type="text" placeholder="Phone" value="Phone" autocomplete="off">
+                                <input name="phone" type="text" placeholder="Phone" value="{{(old('phone'))?? "Phone" }}" autocomplete="off">
                             </div>
                             <label >How we could help you ?</label>
                             <div class="form-group col-sm-12">
-                                <textarea  name="message" rows="30" ></textarea>
+                                <textarea  name="message" rows="30" >{{(old('message'))?? "" }}</textarea>
                             </div>
                             <div class="form-group col-sm-12">
                                 <input   type="submit" value="SEND">

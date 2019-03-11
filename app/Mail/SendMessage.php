@@ -33,8 +33,8 @@ class SendMessage extends Mailable
      */
     public function build()
     {
-        $settings= Setting::find(1);
-        $this->to($settings->email)->from($this->data['sender'])->subject('New message');
+
+        $this->from($this->data['sender'])->subject('New message');
         return $this->markdown('emails.sendMessage')->with([
             'message'=>$this->data['message'],
             'sender'=>$this->data['sender'],

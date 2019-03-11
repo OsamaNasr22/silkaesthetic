@@ -158,7 +158,6 @@ class CategoryController extends Controller
             $category->cover= last($image);
         }
         $category->update();
-        $images= $request->file('optionImages');
 
 
         if ($request['editTitles']){
@@ -180,12 +179,13 @@ class CategoryController extends Controller
 
 
         if ($request['titles']){
+            $images= $request->file('optionImages');
             foreach ($request['titles'] as $i => $value)
            {
                 $option = new Option();
                 $option->key= $value;
                 $option->value= htmlspecialchars($request['desc'][$i]);
-                if ($images){
+                if (isset($images[$i])){
                     if ($image = $images[$i]){
                         $image = explode('/',Storage::putFile('public/extra_images',$image));
                         $option->image= last($image);
@@ -212,11 +212,14 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
+        $category =Category::find($id);
+        if (!$category) return response()->json('failed',404);
+
         if ($category->products->toArray()){
             foreach ($category->products as $product){
-                (new ProductController())->destroy($product);
+                (new ProductController())->destroy($product->id);
             }
         }
 

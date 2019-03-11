@@ -78,7 +78,7 @@
                             }
                         });
                         $.ajax({
-                            'url':`http://www.silkaesthetic.com/admin/sliders/${id}`,
+                            'url':`http://localhost:8000/admin/sliders/${id}`,
                             'type':'delete',
                             'dataType':'json',
                             'contentType':false,

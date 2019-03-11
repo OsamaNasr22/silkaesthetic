@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendMessage;
+use App\Setting;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -32,9 +33,9 @@ class MailController extends Controller
             'sender'=>$request['sender'],
             'message'=>$request['message'],
         ];
-
-        Mail::to('os.ns2013@gmail.com')->send(new SendMessage($data));
-        return \response()->json('Your message send successfully',200);
+        $settings= Setting::find(1);
+        Mail::to($settings->email)->send(new SendMessage($data));
+        return redirect()->back()->with(['success'=>'Your message send successfully']);
 
     }
 }

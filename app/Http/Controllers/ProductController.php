@@ -250,8 +250,10 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
+        $product =Product::find($id);
+        if (!$product) return response()->json('failed',404);
         $deleted=[];
         if ($images=$product->extra_images){
             $images=explode(',',$images);

@@ -9,8 +9,6 @@
               phone:'Phone',
               sender:'E-mail',
               message: '',
-
-
           }  ;
         },
 

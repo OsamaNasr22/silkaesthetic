@@ -70,14 +70,14 @@
                 if(confirm('Are you sure for delete this category?')){
                     if(state == true){
                         state = false;
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
+                        // $.ajaxSetup({
+                        //     headers: {
+                        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        //     }
+                        // });
                         $.ajax({
-                            'url':`http://www.silkaesthetic.com/admin/categories/${id}`,
-                            'type':'delete',
+                            'url':`http://localhost:8000/admin/api/categories/delete/${id}`,
+                            'type':'get',
                             'dataType':'json',
                             'contentType':false,
                             'cacheProcess':false,

@@ -41,6 +41,7 @@
             <div class="rect5"></div>
         </div>
     </div>
+    @include('dashboard.includes.messeges')
     @yield('content')
     @include('blog.includes.footer')
 </div>

@@ -100,7 +100,7 @@
                 if (confirm('This option will be deleted, Are you sure??')){
 
                     $.ajax({
-                        'url':'http://www.silkaesthetic.com/admin/api/option/delete/'+id,
+                        'url':'http://localhost:8000/admin/api/option/delete/'+id,
                         'type':'get',
                         'dataType':'json',
                         'success':function () {

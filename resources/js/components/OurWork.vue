@@ -53,7 +53,7 @@
                             </a>
                         </li>
 
-                        <li v-for="i in pagination.last_page" v-bind:class="[{active :(pagination.current_page == i)}]" @click.prevent="fetchProducts(`http://www.silkaesthetic.com/api/products/${category}?page=${i}`)"><a href="#">{{i}}</a></li>
+                        <li v-for="i in pagination.last_page" v-bind:class="[{active :(pagination.current_page == i)}]" @click.prevent="fetchProducts(`http://localhost:8000/api/products/${category}?page=${i}`)"><a href="#">{{i}}</a></li>
 
                         <li   v-bind:class="[{disabled : !pagination.next_page}]">
 
@@ -99,7 +99,7 @@
         methods:{
             fetchProducts(url= null){
                     let vm = this;
-                url = url || 'http://www.silkaesthetic.com/api/products/'+this.category_id;
+                url = url || 'http://localhost:8000/api/products/'+this.category_id;
                 fetch(url).then(res => res.json()).then( res => {
                     this.products= res.data;
                     this.category_name=res.data[0]['category_name']

@@ -120,12 +120,12 @@
                 parent= $(this).parent(),
                   state= true
                 ;
-            console.log(id);
+            // console.log(id);
               if(confirm('This image will be deleted , Are you sure ?')){
                   if(state){
                       state = false;
                       $.ajax({
-                          'url':`http://www.silkaesthetic.com/admin/products/img/${id}` ,
+                          'url':`http://localhost:8000/admin/products/img/${id}` ,
                           'type':'get',
                           'dataType':'json',
                           'contentType':false,
@@ -165,8 +165,8 @@
                             }
                         });
                         $.ajax({
-                            'url':`http://www.silkaesthetic.com/admin/api/product/deleteExtraImage/${id}/${url}` ,
-                            'type':'delete',
+                            'url':`http://localhost:8000/admin/api/product/deleteExtraImage/${id}/${url}` ,
+                            'type':'get',
                             'dataType':'json',
                             'contentType':false,
                             'cacheProcess':false,

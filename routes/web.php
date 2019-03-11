@@ -25,30 +25,35 @@ Route::middleware(['web'])->group(function (){
         Route::get('products/img/{id}','ProductController@deleteImage');
         Route::resource('settings','SettingController')->only(['index','update']);
         Route::resource('sliders','SliderController')->only(['index','store','destroy','create']);
+        Route::get('api/categories/delete/{id}','CategoryController@destroy');
+        Route::get('api/products/delete/{id}','ProductController@destroy');
         Route::resources([
             'categories'=> 'CategoryController',
             'products'=>'ProductController'
         ]);
         Route::get('/api/option/delete/{id}',[
             'uses'=>'OptionController@destroy'
-        ]); Route::delete('/api/product/deleteExtraImage/{id}/{url}',[
+        ]);
+        Route::get('/api/product/deleteExtraImage/{id}/{url}',[
             'uses'=>'ProductController@deleteExtra'
         ]);
+        Auth::routes();
     });
 
     Route::get('categories/{category}/products','CategoryController@CategoryProducts')->name('category.products');
     Route::resource('categories','CategoryController')->only(['show']);
     Route::resource('products','ProductController')->only(['show']);
     Route::get('/home' ,'BlogController');
-    Route::get('/' ,'BlogController');
+    Route::get('/' ,'BlogController')->name('home');
+
     Route::post('sendMail',[
         'uses'=>'MailController@sendMail',
         'as'=> 'mail.send'
     ]);
 
-
 });
 
-Auth::routes();
+
+
 
 //Route::get('/home', 'HomeController@index')->name('home');

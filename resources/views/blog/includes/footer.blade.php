@@ -14,10 +14,10 @@
                         <div class="item-footer">
                             <h3>Quick links</h3>
                             <ul >
-                                <li><a href="http://www.silkaesthetic.com/">Home</a></li>
-                                <li><a href="http://www.silkaesthetic.com/#about">About</a></li>
-                                <li><a href="http://www.silkaesthetic.com/#categories">Categories</a></li>
-                                <li><a href="http://www.silkaesthetic.com/#contact-us">Contact us</a></li>
+                                <li><a href="http://localhost:8000/">Home</a></li>
+                                <li><a href="http://localhost:8000/#about">About</a></li>
+                                <li><a href="http://localhost:8000/#categories">Categories</a></li>
+                                <li><a href="http://localhost:8000/#contact-us">Contact us</a></li>
                             </ul>
                         </div>
                     </div>

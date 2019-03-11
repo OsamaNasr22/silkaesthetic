@@ -40,11 +40,13 @@ class BlogController extends Controller
             'message'=>'ksdnk',
         ];
 
-        Mail::to('os.ns2013@gmail.com')->send(new  SendMessage($data));
+
+        Mail::to('info@silkaesthetic.com')->send(new  SendMessage($data));
     }
 
     public function productsByCategory($category_id){
         $products= Category::find($category_id)->products()->paginate(6);
+        header("Access-Control-Allow-Origin: *");
         return new ProductCollection($products);
     }
 }
