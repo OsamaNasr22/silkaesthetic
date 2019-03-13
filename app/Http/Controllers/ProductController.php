@@ -54,11 +54,13 @@ class ProductController extends Controller
         //
 
         $this->validate($request, [
-            'product_title'=>'',
-            'product_description'=>'',
-            'category_id'=>'',
-            'cover'=>'image|max:20480',
-            'image.*'=>'image|max:15360'
+            'product_title'=>'required|max:255',
+            'product_description'=>'required|max:4000000000',
+            'category_id'=>'required',
+            'cover'=>'required|image|mimes:jpg,jpeg,png,gif|max:2000',
+            'image.*'=>'nullable|image|max:15360',
+            'product_slug'=>'nullable|string|max:255',
+            'extra_images.*'=>'nullable|image|max:1024|mimes:jpg,jpeg,png'
         ]);
 
         $product = new Product();
@@ -171,16 +173,39 @@ class ProductController extends Controller
     {
 
             $this->validate($request, [
-                'product_title'=>'',
-                'product_description'=>'',
-                'category_id'=>'',
-                'cover'=>'',
-                'image'=>''
+                'product_title'=>'required|max:255',
+                'product_description'=>'required|max:4000000000',
+                'category_id'=>'required',
+                'cover'=>'nullabe|image|mimes:jpg,jpeg,png,gif|max:2000',
+                'image.*'=>'nullable|image|max:15360',
+                'product_slug'=>'nullable|string|max:255',
+                'extra_images.*'=>'nullable|image|max:1024|mimes:jpg,jpeg,png'
             ]);
 
             $product->title= $request['product_title'];
             $product->description= htmlspecialchars($request['product_description']);
             $product->category_id= $request['category_id'];
+            if (strlen($request['deleteImages'])>0){
+                $ids= explode(',',$request['deleteImages']);
+                foreach ($ids as $id){
+                    $image= Image::find($id);
+                    if ($image){
+                        Storage::delete($image->image_url);
+                        $image->delete();
+                    }
+                }
+
+            }
+            if (strlen($request['deleteExtraImages'])>0){
+                $image= explode(',',$request['deleteExtraImages']);
+                foreach ($image as $item){
+                    Storage::delete('public/extra_images/'.$item);
+                    $arr= explode(',' ,$product->extra_images);
+                    $arr = array_diff($arr,[$item]);
+                    $extra=count($arr)>0 ? implode(',',$arr):null;
+                    $product->extra_images = $extra ;
+                }
+            }
         $cover= ($request->has('cover'))? $request->file('cover'):null;
 
 
@@ -250,10 +275,10 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        $product =Product::find($id);
-        if (!$product) return response()->json('failed',404);
+//        $product =Product::find($id);
+//        if (!$product) return response()->json('failed',404);
         $deleted=[];
         if ($images=$product->extra_images){
             $images=explode(',',$images);
@@ -267,9 +292,14 @@ class ProductController extends Controller
         $deleted[]= 'public/product/'.$product->cover;
         if ($images) $deleted = array_merge($deleted,$images);
         Storage::delete($deleted);
-        return ($product->delete())? response()->json('product deleted successfully',200):response()->json('product deleted successfully',
-            400);
+        return ($product->delete())?  redirect()->back()->with(['success'=>'product deleted successfully'])
+            : redirect()->back()->with(['failed'=>'Try again, the process failed']);
     }
+
+    /** Prepare data of product
+     * @param Product $product
+     * @return array
+     */
     private function prepareProduct(Product $product){
         $data= $product->toArray();
        if ($data['extra_images']){
@@ -285,24 +315,6 @@ class ProductController extends Controller
 //       dd($data);
         return $data;
     }
-    public function deleteImage($id){
-        $image= Image::find($id);
-        if(!$image) return response()->json('this image not found');
-        Storage::delete($image->image_url);
-        return ($image->delete())? response()->json('Image deleted successfully',200):response()->json('Delete image faild try again',200);
-    }
 
-        public function deleteExtra($id,$image){
-
-        $product= Product::find($id);
-
-        Storage::delete('public/extra_images/'.$image);
-        $arr= explode(',' ,$product->extra_images);
-        $arr = array_diff($arr,[$image]);
-        $extra=count($arr)>0 ? implode(',',$arr):null;
-        $product->extra_images = $extra ;
-        $product->update();
-        return response()->json('done',200);
-        }
 
 }

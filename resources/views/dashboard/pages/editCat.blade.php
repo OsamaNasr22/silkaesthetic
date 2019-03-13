@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <input type="file" name="cover" class="form-control" >
                 </div>
-
+                <input type="hidden" value="" name="deletedOption" id="optionDeleted">
                 <div id="containerOptions">
                     @forelse($options as $option)
                         <div class="form-group">
@@ -94,28 +94,19 @@
             $('#containerOptions').on('click','.deleteOption',function (e) {
                 e.preventDefault();
                 var el= $(this);
+                var inputDelete= $('#optionDeleted');
                 var parent= el.parent();
                 var id= el.attr('data-id');
+                var value= inputDelete.val().split(',');
 
                 if (confirm('This option will be deleted, Are you sure??')){
-
-                    $.ajax({
-                        'url':'http://localhost:8000/admin/api/option/delete/'+id,
-                        'type':'get',
-                        'dataType':'json',
-                        'success':function () {
-                            parent.remove();
-                        },
-                        'error':function () {
-
-                        }
-                    });
-
-
-
+                    value.push(id);
+                   value = value.filter(function (e) {
+                        return e.length >0;
+                    })
+                    inputDelete.val(value.join(','));
+                   parent.remove();
                 }
-
-
             })
 
         });

@@ -65,10 +65,11 @@ class SliderController extends Controller
 
     public function destroy(Slider $slider)
     {
-        //
+
         if ($slider->image) Storage::delete('public/banners/'.$slider->image);
-        $slider->delete();
-        return response()->json('deleted successfully',200);
+
+        return   $slider->delete() ?  redirect()->back()->with(['success'=>'Banner deleted successfully'])
+            : redirect()->back()->with(['failed'=>'Try again, the process failed']);;
     }
 
     public function getSliderType(){

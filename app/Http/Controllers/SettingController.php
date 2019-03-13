@@ -44,16 +44,16 @@ class SettingController extends Controller
 
 
         $this->validate($request,[
-           'site_name'=>'required',
+           'site_name'=>'required|max:191|string',
            'logo'=>'image|mimes:jpeg,png,jpg|max:15360',
             'email'=>'required|email',
-            'facebook'=>'nullable|url',
-            'twitter'=>'nullable|url',
-            'insta'=>'nullable|url',
-            'linkedin'=>'nullable|url',
+            'facebook'=>'nullable|url|max:191',
+            'twitter'=>'nullable|url|max:191',
+            'insta'=>'nullable|url|max:191',
+            'linkedin'=>'nullable|url|max:191',
             'title.*'=>'nullable|alpha_dash',
             'desc.*'=>'nullable|string',
-            'about_us'=>'required|string'
+            'about_us'=>'required|string|max:16000000'
         ]);
         $setting->name= $request['site_name'];
         if ($image=$request->file('logo')){

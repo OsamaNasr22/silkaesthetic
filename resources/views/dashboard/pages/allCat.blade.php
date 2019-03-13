@@ -29,8 +29,12 @@
                                 <td>{{$category['id']}}</td>
                                 <td>{{$category['name']}}</td>
                                 <td id="manage">
-                                    <a class='delete' href="" data-id="{{$category['id']}}"><i class="fa fa-remove"></i> Delete</a>
-                                    <a href="{{route('categories.edit',$category['id'])}}" ><i class="fa fa-edit"></i> Edit</a>
+                                    <form method="post" action="{{route('categories.destroy',$category['id'])}}" style="display: inline">
+                                        {{method_field('delete')}}
+                                        @csrf
+                                        <a class='delete btn btn-danger' href="" ><i class="fa fa-remove"></i> Delete</a>
+                                    </form>
+                                    <a class="btn btn-success" href="{{route('categories.edit',$category['id'])}}" ><i class="fa fa-edit"></i> Edit</a>
                                 </td>
                             </tr>
 
@@ -51,61 +55,3 @@
 
     </div>
 @endsection
-
-@section('js')
-    <script>
-        $(function () {
-
-
-            $('.delete').on('click',function (event) {
-                event.preventDefault();
-                let id= $(this).attr('data-id');
-
-                let state = true;
-                let parent = $(this).parent().parent();
-
-
-
-
-                if(confirm('Are you sure for delete this category?')){
-                    if(state == true){
-                        state = false;
-                        // $.ajaxSetup({
-                        //     headers: {
-                        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        //     }
-                        // });
-                        $.ajax({
-                            'url':`http://localhost:8000/admin/api/categories/delete/${id}`,
-                            'type':'get',
-                            'dataType':'json',
-                            'contentType':false,
-                            'cacheProcess':false,
-                            'success':function (data) {
-                                parent.remove();
-                                state= true;
-                            },
-                            'error':function (data) {
-
-
-
-                            }
-                        });
-                    }
-
-                }
-
-
-
-            })
-
-
-        });
-
-
-
-
-    </script>
-
-
-    @endsection

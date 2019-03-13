@@ -21,21 +21,11 @@ Route::middleware(['web'])->group(function (){
 
     Route::prefix('admin')->group(function (){
         Route::get('/','DashboardController@index')->name('dashboard');
-
-        Route::get('products/img/{id}','ProductController@deleteImage');
         Route::resource('settings','SettingController')->only(['index','update']);
         Route::resource('sliders','SliderController')->only(['index','store','destroy','create']);
-        Route::get('api/categories/delete/{id}','CategoryController@destroy');
-        Route::get('api/products/delete/{id}','ProductController@destroy');
         Route::resources([
             'categories'=> 'CategoryController',
             'products'=>'ProductController'
-        ]);
-        Route::get('/api/option/delete/{id}',[
-            'uses'=>'OptionController@destroy'
-        ]);
-        Route::get('/api/product/deleteExtraImage/{id}/{url}',[
-            'uses'=>'ProductController@deleteExtra'
         ]);
         Auth::routes();
     });

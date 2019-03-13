@@ -43,7 +43,15 @@
 
 <body>
 <div id="wrapper">
-
+    <div class="loading">
+        <div class="spinner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+    </div>
     @include('dashboard.includes.nav')
     <div id="page-wrapper">
         @include('dashboard.includes.messeges')
@@ -61,6 +69,7 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="{{asset('js/sb-admin-2.js')}}"></script>
+<script src="{{asset('js/silka.js')}}"></script>
 @yield('js')
 
 </body>

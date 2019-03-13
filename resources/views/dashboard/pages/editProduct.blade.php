@@ -57,6 +57,8 @@
                         </textarea>
                         {{--<textarea class="form-control" name="product_description" placeholder="Enter product description"></textarea>--}}
                     </div>
+                    <input type="hidden" name="deleteImages" id="deleteImages" value="">
+                    <input type="hidden" name="deleteExtraImages" id="deleteExtraImages" value="">
                     <input type="submit" class="btn btn-success btn-block" value="Edit">
 
                 </form>
@@ -73,7 +75,7 @@
                         <h1>images</h1>
                         @forelse($images as $image)
                             <div class="col-sm-4">
-                                <a href="#" class="delete" data-id="{{$image['id']}}"><i class="fa fa-remove " ></i></a>
+                                <a href="#" class="deleteImage" data-id="{{$image['id']}}"><i class="fa fa-remove " ></i></a>
                                 <img class="img-responsive" src="{{$image['image_url']}}">
                             </div>
 
@@ -114,80 +116,52 @@
 
     <script>
         $(function () {
-            $('.delete').on('click',function (e) {
-              e.preventDefault();
-              let id=$(this).attr('data-id') ,
-                parent= $(this).parent(),
-                  state= true
-                ;
-            // console.log(id);
-              if(confirm('This image will be deleted , Are you sure ?')){
-                  if(state){
-                      state = false;
-                      $.ajax({
-                          'url':`http://localhost:8000/admin/products/img/${id}` ,
-                          'type':'get',
-                          'dataType':'json',
-                          'contentType':false,
-                          'cacheProcess':false,
-                          'success':function (data) {
-                              state= true;
-                              parent.remove();
-                          },
-                          'error':function (error) {
-                            state= true;
-                          }
-                      });
-                  }
-              }
-
-
-
-
-
-            })
-
-            $('.removeExtra').on('click',function (e) {
+            $('.deleteImage').on('click',function (e) {
                 e.preventDefault();
-                let url=$(this).attr('data-url') ,
-                    parent= $(this).parent(),
-                    id=$(this).attr('data-id');
-                    state= true
-                ;
-                url = url.split('/').pop();
+                var el= $(this);
+                var heading= el.parent().siblings('h1');
+                var inputDelete= $('#deleteImages');
+                var parent= el.parent();
+                var id= el.attr('data-id');
+                var value= inputDelete.val().split(',');
 
-                if(confirm('This image will be deleted , Are you sure ?')){
-                    if(state){
-                        state = false;
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                        $.ajax({
-                            'url':`http://localhost:8000/admin/api/product/deleteExtraImage/${id}/${url}` ,
-                            'type':'get',
-                            'dataType':'json',
-                            'contentType':false,
-                            'cacheProcess':false,
-                            'success':function (data) {
-                                console.log(data);
-                                state= true;
-                                parent.remove();
-                            },
-                            'error':function (error) {
-                                state= true;
-                            }
-                        });
+                if (confirm('This image will be deleted, Are you sure??')){
+                    value.push(id);
+                    value = value.filter(function (e) {
+                        return e.length >0;
+                    })
+                    inputDelete.val(value.join(','));
+                    parent.remove();
+                    if ($('.deleteImage').length == 0) {
+                    heading.remove();
                     }
                 }
 
-
-
-
-
             })
 
+
+            $('.removeExtra').on('click',function (e) {
+
+                e.preventDefault();
+                var el= $(this);
+                var heading= el.parent().siblings('h1');
+                var inputDelete= $('#deleteExtraImages');
+                var parent= el.parent();
+                var url= el.attr('data-url').split('/').pop();
+                var value= inputDelete.val().split(',');
+                if (confirm('This image will be deleted, Are you sure??')){
+                    value.push(url);
+                    value = value.filter(function (e) {
+                        return e.length >0;
+                    })
+                    inputDelete.val(value.join(','));
+                    parent.remove();
+                    if ($('.removeExtra').length == 0) {
+                        heading.remove();
+                    }
+
+                }
+            })
 
         });
 

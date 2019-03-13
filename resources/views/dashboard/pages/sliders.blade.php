@@ -31,7 +31,13 @@
                                 <td>{{asset('storage/banners/'.$slider['image'])}}</td>
                                 <td>{{$slider['type']}}</td>
                                 <td id="manage">
-                                    <a class='delete' href="" data-id="{{$slider['id']}}"><i class="fa fa-remove"></i> Delete</a>
+                                    <form method="post" action="{{route('sliders.destroy',$slider['id'])}}" class="deleteForm">
+                                        {{method_field('delete')}}
+                                        @csrf
+                                        {{--<i class="fa fa-remove"></i> <input type="submit" class="delete" value="Delete">--}}
+                                        <a class='delete btn btn-danger' href=""><i class="fa fa-remove"></i> Delete</a>
+
+                                    </form>
                                 </td>
                             </tr>
 
@@ -55,52 +61,5 @@
 
 @section('js')
 
-    <script>
-        $(function () {
 
-
-            $('.delete').on('click',function (event) {
-                event.preventDefault();
-                let id= $(this).attr('data-id');
-
-                let state = true;
-                let parent = $(this).parent().parent();
-
-
-
-
-                if(confirm('This banner will be deleted, Are you sure?')){
-                    if(state == true){
-                        state = false;
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                        $.ajax({
-                            'url':`http://localhost:8000/admin/sliders/${id}`,
-                            'type':'delete',
-                            'dataType':'json',
-                            'contentType':false,
-                            'cacheProcess':false,
-                            'success':function (data) {
-                                parent.remove();
-                                state= true;
-                            },
-                            'error':function (data) {
-
-                            }
-                        });
-                    }
-
-                }
-
-
-
-            })
-
-
-        });
-
-    </script>
     @endsection

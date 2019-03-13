@@ -6,7 +6,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">SILKA CMS</a>
+        <a class="navbar-brand" href="{{route('dashboard')}}">SILKA CMS</a><a class="navbar-brand" href="{{route('home')}}">Site</a>
     </div>
     <!-- /.navbar-header -->
 

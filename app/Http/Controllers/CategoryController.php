@@ -159,6 +159,15 @@ class CategoryController extends Controller
         }
         $category->update();
 
+        //deleteOptions
+        if (strlen($request['deletedOption']) > 0){
+            $ids =explode(',',$request['deletedOption']);
+            foreach ($ids as $id){
+                $option= Option::find($id);
+                if ($option) $option->delete();
+            }
+        }
+
 
         if ($request['editTitles']){
             $images=$request->file('editImage');
@@ -212,22 +221,22 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        $category =Category::find($id);
-        if (!$category) return response()->json('failed',404);
+//        $category =Category::find($id);
+//        if (!$category) return response()->json('failed',404);
 
         if ($category->products->toArray()){
             foreach ($category->products as $product){
-                (new ProductController())->destroy($product->id);
+                (new ProductController())->destroy($product);
             }
         }
-
         foreach ($category->options->toArray() as $item){
             if ($item['image']) Storage::delete('public/extra_images/'.$item['image']);
         }
         if($category->cover) Storage::delete('public/product/'.$category->cover);
-        return ($category->delete())? response()->json('category deleted successfully',200): response()->json('faild in delete category',400);
+        return ($category->delete())? redirect()->back()->with(['success'=>'category deleted successfully'])
+            : redirect()->back()->with(['failed'=>'Try again, the process failed']);
     }
     public function CategoryProducts(Category $category){
 
