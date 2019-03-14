@@ -50,7 +50,7 @@
                     </table>
 
                 @else
-                    <div class="alert alert-warning">No categories added yet </div>
+                    <div class="alert alert-warning">No Banners added yet </div>
                 @endif
             </div>
 

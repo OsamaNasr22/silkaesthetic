@@ -59,7 +59,7 @@
                     </div>
                     <input type="hidden" name="deleteImages" id="deleteImages" value="">
                     <input type="hidden" name="deleteExtraImages" id="deleteExtraImages" value="">
-                    <input type="submit" class="btn btn-success btn-block" value="Edit">
+                    <a href="#" class="btn btn-success btn-block" id="submit">Edit</a>
 
                 </form>
             </div>

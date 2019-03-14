@@ -43,7 +43,7 @@
 
                 </div>
 
-                <input type="submit" class="btn btn-success btn-block" value="Edit">
+                <a href="#" class="btn btn-success btn-block" id="submit">Edit</a>
 
             </form>
 

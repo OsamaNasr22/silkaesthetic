@@ -37,7 +37,7 @@
 
                 </div>
 
-                <input type="submit" class="btn btn-primary btn-block" value="Add">
+                <a href="#" class="btn btn-primary btn-block" id="submit">Add</a>
 
             </form>
 

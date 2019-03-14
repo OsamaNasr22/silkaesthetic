@@ -84,5 +84,13 @@ $(function () {
     $('.message').slideDown('slow',function () {
         $(this).delay(2000).slideUp('slow');
     })
+    $('#submit').on('click',function (e) {
+        e.preventDefault();
+        var el=$(this);
+        var form = el.parent();
+        el.attr('disabled','disabled');
+        form.submit();
+
+    })
 
 });
