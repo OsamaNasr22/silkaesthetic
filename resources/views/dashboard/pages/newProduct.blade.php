@@ -17,7 +17,8 @@
 
         <div class="row">
             <form  action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
-                @csrf
+                {{--@csrf--}}
+                <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <label class="label label-primary">title</label>
                 <div class="form-group">
                     <input class="form-control" type="text" name="product_title" placeholder="Enter product title">

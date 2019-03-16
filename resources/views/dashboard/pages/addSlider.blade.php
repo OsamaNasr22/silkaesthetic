@@ -14,7 +14,8 @@
 
         <div class="row">
             <form  action="{{route('sliders.store')}}" method="post" enctype="multipart/form-data">
-                @csrf
+                {{--@csrf--}}
+                <input type="hidden" name="_token" value="{{csrf_token()}}">
 
                 <label class="label label-primary">Banner</label>
                 <div class="form-group">

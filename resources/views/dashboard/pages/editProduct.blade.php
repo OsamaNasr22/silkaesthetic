@@ -14,8 +14,9 @@
         <div class="row">
             <div class="col-sm-8">
                 <form  action="{{route('products.update',$product['id']) }}" method="post" enctype="multipart/form-data">
-                    @csrf
                     {{method_field('PUT')}}
+                    {{--@csrf--}}
+                    <input type="hidden" name="_token" value="{{csrf_token()}}">
                     <label class="label label-success">title</label>
                     <div class="form-group">
                         <input class="form-control" type="text" name="product_title" placeholder="Enter product title" value="{{$product['title']}}">

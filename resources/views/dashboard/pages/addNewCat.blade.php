@@ -13,7 +13,8 @@
 
         <div class="row">
             <form  action="{{route('categories.store')}}" method="post" enctype="multipart/form-data">
-                @csrf
+                {{--@csrf--}}
+                <input type="hidden" name="_token" value="{{csrf_token()}}">
 
                 <label class="label label-primary">Category name</label>
                 <div class="form-group">

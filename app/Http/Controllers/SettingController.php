@@ -93,10 +93,10 @@ class SettingController extends Controller
     private function prepareOptions($arr1, $arr2){
         $str='';
         for ($i=0,$c=count($arr1);$i<$c;$i++){
-            $str.= "{$arr1[$i]}:{$arr2[$i]},";
+            $str.= "{$arr1[$i]}@#@#{$arr2[$i]}*&^";
         }
 
-        $str= rtrim($str,',');
+        $str= rtrim($str,'*&^');
         return $str;
     }
 
@@ -106,10 +106,11 @@ class SettingController extends Controller
      */
     private function returnOptions($str){
         $arr2=[];
-        $arr= explode(',',$str);
-
+        $arr= explode('*&^',$str);
+        if (!$arr) return [];
         for ($i=0, $c= count($arr);$i<$c;$i++){
-            $test= explode(':',$arr[$i]);
+            $test= explode('@#@#',$arr[$i]);
+            if(count($test)!= 2) return $arr2;
             $arr2[$test[0]]=$test[1];
         }
         return $arr2;

@@ -14,8 +14,8 @@
         <div class="row">
             <form  action="{{route('categories.update',$category['id'])}}"  method="post" enctype="multipart/form-data">
                 {{method_field('PUT')}}
-                @csrf
-                <label class="label label-success">Category name</label>
+                {{--@csrf--}}
+                <input type="hidden" name="_token" value="{{csrf_token()}}">                <label class="label label-success">Category name</label>
                 <div class="form-group">
                     <input type="text" name="category_name" class="form-control input-lg" placeholder="Edit category name" value="{{$category['name']}}">
                 </div>
