@@ -6,6 +6,8 @@ use App\Category;
 use App\Option;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+use Symfony\Component\HttpFoundation\File\File;
 
 class CategoryController extends Controller
 {
@@ -61,10 +63,26 @@ class CategoryController extends Controller
         $category = new Category();
         $category->name= $request['category_name'];
         if ($image=$request->file('cover')){
-            $image = explode('/',Storage::putFile('public/product',$image));
-            $category->cover= last($image);
+
+            //store image and return the full path of it
+            $fullImageUrl=Storage::putFile('public/product',$image);
+
+            //create instance of image file
+            $imageFile= new File(storage_path('app/'.$fullImageUrl));
+
+            //make different resolution for different screen size
+            $this->makeResize($imageFile,400);
+            $this->makeResize($imageFile,550);
+            $this->makeResize($imageFile,750);
+            $this->makeResize($imageFile,1024);
+
+
+            $image = explode('/',$fullImageUrl);
+            $category->cover= last($image); // get the image name without the full path
         }
-        $category->save();
+        $category->save();//save the category
+
+
         $images= $request->file('optionImages');
         if ($request['titles']){
             foreach ($request['titles'] as $i => $value)
@@ -99,6 +117,17 @@ class CategoryController extends Controller
     {
         $options=$category->options->toArray();
         $category->options=$options;
+        if ($category->cover){
+            list($name,$ext)=explode('.',$category->cover);
+            $category->coverResolutions= [
+                '400'=> $name . '@' . 400 .'.'.$ext,
+                '550'=>$name . '@' . 550 .'.'.$ext,
+                '750'=>$name . '@' . 750 .'.'.$ext,
+                '1024'=>$name . '@' . 1024 .'.'.$ext,
+        ];
+        }
+
+        dd($category);
         $settings = (new  SettingController())->prepareAllSettings();
 
         return view('blog.pages.category',compact('category','settings'));
@@ -151,10 +180,36 @@ class CategoryController extends Controller
         if ($image=$request->file('cover')){
             //delete old cover
             if ($category->cover)
-            Storage::delete('public/product/'.$category->cover);
+            {
+                list($name, $ext)= explode('.',$category->cover);
+
+                // prepare all cover images for deleted
+                $deletedImages= [
+                    'public/product/'.$category->cover,
+                    'public/product/'.$name . '@'. '400' . '.'.$ext,
+                    'public/product/'.$name . '@'. '550' . '.'.$ext,
+                    'public/product/'.$name . '@'. '750' . '.'.$ext,
+                    'public/product/'.$name . '@'. '1024' . '.'.$ext,
+
+                ];
+                Storage::delete($deletedImages);
+            }
+
+            //store image and return the full path of it
+            $fullImageUrl=Storage::putFile('public/product',$image);
+
+            //create instance of image file
+            $imageFile= new File(storage_path('app/'.$fullImageUrl));
+
+            //make different resolution for different screen size
+            $this->makeResize($imageFile,400);
+            $this->makeResize($imageFile,550);
+            $this->makeResize($imageFile,750);
+            $this->makeResize($imageFile,1024);
+
 
             //add new one
-            $image = explode('/',Storage::putFile('public/product',$image));
+            $image = explode('/',$fullImageUrl);
             $category->cover= last($image);
         }
         $category->update();
@@ -234,7 +289,24 @@ class CategoryController extends Controller
         foreach ($category->options->toArray() as $item){
             if ($item['image']) Storage::delete('public/extra_images/'.$item['image']);
         }
-        if($category->cover) Storage::delete('public/product/'.$category->cover);
+
+        //delete category cover
+        if($category->cover)
+        {
+            list($name, $ext)= explode('.',$category->cover);
+
+            // prepare all cover images for deleted
+            $deletedImages= [
+                'public/product/'.$category->cover,
+                'public/product/'.$name . '@'. '400' . '.'.$ext,
+                'public/product/'.$name . '@'. '550' . '.'.$ext,
+                'public/product/'.$name . '@'. '750' . '.'.$ext,
+                'public/product/'.$name . '@'. '1024' . '.'.$ext,
+
+            ];
+            Storage::delete($deletedImages);
+        }
+
         return ($category->delete())? redirect()->back()->with(['success'=>'category deleted successfully'])
             : redirect()->back()->with(['failed'=>'Try again, the process failed']);
     }
@@ -245,5 +317,18 @@ class CategoryController extends Controller
         $settings = (new  SettingController())->prepareAllSettings();
 
         return view('blog.pages.products',compact('category','settings'));
+    }
+
+
+
+    private function makeResize(File $fileImage,$width,$height=null,$quality=80){
+        list($name, $extension)= explode('.',$fileImage->getFilename());
+        $img=Image::make($fileImage->getRealPath());
+
+        $img->resize($width,$height,function ($constrains){
+            $constrains->aspectRatio();
+
+        });
+        $img->save(storage_path('app/public/product/'.$name ."@".$width .'.'.$extension),$quality);
     }
 }

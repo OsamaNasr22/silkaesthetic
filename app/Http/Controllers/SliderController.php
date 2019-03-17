@@ -111,8 +111,8 @@ class SliderController extends Controller
              '1024'=>$name . '@' . 1024 .'.'.$ext,
            ];
         }
-
-        dd($slider);
+//
+//        dd($slider);
         return $slider;
     }
     private function makeResize(File $fileImage,$width,$height=null,$quality=80){
