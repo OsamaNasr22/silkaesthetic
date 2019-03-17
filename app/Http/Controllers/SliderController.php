@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+use Symfony\Component\HttpFoundation\File\File;
 
 class SliderController extends Controller
 {
@@ -44,7 +46,14 @@ class SliderController extends Controller
             'image'=>'required|image|mimes:jpeg,jpg,png,gif|max:1024',
             'type'=>'required|string'
         ]);
-        $image = explode('/',Storage::putFile('public/banners',$request->file('image')));
+        $fullImagePath=Storage::putFile('public/banners',$request->file('image'));
+        if ($request['type']=='slider'){
+            $fileImage= new File(storage_path('app/'.$fullImagePath));
+            $this->makeResize($fileImage,400);
+            $this->makeResize($fileImage,750);
+            $this->makeResize($fileImage,1024);
+        }
+        $image = explode('/',$fullImagePath);
         $slider = new Slider();
         $slider->image= last($image);
         $slider->type=$request['type'];
@@ -66,14 +75,35 @@ class SliderController extends Controller
     public function destroy(Slider $slider)
     {
 
-        if ($slider->image) Storage::delete('public/banners/'.$slider->image);
+        if ($sliderImage=$slider->image  ){
 
+            Storage::delete('public/banners/'.$slider->image);
+            if ($slider->type =='slider'){
+                list($name,$extension)= explode('.',$sliderImage);
+                $deleted=[
+                    'public/banners/'.$name . '@'. 400 . ".".$extension,
+                    'public/banners/'.$name . '@'. 750 . ".".$extension,
+                    'public/banners/'.$name . '@'. 1024 . ".".$extension,
+                ];
+                Storage::delete($deleted);
+            }
+        };
         return   $slider->delete() ?  redirect()->back()->with(['success'=>'Banner deleted successfully'])
-            : redirect()->back()->with(['failed'=>'Try again, the process failed']);;
+            : redirect()->back()->with(['failed'=>'Try again, the process failed']);
     }
 
     public function getSliderType(){
         $slider= Slider::where('type','slider')->get();
         return $slider;
+    }
+    private function makeResize(File $fileImage,$width,$height=null,$quality=80){
+        list($name, $extension)= explode('.',$fileImage->getFilename());
+        $img=Image::make($fileImage->getRealPath());
+
+        $img->resize($width,$height,function ($constrains){
+            $constrains->aspectRatio();
+
+        });
+        $img->save(storage_path('app/public/banners/'.$name ."@".$width .'.'.$extension),$quality);
     }
 }

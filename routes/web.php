@@ -17,8 +17,8 @@
 
 Route::middleware(['web'])->group(function (){
 
-    Route::get('/test','BlogController@test');
-
+//    Route::get('/test','BlogController@test');
+    Route::get('/test','HomeController');
     Route::prefix('admin')->group(function (){
         Route::get('/','DashboardController@index')->name('dashboard');
         Route::resource('settings','SettingController')->only(['index','update']);
