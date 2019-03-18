@@ -127,7 +127,7 @@ class CategoryController extends Controller
         ];
         }
 
-        dd($category);
+//        dd($category);
         $settings = (new  SettingController())->prepareAllSettings();
 
         return view('blog.pages.category',compact('category','settings'));

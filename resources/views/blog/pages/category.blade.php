@@ -22,7 +22,7 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
                                 @forelse($category['options'] as $key=> $option)
-                                    <li role="presentation" class="{{$key==0?'active':''}}"><a href="#{{$option['key']}}" aria-controls="home" role="tab" data-toggle="tab">{{$option['key']}}</a></li>
+                                    <li role="presentation" class="{{$key==0?'active':''}}"><a href="#option{{$option['id']}}" aria-controls="home" role="tab" data-toggle="tab">{{$option['key']}}</a></li>
                                 @empty
                         <div class="alert alert-warning">No option added yet.</div>
                                     @endforelse
@@ -32,7 +32,7 @@
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 @forelse($category['options'] as $key => $option)
-                                    <div role="tabpanel" class="tab-pane {{$key==0?'active':''}}" id="{{$option['key']}}">
+                                    <div role="tabpanel" class="tab-pane {{$key==0?'active':''}}" id="option{{$option['id']}}">
                                         <div class="media">
                                             <div class="row">
                                                 <div class="media-left">

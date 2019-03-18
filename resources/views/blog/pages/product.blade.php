@@ -11,14 +11,14 @@
     </header>
     <main>
         <div class="category_cover">
-            <img src="{{$product['cover']}}" class="img-responsive" id="currentImage">
+            <img src="{{$product['cover']['larger']}}" class="img-responsive" id="currentImage">
         </div>
         <div class="demo">
             <div class="item">
                 <ul id="content-slider" class="content-slider">
 
                     <li class="image">
-                        <img width="150" height="150" class="selected img-circle active"  src="{{$product['cover']}}">
+                        <img width="150" height="150" class="selected img-circle active"  src="{{$product['cover']['larger']}}">
                     </li>
                     @forelse($product['images'] as $key =>$image)
                         <li class="image">
@@ -52,23 +52,26 @@
                </div>
             </div>
         </div>
-        <div class="extra_images">
-            <div class="container">
-                <div class="row">
-                    <h2 class="extra_heading">| Look more!</h2>
-                    @forelse($product['extra_images'] as $image)
-                        <div class="col-xs-12 col-md-6">
-                            <img style="width: 100%" class="img-responsive" src="{{asset($image)}}">
-                        </div>
+        @if($product['extra_imagesResolution'])
+            <div class="extra_images">
+                <div class="container">
+                    <div class="row">
+                        <h2 class="extra_heading">| Look more!</h2>
+                        @forelse($product['extra_imagesResolution'] as $image)
+                            <div class="col-xs-12 col-md-6">
+                                <img style="width: 100%" class="img-responsive" src="{{$image['larger']}}">
+                            </div>
                         @empty
                         @endforelse
 
-                    {{--<div class="col-xs-12 col-md-6">--}}
+                        {{--<div class="col-xs-12 col-md-6">--}}
                         {{--<img style="width: 100%"  class="img-responsive" src="https://via.placeholder.com/456x323">--}}
-                    {{--</div>--}}
+                        {{--</div>--}}
+                    </div>
                 </div>
             </div>
-        </div>
+            @endif
+
     </main>
 
 

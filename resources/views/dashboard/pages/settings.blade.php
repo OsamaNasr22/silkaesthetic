@@ -70,7 +70,7 @@
                     {{--<textarea id="messageArea" name="product_description" rows="7" class="form-control ckeditor" placeholder="Write your message.."></textarea>--}}
                     {{--<textarea class="form-control" name="product_description" placeholder="Enter product description"></textarea>--}}
                 {{--</div>--}}
-                <input type="submit" class="btn btn-primary btn-block" value="Add">
+                <a href="#" class="btn btn-primary btn-block" style="display: inline-block;" id="submit">Save Changes</a>
 
             </form>
         </div>

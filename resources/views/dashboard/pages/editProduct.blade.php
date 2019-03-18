@@ -10,7 +10,7 @@
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
-
+        {{--{{dd($product)}}--}}
         <div class="row">
             <div class="col-sm-8">
                 <form  action="{{route('products.update',$product['id']) }}" method="post" enctype="multipart/form-data">
@@ -60,7 +60,7 @@
                     </div>
                     <input type="hidden" name="deleteImages" id="deleteImages" value="">
                     <input type="hidden" name="deleteExtraImages" id="deleteExtraImages" value="">
-                    <a href="#" class="btn btn-success btn-block" id="submit">Edit</a>
+                    <a href="#" class="btn btn-success btn-block" id="submit">Save Changes</a>
 
                 </form>
             </div>
@@ -69,7 +69,7 @@
             <h1>Cover</h1>
             <div class="col-sm-4">
                 <div class="col-sm-12">
-                    <img class="img-responsive" src="{{$product['cover']}} ">
+                    <img class="img-responsive" src="{{$product['cover']['larger']}} ">
                 </div>
       @if($images)
                     <div class="col-md-12">
@@ -89,10 +89,10 @@
                     @if($product['extra_images'])
                     <div class="col-md-12">
                         <h1>ExtraImages</h1>
-                        @forelse($product['extra_images'] as $image)
+                        @forelse($product['extra_imagesResolution'] as $image)
                             <div class="col-sm-4">
-                                <a href="#" class="removeExtra" data-id="{{$product['id']}}" data-url="{{$image}}"><i class="fa fa-remove" ></i></a>
-                                <img class="img-responsive" src="{{asset($image)}}">
+                                <a href="#" class="removeExtra" data-id="{{$product['id']}}" data-url="{{$image['larger']}}"><i class="fa fa-remove" ></i></a>
+                                <img class="img-responsive" src="{{$image['larger']}}">
                             </div>
 
                         @empty

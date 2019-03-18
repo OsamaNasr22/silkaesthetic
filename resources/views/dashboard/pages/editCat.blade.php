@@ -43,7 +43,7 @@
 
                 </div>
 
-                <a href="#" class="btn btn-success btn-block" id="submit">Edit</a>
+                <a href="#" class="btn btn-success btn-block" style="display: inline-block;" id="submit">Save Changes</a>
 
             </form>
 

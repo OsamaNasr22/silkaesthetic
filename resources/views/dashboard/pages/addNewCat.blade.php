@@ -38,7 +38,7 @@
 
                 </div>
 
-                <a href="#" class="btn btn-primary btn-block" id="submit">Add</a>
+                <a href="#" class="btn btn-primary btn-block" style="display: inline-block;" id="submit">Add</a>
 
             </form>
 

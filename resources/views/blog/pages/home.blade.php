@@ -62,7 +62,7 @@
                     <ul class="list-inline nav-work" >
                         {{--<li class="active" @click="fetchProducts()">ALL</li>--}}
                         @foreach($categories as $category)
-                            <li ><a href="#">{{$category->name}}</a></li>
+                            <li ><a href="{{route('categories.show',$category->id)}}">{{$category->name}}</a></li>
                             @endforeach
 
                     </ul>
@@ -71,7 +71,7 @@
                     <p>our categories<i class="fa fa-arrow-down"></i></p>
                     <ul>
                         @foreach($categories as $category)
-                            <li><a href="#">{{$category->name}}</a></li>
+                            <li><a href="{{route('categories.show',$category->id)}}">{{$category->name}}</a></li>
                         @endforeach
                     </ul>
 
