@@ -50,7 +50,7 @@
                     </table>
 
                 @else
-                    <div class="alert alert-warning">No Banners added yet </div>
+                    <div class="alert alert-warning">No Banners added yet <a href="{{route('sliders.create')}}">Add Now</a></div>
                 @endif
             </div>
 

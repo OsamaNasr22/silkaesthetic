@@ -79,10 +79,7 @@ class ProductController extends Controller
         if ($cover = $request->file('cover')){
 
             //store image and return the full path of it
-            $fullImageUrl=Storage::putFile('public\product', $cover);
-
-            print_r(storage_path('app/'.$fullImageUrl));
-            die();
+            $fullImageUrl=Storage::putFile('public/product', $cover);
             //create instance of image file
             $imageFile= new File(storage_path('app/'.$fullImageUrl));
 
@@ -132,7 +129,7 @@ class ProductController extends Controller
 
                     //store image and return the full path of it
 
-                    $fullImageUrl=Storage::putFile('public\product', $images[$i]);
+                    $fullImageUrl=Storage::putFile('public/product', $images[$i]);
                     $productImg= explode('/',$fullImageUrl);
                     $img->image_url = last($productImg);
                     $product->images()->save($img);
@@ -275,7 +272,7 @@ class ProductController extends Controller
             }
 
             //store image and return the full path of it
-            $fullImageUrl=Storage::putFile('public\product', $cover);
+            $fullImageUrl=Storage::putFile('public/product', $cover);
 
             //create instance of image file
             $imageFile= new File(storage_path('app/'.$fullImageUrl));
@@ -324,7 +321,7 @@ class ProductController extends Controller
                 for ($i = 0; $i < count($images); $i++) {
                     $img = new Image();
                     //store image and return the full path of it
-                    $fullImageUrl=Storage::putFile('public\product', $images[$i]);
+                    $fullImageUrl=Storage::putFile('public/product', $images[$i]);
                     $productImg= explode('/',$fullImageUrl);
                     $img->image_url = last($productImg);
                     $product->images()->save($img);

@@ -47,7 +47,7 @@
                     </table>
 
                 @else
-                    <div class="alert alert-warning">No categories added yet </div>
+                    <div class="alert alert-warning">No categories added yet <a href="{{route('categories.create')}}">Add Now</a></div>
                 @endif
             </div>
 

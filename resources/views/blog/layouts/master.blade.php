@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <link rel="shortcut icon" href="{{asset('storage/extra_images/'.$settings->logo)}}">
     <title>@yield('title')</title>
 
    {{-- <!-- Bootstrap Core CSS -->

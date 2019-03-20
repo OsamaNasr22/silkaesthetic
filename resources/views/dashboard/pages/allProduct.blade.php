@@ -48,7 +48,7 @@
                         </tbody>
                     </table>
 @else
-                    <div class="alert alert-warning">No products added yet </div>
+                    <div class="alert alert-warning">No products added yet <a href="{{route('products.create')}}">Add Now</a> </div>
 
                 @endif
             </div>

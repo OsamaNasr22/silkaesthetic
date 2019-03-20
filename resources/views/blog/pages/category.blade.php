@@ -67,17 +67,8 @@
                         @endif
                     </div>
                 </div>
-
             </div>
-
-
-
-
     </main>
-
-
-
-
     @endsection
 
 @section('style')

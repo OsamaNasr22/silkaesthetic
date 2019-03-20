@@ -47563,7 +47563,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
             var vm = this;
-            url = url || 'http://localhost:8000/api/products/' + this.category_id;
+            url = url || 'http://www.silkaesthetic.com/api/products/' + this.category_id;
             fetch(url).then(function (res) {
                 return res.json();
             }).then(function (res) {
@@ -47731,7 +47731,7 @@ var render = function() {
                       click: function($event) {
                         $event.preventDefault()
                         _vm.fetchProducts(
-                          "http://localhost:8000/api/products/" +
+                          "http://www.silkaesthetic.com/api/products/" +
                             _vm.category +
                             "?page=" +
                             i
