@@ -110,8 +110,7 @@ header .slider{
 }
 .carousel-inner .item img{
     width: 100%;
-    min-height: 600px;
-    max-height: 600px;
+
 }
 .slider-cover{
     position: absolute;
@@ -143,22 +142,13 @@ header .slider{
 }
 
 
-.about-us h2:after,.our-work h2:after , .partner h2:after , .contact-us h2:after{
-content: '';
-display: block;
-position: absolute;
-height: 6px;
-width: 5%;
-background-color: #1BBDE8;
-top: 120%;
-left: 47.5%;
-border-radius: 20px;
-}
+
+
 .about-us p:first-of-type{
     margin-top: 30px;
-    padding: 0 150px;
     line-height: 1.7;
     color: #001D32;
+    font-size: 18px;
     margin-bottom: 80px;
 }
 .about-us-items .item-u{
@@ -291,11 +281,12 @@ z-index: 10;
 .product-item .image{
     width: 100%;
     margin: auto;
+    min-height: 300px;
 }
 .product-item .image img{
-    height: 350px;
     box-shadow: 2px 2px 6px #00000052;
     width: 100%;
+    min-height: 300px;
 
 }
 .pagination-work{
@@ -304,14 +295,15 @@ z-index: 10;
 }
 .product-item{
     position: relative;
-    height: 350px;
+    min-height: 300px;
+
 }
 .product-item .cover{
     position: absolute;
     top: 0;
-    height: 350px;
-    background-color: #7070709c;
     width: 100%;
+    height: 100%;
+    background-color: #7070709c;
     display: none;
     transition: 2s all ease-in-out;
 }
@@ -319,9 +311,13 @@ z-index: 10;
 .product-item .cover .text{
     z-index: 5;
     color: #fff;
-    padding: 20px;
-    margin-top: 162px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 30%;
     background-color: #00000052;
+    min-height: 50%;
+    max-height: 50%;
+    overflow: auto;
 }
 .text h3{
     color: #10C8E5;
@@ -340,8 +336,8 @@ z-index: 10;
 .text-category{
     z-index: 5;
     color: #fff;
-    padding: 20px;
-    margin-top: 245px;
+    padding: 14px;
+    margin-top: 36%;
     background-color: #00000052;
 }
 .text-category p{
@@ -494,14 +490,61 @@ footer p:last-child a{
     font-weight: bold;
 
 }
+footer .logo img{
+    float: right;
+}
 
-@media screen and (min-width: 100px) and  (max-width: 800px){
+@media screen and (max-width: 500px) {
     .res-work{
         display: block;
     }
     .our-work-nav{
         display: none;
     }
+    .about-us p:first-of-type{
+        font-size: 14px;
+    }
+    .our-work{
+        padding-top: 10px;
+    }
+    .about-us{
+        padding-bottom: 10px;
+    }
+    .logo img{
+        width: 90px;
+        display: inline-block;
+    }
+    footer p:last-child{
+        font-size: 14px;
+    }
+}
+@media screen and (min-width: 100px) and  (max-width: 800px){
+    .carousel-indicators {
+        bottom: 10px;
+    }
+
+    header h3:first-of-type {
+        letter-spacing: 5px;
+    }
+    .nav-list {
+        width: 250px;
+        padding-left: 0;
+        margin-left: -5px;
+        list-style: none;
+        background-color: #1bbde8;
+        right: 0;
+        position: absolute;
+        top: 51px;
+        z-index: 100;
+        border-radius:5px 1px 1px 1px  ;
+        border: 2px solid #fff8f8;
+        transform: translateX(250px);
+
+    }
+    .nav-list>li{
+        display: block;
+    }
+
     .contact-us form{
         width: 100%;
     }
@@ -513,27 +556,60 @@ footer p:last-child a{
     }
 
     header nav .fa{
+        color: #1BBDE8;
+        position: relative;
+        right: 17px;
+        top: 0px;
+        font-size: 50px;
         display: block;
     }
+    header nav ul li a {
+        color: #fff;
+    }
 
-    header nav ul{
-        position: absolute;
-        font-size: 20px;
-        color: #000000;
-        padding: 25px 0;
+    header nav ul li:hover{
+        background: #fff8f8;
+    }
+    header nav ul li:hover a{
+        color: #1BBDE8;
     }
     header nav ul li{
-        display: block;
-        margin-right: 20px;
-        transition: all 0.5s ease-in-out;
+        padding: 10px;
+        margin: 0;
     }
     header nav ul li:last-of-type{
-        margin-right: 0;
+
+    }
+    header nav img{
+        width: 70px;
+    }
+    .translate{
+        transform: translateX(0);
+    }
+    #wrapper header h5 i:last-of-type {
+        right: 10%;
+    }#wrapper header h5 i:first-of-type {
+        left: 10%;
     }
 
-
 }
-
+@media screen and (min-width: 1024px){
+    .about-us p.lead {
+        font-size: 25px;
+        padding: 20px;
+    }
+    .about-us h2:after,.our-work h2:after , .partner h2:after , .contact-us h2:after{
+        content: '';
+        display: block;
+        position: absolute;
+        height: 6px;
+        width: 5%;
+        background-color: #1BBDE8;
+        top: 120%;
+        left: 47.5%;
+        border-radius: 20px;
+    }
+}
 .message{
     display: none;
     position: fixed;
@@ -544,6 +620,7 @@ footer p:last-child a{
     text-align: center;
 
 }
+
 .carousel-control.left, .carousel-control.right{
     z-index: 5;
 }

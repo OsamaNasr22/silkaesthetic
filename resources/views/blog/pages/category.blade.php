@@ -10,8 +10,15 @@
         <h3 class="text-center">WELCOME</h3>
     </header>
     <main>
+
         <div class="category_cover">
-            <img src="{{asset('storage/product/'.$category['cover'])}}" class="img-responsive">
+            <picture>
+                <source media="(min-width:100px)  and (max-width : 599px)" srcset="{{asset('storage/product/'.$category->coverResolutions[400])}} ">
+                <source media="(min-width : 600px) and (max-width: 991px)" srcset="{{asset('storage/product/'.$category->coverResolutions[550])}}">
+                <source media="(min-width : 992px) and (max-width: 1023px)" srcset="{{asset('storage/product/'.$category->coverResolutions[750])}}">
+                <source media="(min-width  : 1024px) and (max-width: 1200px)" srcset="{{asset('storage/product/'.$category->coverResolutions[1024])}}">
+                <img src="{{asset('storage/product/'.$category['cover'])}}" class="img-responsive">
+            </picture>
         </div>
             <div class="tabs">
 
@@ -38,7 +45,7 @@
                                                 <div class="media-left">
                                                     @if($option['image'])
                                                         <a href="#">
-                                                            <img class="media-object" src="{{asset('storage/extra_images/'.$option['image'])}}" alt="...">
+                                                            <img class="media-object img-responsive" src="{{asset('storage/extra_images/'.$option['image'])}}" alt="...">
                                                         </a>
                                                         @endif
 
@@ -74,50 +81,7 @@
     @endsection
 
 @section('style')
-    <style>
-        .media-body{
-            word-break: break-all;
-            padding: 20px;
-        }
-        .tabs{
-            padding: 30px 10px;
-            background-color: #fff;
-        }
-        .tabs h3{
-            margin-bottom: 30px;
-            text-indent: 30px;
-            color: #10C8E5;
-            font-family: "Raleway", Tahoma;
-            font-weight: 600;
-        }
-        .tab-pane{
-            padding: 20px;
-            /*border: 1px solid #ddd;*/
-        }
-        .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
-            color: #fff !important;
-            background-color: #10C8E5 !important;
-        }
-        .tabs ul.nav{
-            background-color: #F1F5F4;
-        }
-        .category_cover{
-            width: 100%;
-            height: 482px;
-        }
-        .category_cover img{
-            min-height: 482px;
-            max-height: 482px;
-            width: 100%;
-        }
-        .media-left img{
-            min-width: 300px;
-            max-width: 300px;
-            min-height: 300px;
-            max-height: 300px;
-        }
-    </style>
-
+    <link rel="stylesheet" href="{{asset('dist/category.min.css')}}">
     @endsection
 
 

@@ -31,7 +31,15 @@
                                 </div>
                             </div>
                             <div class="image">
-                                <img v-bind:src="product.cover" class="img-responsive">
+                                <picture>
+
+                                    <source media="(min-width:100px)  and (max-width : 599px)"      v-bind:srcset="product.cover[400]"     >
+                                    <source media="(min-width : 600px) and (max-width: 991px)"      v-bind:srcset="product.cover[550]"     >
+                                    <source media="(min-width : 992px) and (max-width: 1023px)"     v-bind:srcset="product.cover[750]"     >
+                                    <source media="(min-width  : 1024px) and (max-width: 1200px)"   v-bind:srcset="product.cover[1024]"    >
+                                    <img v-bind:src="product.cover['larger']" class="img-responsive">
+                                </picture>
+
                             </div>
 
                         </div>
@@ -99,7 +107,7 @@
         methods:{
             fetchProducts(url= null){
                     let vm = this;
-                url = url || 'http://www.silkaesthetic.com/api/products/'+this.category_id;
+                url = url || 'http://localhost:8000/api/products/'+this.category_id;
                 fetch(url).then(res => res.json()).then( res => {
                     this.products= res.data;
                     this.category_name=res.data[0]['category_name']

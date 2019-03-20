@@ -47527,6 +47527,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['category'],
@@ -47555,7 +47563,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
             var vm = this;
-            url = url || 'http://www.silkaesthetic.com/api/products/' + this.category_id;
+            url = url || 'http://localhost:8000/api/products/' + this.category_id;
             fetch(url).then(function (res) {
                 return res.json();
             }).then(function (res) {
@@ -47628,10 +47636,41 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "image" }, [
-                    _c("img", {
-                      staticClass: "img-responsive",
-                      attrs: { src: product.cover }
-                    })
+                    _c("picture", [
+                      _c("source", {
+                        attrs: {
+                          media: "(min-width:100px)  and (max-width : 599px)",
+                          srcset: product.cover[400]
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("source", {
+                        attrs: {
+                          media: "(min-width : 600px) and (max-width: 991px)",
+                          srcset: product.cover[550]
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("source", {
+                        attrs: {
+                          media: "(min-width : 992px) and (max-width: 1023px)",
+                          srcset: product.cover[750]
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("source", {
+                        attrs: {
+                          media:
+                            "(min-width  : 1024px) and (max-width: 1200px)",
+                          srcset: product.cover[1024]
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("img", {
+                        staticClass: "img-responsive",
+                        attrs: { src: product.cover["larger"] }
+                      })
+                    ])
                   ])
                 ])
               ]

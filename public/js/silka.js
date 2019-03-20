@@ -92,5 +92,12 @@ $(function () {
         form.submit();
 
     })
+    $('.fa-bars').on('click',function () {
+        $('ul.list-inline').toggleClass('translate');
+    });
+    $('ul.list-inline').on('mouseleave',function () {
+        $(this).removeClass('translate');
+    });
+
 
 });

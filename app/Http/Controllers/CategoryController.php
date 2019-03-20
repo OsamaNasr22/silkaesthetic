@@ -115,18 +115,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $options=$category->options->toArray();
-        $category->options=$options;
-        if ($category->cover){
-            list($name,$ext)=explode('.',$category->cover);
-            $category->coverResolutions= [
-                '400'=> $name . '@' . 400 .'.'.$ext,
-                '550'=>$name . '@' . 550 .'.'.$ext,
-                '750'=>$name . '@' . 750 .'.'.$ext,
-                '1024'=>$name . '@' . 1024 .'.'.$ext,
-        ];
-        }
 
+            $category= $this->prepareCategory($category);
 //        dd($category);
         $settings = (new  SettingController())->prepareAllSettings();
 
@@ -320,7 +310,6 @@ class CategoryController extends Controller
     }
 
 
-
     private function makeResize(File $fileImage,$width,$height=null,$quality=80){
         list($name, $extension)= explode('.',$fileImage->getFilename());
         $img=Image::make($fileImage->getRealPath());
@@ -330,5 +319,19 @@ class CategoryController extends Controller
 
         });
         $img->save(storage_path('app/public/product/'.$name ."@".$width .'.'.$extension),$quality);
+    }
+    public function prepareCategory(Category $category){
+        $options=$category->options->toArray();
+        $category->options=$options;
+        if ($category->cover){
+            list($name,$ext)=explode('.',$category->cover);
+            $category->coverResolutions= [
+                '400'=> $name . '@' . 400 .'.'.$ext,
+                '550'=>$name . '@' . 550 .'.'.$ext,
+                '750'=>$name . '@' . 750 .'.'.$ext,
+                '1024'=>$name . '@' . 1024 .'.'.$ext,
+            ];
+        }
+        return $category;
     }
 }

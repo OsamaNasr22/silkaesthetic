@@ -18,7 +18,10 @@ class BlogController extends Controller
     public function __invoke()
     {
         // TODO: Implement __invoke() method.
-        $categories= Category::all();
+
+        foreach ($categories=Category::all() as $item){
+        $item = (new CategoryController())->prepareCategory($item);
+        }
         $settings = (new  SettingController())->prepareAllSettings();
         $sliders =(new SliderController())->getSliderType();
 //        dd($sliders);
