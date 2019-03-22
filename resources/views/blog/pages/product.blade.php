@@ -9,52 +9,43 @@
         @include('blog.includes.nav')
         <h3 class="text-center">WELCOME</h3>
     </header>
-    <main>
-        <div class="category_cover">
-            <picture>
-                <source media="(min-width:100px)  and (max-width : 599px)"      srcset="{{$product['cover'][400]}} " class="source">
-                <source media="(min-width : 600px) and (max-width: 991px)"      srcset="{{$product['cover'][550]}}" class="source">
-                <source media="(min-width : 992px) and (max-width: 1023px)"     srcset="{{$product['cover'][750]}}" class="source">
-                <source media="(min-width  : 1024px) and (max-width: 1200px)"   srcset="{{$product['cover'][1024]}}" class="source">
-                <img src="{{$product['cover']['larger']}}" class="img-responsive" id="currentImage">
-            </picture>
 
-        </div>
+    <main>
+        @if(isset($product['imagesResolution'][0]))
+            <div class="category_cover">
+                <picture>
+                    <source media="(min-width:100px)  and (max-width : 599px)"      srcset="{{$product['imagesResolution'][0][400]}} " class="source">
+                    <source media="(min-width : 600px) and (max-width: 991px)"      srcset="{{$product['imagesResolution'][0][550]}}" class="source">
+                    <source media="(min-width : 992px) and (max-width: 1023px)"     srcset="{{$product['imagesResolution'][0][750]}}" class="source">
+                    <source media="(min-width  : 1024px) and (max-width: 1200px)"   srcset="{{$product['imagesResolution'][0][1024]}}" class="source">
+                    <img src="{{$product['imagesResolution'][0]['larger']}}" class="img-responsive" id="currentImage">
+                </picture>
+
+            </div>
+
+        @endif
+
         <div class="demo">
             <div class="item">
                 <ul id="content-slider" class="content-slider">
 
-                    <li class="image">
-                        <picture>
-                            <source media="(min-width:100px)  and (max-width : 599px)"      srcset="{{$product['cover'][400]}} ">
-                            <source media="(min-width : 600px) and (max-width: 991px)"      srcset="{{$product['cover'][550]}}">
-                            <source media="(min-width : 992px) and (max-width: 1023px)"     srcset="{{$product['cover'][750]}}">
-                            <source media="(min-width  : 1024px) and (max-width: 1200px)"   srcset="{{$product['cover'][1024]}}">
-                            <img  class="selected img-circle active"  src="{{$product['cover']['larger']}}">
-                        </picture>
-                    </li>
+
                     @forelse($product['imagesResolution'] as $key =>$image)
+
                         <li class="image">
                             <picture>
                                 <source media="(min-width:100px)  and (max-width : 599px)"      srcset="{{$image[400]}} ">
                                 <source media="(min-width : 600px) and (max-width: 991px)"      srcset="{{$image[550]}}">
                                 <source media="(min-width : 992px) and (max-width: 1023px)"     srcset="{{$image[750]}}">
                                 <source media="(min-width  : 1024px) and (max-width: 1200px)"   srcset="{{$image[1024]}}">
-                                <img  class=" img-circle" src="{{$image['larger']}}">
+                                <img  class=" {{$key == 0 ? 'active selected':''}}" src="{{$image['larger']}}">
 
                             </picture>
                         </li>
+
+
                     @empty
-                        @endforelse
-                 {{--   <li >
-                        <img class="selected img-circle" src="https://via.placeholder.com/150">
-                    </li>  <li>
-                        <img class="img-circle" src="https://via.placeholder.com/150">
-                    </li>  <li>
-                        <img class="img-circle" src="https://via.placeholder.com/150">
-                    </li>  <li>
-                        <img class="img-circle" src="https://via.placeholder.com/150">
-                    </li>--}}
+                    @endforelse
                 </ul>
             </div>
 
@@ -62,14 +53,14 @@
 
         <div class="category_description">
             <div class="container">
-               <div class="row">
-                   <h2 class="desc_heading">| {{$product['title']}}</h2>
-                   <div class="desc_body">
-                    <p>
-                        {!! html_entity_decode($product['description']) !!}
-                    </p>
-                   </div>
-               </div>
+                <div class="row">
+                    <h2 class="desc_heading">| {{$product['title']}}</h2>
+                    <div class="desc_body">
+                        <p>
+                            {!! html_entity_decode($product['description']) !!}
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
         @if($product['extra_imagesResolution'])
@@ -94,7 +85,7 @@
                     </div>
                 </div>
             </div>
-            @endif
+        @endif
 
     </main>
 
@@ -108,5 +99,7 @@
     <link rel="stylesheet" href="{{asset('dist/product.min.css')}}">
 @endsection
 @section('js')
-    <script src="{{asset('dist/product.js')}}"></script>
+{{--    <script src="{{asset('js/lightslider.min.js')}}"></script>
+    <script src="{{asset('js/product.js')}}"></script>--}}
+    <script src="{{asset('dist/product.min.js')}}"></script>
 @endsection

@@ -54,7 +54,8 @@ class CategoryController extends Controller
        // dd($request->all());
         $this->validate($request, [
             'category_name' => 'required|string',
-            'cover'  =>'required|image|mimes:jpeg,jpg,png|max:15000',
+            'cover'  =>'required|image|mimes:jpeg,jpg,png,gif|max:15000',
+            'slide'  =>'required|image|mimes:jpeg,jpg,png,gif|max:15000',
             'titles.*'=>'nullable|string',
             'desc.*'=>'nullable|string',
             'optionImages.*'=>'image|mimes:jpeg,jpg,png|max:1024',
@@ -62,6 +63,7 @@ class CategoryController extends Controller
 //        dd($request->all());
         $category = new Category();
         $category->name= $request['category_name'];
+        // upload cover
         if ($image=$request->file('cover')){
 
             //store image and return the full path of it
@@ -79,6 +81,24 @@ class CategoryController extends Controller
 
             $image = explode('/',$fullImageUrl);
             $category->cover= last($image); // get the image name without the full path
+        }
+
+        //upload slide image
+        if ($image=$request->file('slide')){
+
+            //store image and return the full path of it
+            $fullImageUrl=Storage::putFile('public/product',$image);
+
+            //create instance of image file
+            $imageFile= new File(storage_path('app/'.$fullImageUrl));
+
+            //make different resolution for different screen size
+            $this->makeResize($imageFile,400);
+            $this->makeResize($imageFile,550);
+            $this->makeResize($imageFile,750);
+            $this->makeResize($imageFile,1024);
+            $image = explode('/',$fullImageUrl);
+            $category->slide= last($image); // get the image name without the full path
         }
         $category->save();//save the category
 
@@ -98,14 +118,10 @@ class CategoryController extends Controller
                 }
                 $category->options()->save($option);
             }
-        }else{$category->save();}
+        }
         return redirect()->back()->with(['success'=>'Category added successfully']);
 
 
-
-
-//
-//        return (new Category())->addCategory($request['category_name']);
 }
     /**
      * Display the specified resource.
@@ -156,7 +172,8 @@ class CategoryController extends Controller
 //        ]);
         $this->validate($request, [
             'category_name' => 'required|string',
-            'cover'  =>'nullable|image|mimes:jpeg,jpg,png|max:15000',
+            'cover'  =>'nullable|image|mimes:jpeg,jpg,png,gif|max:15000',
+            'slide'  =>'nullable|image|mimes:jpeg,jpg,png,gif|max:15000',
             'titles.*'=>'nullable|string',
             'desc.*'=>'nullable|string',
             'optionImages.*'=>'nullable|image|mimes:jpeg,jpg,png|max:1024',
@@ -172,7 +189,6 @@ class CategoryController extends Controller
             if ($category->cover)
             {
                 list($name, $ext)= explode('.',$category->cover);
-
                 // prepare all cover images for deleted
                 $deletedImages= [
                     'public/product/'.$category->cover,
@@ -201,6 +217,41 @@ class CategoryController extends Controller
             //add new one
             $image = explode('/',$fullImageUrl);
             $category->cover= last($image);
+        }
+
+        if ($image=$request->file('slide')){
+            //delete old slide
+            if ($category->slide)
+            {
+                list($name, $ext)= explode('.',$category->slide);
+                // prepare all cover images for deleted
+                $deletedImages= [
+                    'public/product/'.$category->slide,
+                    'public/product/'.$name . '@'. '400' . '.'.$ext,
+                    'public/product/'.$name . '@'. '550' . '.'.$ext,
+                    'public/product/'.$name . '@'. '750' . '.'.$ext,
+                    'public/product/'.$name . '@'. '1024' . '.'.$ext,
+
+                ];
+                Storage::delete($deletedImages);
+            }
+
+            //store image and return the full path of it
+            $fullImageUrl=Storage::putFile('public/product',$image);
+
+            //create instance of image file
+            $imageFile= new File(storage_path('app/'.$fullImageUrl));
+
+            //make different resolution for different screen size
+            $this->makeResize($imageFile,400);
+            $this->makeResize($imageFile,550);
+            $this->makeResize($imageFile,750);
+            $this->makeResize($imageFile,1024);
+
+
+            //add new one
+            $image = explode('/',$fullImageUrl);
+            $category->slide= last($image);
         }
         $category->update();
 
@@ -248,9 +299,9 @@ class CategoryController extends Controller
                 $category->options()->save($option);
             }
 
-        }else{$category->save();}
+        }
 
-        return redirect()->back()->with(['success'=>'Category added successfully']);
+        return redirect()->back()->with(['success'=>'Category updated successfully']);
 
 
 
@@ -297,9 +348,26 @@ class CategoryController extends Controller
             Storage::delete($deletedImages);
         }
 
+        //delete category cover
+        if($category->slide)
+        {
+            list($name, $ext)= explode('.',$category->slide);
+
+            // prepare all cover images for deleted
+            $deletedImages= [
+                'public/product/'.$category->slide,
+                'public/product/'.$name . '@'. '400' . '.'.$ext,
+                'public/product/'.$name . '@'. '550' . '.'.$ext,
+                'public/product/'.$name . '@'. '750' . '.'.$ext,
+                'public/product/'.$name . '@'. '1024' . '.'.$ext,
+
+            ];
+            Storage::delete($deletedImages);
+        }
         return ($category->delete())? redirect()->back()->with(['success'=>'category deleted successfully'])
             : redirect()->back()->with(['failed'=>'Try again, the process failed']);
     }
+
     public function CategoryProducts(Category $category){
 
         if ( ! $category->products->toArray()) return redirect()->back();
@@ -326,6 +394,16 @@ class CategoryController extends Controller
         if ($category->cover){
             list($name,$ext)=explode('.',$category->cover);
             $category->coverResolutions= [
+                '400'=> $name . '@' . 400 .'.'.$ext,
+                '550'=>$name . '@' . 550 .'.'.$ext,
+                '750'=>$name . '@' . 750 .'.'.$ext,
+                '1024'=>$name . '@' . 1024 .'.'.$ext,
+            ];
+        }
+
+        if ($category->slide){
+            list($name,$ext)=explode('.',$category->slide);
+            $category->slideResolutions= [
                 '400'=> $name . '@' . 400 .'.'.$ext,
                 '550'=>$name . '@' . 550 .'.'.$ext,
                 '750'=>$name . '@' . 750 .'.'.$ext,

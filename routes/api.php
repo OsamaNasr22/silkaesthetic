@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 //});
 
 Route::get('products/{category_id}','BlogController@productsByCategory')->name('products.category');
+Route::get('products','BlogController@allProducts');
 
 
 //Route::get('products/','BlogController@allProducts')->name('products.all');

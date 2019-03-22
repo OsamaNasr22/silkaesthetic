@@ -468,6 +468,10 @@ class ProductController extends Controller
         $img->save(storage_path('app/public/'.$folder.'/'.$name ."@".$width .'.'.$extension),$quality);
     }
 
+    public function products(){
+        $settings = (new  SettingController())->prepareAllSettings();
+        return view('blog.pages.all-products',compact('settings'));
+    }
 //    private function action(Product $product ,$type= 'add'){
 //        if ($)
 //    }

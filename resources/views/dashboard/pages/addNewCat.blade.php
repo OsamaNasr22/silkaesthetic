@@ -20,24 +20,18 @@
                 <div class="form-group">
                     <input type="text" name="category_name" class="form-control" placeholder="Enter category name">
                 </div>
-                <label class="label label-primary">Cover</label>
+                <label class="label label-primary" title="this image will be show in categories section in home page">Cover</label>
                 <div class="form-group">
-                    <input type="file" name="cover" class="form-control" >
+                    <input type="file" name="cover" title="this image will be show in categories section in home page" class="form-control" >
                 </div>
 
+                <label class="label label-primary" title="this image will be show in Category page">Slide Image</label>
+                <div class="form-group">
+                    <input type="file" name="slide" class="form-control" >
+                </div>
                 <div id="containerOptions">
-                  {{--<div class="form-group">--}}
-                      {{--<label class="label label-primary">option</label>--}}
-                      {{--<span title="Remove option" class="removeOption pull-right"><i class="fa fa-remove"></i></span>--}}
-                      {{--<input type="text" class="form-control" name="titles[]" placeholder="Enter the option name">--}}
-                      {{--<input type="file" name="optionImages[]" class="form-control">--}}
-
-                      {{--<textarea id="messageArea" name="desc[]" rows="7" class="form-control ckeditor" placeholder="Write the description of this option"></textarea>--}}
-                  {{--</div>--}}
                     <a href="#" id="addNewOption" class="pull-right" style="margin-bottom: 2px"><i class="fa fa-plus"></i> add new option</a>
-
                 </div>
-
                 <a href="#" class="btn btn-primary btn-block" style="display: inline-block;" id="submit">Add</a>
 
             </form>

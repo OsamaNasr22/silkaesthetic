@@ -17,7 +17,8 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('name');
-            $table->string('cover');
+            $table->string('cover',255);
+            $table->string('slide',255);
         });
     }
 

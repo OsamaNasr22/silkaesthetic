@@ -19,6 +19,7 @@ window.Vue = require('vue');
 
 Vue.component('mail', require('./components/sendMessage.vue'));
 Vue.component('our-work', require('./components/OurWork.vue'));
+Vue.component('products', require('./components/Products.vue'));
 
 const app = new Vue({
     el: '#wrapper'

@@ -2,22 +2,8 @@
     <div class="our-work">
         <div class="container">
             <h2 class="text-center">
-                {{category_name}}
+                Our Products
             </h2>
-            <!-- <div class="our-work-nav text-center">
-             <ul class="list-inline nav-work" >
-                 <li class="active" @click="fetchProducts()">ALL</li>
-                 <li v-for="category in categories" @click="fetchProducts(category.link)">{{category.name}}</li>
-             </ul>
-         </div>
-             <div class="res-work text-center">
-                 <p>our work<i class="fa fa-arrow-down"></i></p>
-                 <ul>
-                     <li class="active" @click="fetchProducts()">ALL</li>
-                     <li v-for="category in categories" @click="fetchProducts(category.link)">{{category.name}}</li>
-                 </ul>
-
-             </div>-->
 
             <div class="products">
                 <div class="row">
@@ -32,7 +18,6 @@
                             </div>
                             <div class="image">
                                 <picture>
-
                                     <source media="(min-width:100px)  and (max-width : 599px)"      v-bind:srcset="product.cover[400]"     >
                                     <source media="(min-width : 600px) and (max-width: 991px)"      v-bind:srcset="product.cover[550]"     >
                                     <source media="(min-width : 992px) and (max-width: 1023px)"     v-bind:srcset="product.cover[750]"     >
@@ -61,7 +46,7 @@
                             </a>
                         </li>
 
-                        <li v-for="i in pagination.last_page" v-bind:class="[{active :(pagination.current_page == i)}]" @click.prevent="fetchProducts(`http://www.silkaesthetic.com/api/products/${category}?page=${i}`)"><a href="#">{{i}}</a></li>
+                        <li v-for="i in pagination.last_page" v-bind:class="[{active :(pagination.current_page == i)}]" @click.prevent="fetchProducts(`http://www.silkaesthetic.com/api/products?page=${i}`)"><a href="#">{{i}}</a></li>
 
                         <li   v-bind:class="[{disabled : !pagination.next_page}]">
 
@@ -87,10 +72,8 @@
         props: ['category'],
         data(){
             return {
-                category_id:this.category,
                 show: false,
                 products :[],
-                // categories:[],
                 category_name:'',
                 pagination : {}
 
@@ -107,18 +90,14 @@
         methods:{
             fetchProducts(url= null){
                 let vm = this;
-                url = url || 'http://www.silkaesthetic.com/api/products/'+this.category_id;
+                url = url || 'http://www.silkaesthetic.com/api/products';
                 fetch(url).then(res => res.json()).then( res => {
                     this.products= res.data;
                     this.category_name=res.data[0]['category_name']
                     vm.preparePagination(res.links,res.meta);
                 });
             } ,
-            // fetchCategories(){
-            //     fetch('api/categories').then(res => res.json()).then(res => {
-            //                     this.categories = res.data;
-            //     })
-            // },
+
             preparePagination(links,meta){
                 let pagination = {
                     first_page_link : links.first,

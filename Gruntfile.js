@@ -46,7 +46,7 @@ module.exports = function(grunt) {
             },
             target: {
                 files: {
-                    'public/dist/category.min.css': ['public/css/category.css']
+                    'public/dist/product.min.css': ['public/css/lightslider.min.css','public/css/product.css']
                 }
             }
         }

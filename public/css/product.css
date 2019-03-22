@@ -1,9 +1,4 @@
-
-ul{
-    list-style: none outside none;
-    padding-left: 0;
-    margin: 0;
-}
+ul{list-style: none outside none;padding-left: 0;margin: 0;}
 .demo
 {
     position: relative;
@@ -21,7 +16,7 @@ ul{
 
 }
 .lslide img, .clone img {
-    width: 150px;
+    width: 100%;
     height: 140px;
 }
 
@@ -41,7 +36,7 @@ ul{
     width: 100%;
 }
 .selected{
-    border: 1px solid #333  ;
+    border: 3px solid #10c8e5;
 }
 
 .desc_heading , .extra_heading{
@@ -87,7 +82,7 @@ ul{
         text-align: left;
     }
     .desc_body img{
-        display: inline-block; !important;
+        display: inline-block !important;
     }
 
 }
@@ -103,7 +98,7 @@ ul{
         right: 5%;
     }
     .lslide img, .clone img {
-        width: 90px;
+        width: 100%;
         height: 80px;
     }
     .lSSlideOuter{
@@ -128,6 +123,4 @@ ul{
         margin: 0 auto;
         margin-bottom: 0px;
     }
-
-
 }

@@ -2,6 +2,7 @@
 @section('title') {{$category['name']}} @endsection
 
 @section('content')
+
     <header>
         <h5 class="text-center">    <i class="fa fa-chevron-left"></i>
             WE ALWAYS HERE FOR YOU    <i class="fa fa-chevron-right"></i>
@@ -13,11 +14,11 @@
 
         <div class="category_cover">
             <picture>
-                <source media="(min-width:100px)  and (max-width : 599px)" srcset="{{asset('storage/product/'.$category->coverResolutions[400])}} ">
-                <source media="(min-width : 600px) and (max-width: 991px)" srcset="{{asset('storage/product/'.$category->coverResolutions[550])}}">
-                <source media="(min-width : 992px) and (max-width: 1023px)" srcset="{{asset('storage/product/'.$category->coverResolutions[750])}}">
-                <source media="(min-width  : 1024px) and (max-width: 1200px)" srcset="{{asset('storage/product/'.$category->coverResolutions[1024])}}">
-                <img src="{{asset('storage/product/'.$category['cover'])}}" class="img-responsive">
+                <source media="(min-width:100px)  and (max-width : 599px)"      srcset="{{asset('storage/product/'.$category->slideResolutions[400])}} ">
+                <source media="(min-width : 600px) and (max-width: 991px)"      srcset="{{asset('storage/product/'.$category->slideResolutions[550])}}">
+                <source media="(min-width : 992px) and (max-width: 1023px)"     srcset="{{asset('storage/product/'.$category->slideResolutions[750])}}">
+                <source media="(min-width  : 1024px) and (max-width: 1200px)"   srcset="{{asset('storage/product/'.$category->slideResolutions[1024])}}">
+                <img src="{{asset('storage/product/'.$category['slide'])}}" class="img-responsive">
             </picture>
         </div>
             <div class="tabs">

@@ -31,9 +31,9 @@ class BlogController extends Controller
         return new CategoryCollection(Category::all());
     }
 
-    public function allProducts(){
+/*    public function allProducts(){
         return new ProductCollection(Product::paginate(3));
-    }
+    }*/
 
     public function test(){
         $data= [
@@ -49,6 +49,12 @@ class BlogController extends Controller
 
     public function productsByCategory($category_id){
         $products= Category::find($category_id)->products()->paginate(6);
+        header("Access-Control-Allow-Origin: *");
+        return new ProductCollection($products);
+    }
+
+    public function allProducts(){
+        $products = Product::inRandomOrder()->paginate(6);
         header("Access-Control-Allow-Origin: *");
         return new ProductCollection($products);
     }

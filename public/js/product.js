@@ -1,16 +1,15 @@
+
 (function () {
+
     var currentImage= $('#currentImage');
 
 
-    $('#content-slider').on('click','.image',changeCurrent);
-
-    function changeCurrent(e) {
-        // li element
+    $('#content-slider').on('click touchstart','.image',   function changeCurrent(e) {
         var el =$(this);
         //img on it
         var image= el.children('picture').children('img');
         //all li element
-        const images = $('.image');
+        var images = $('.image');
         //remove all selected and active class on img element
         images.children('picture').children('img').removeClass('selected active')
         //all source element
@@ -31,8 +30,9 @@
         for (var i=0 ,c=sibs.length ;i< c ; i++ ){
             sibs[i].srcset = sibsImage[i].srcset
         }
+    });
 
-    }
+
     $("#content-slider").lightSlider({
         loop:true,
         keyPress:true

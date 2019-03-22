@@ -32,6 +32,9 @@ Route::middleware(['web'])->group(function (){
 
     Route::get('categories/{category}/products','CategoryController@CategoryProducts')->name('category.products');
     Route::resource('categories','CategoryController')->only(['show']);
+
+    Route::get('products','ProductController@products')->name('products.all');
+
     Route::resource('products','ProductController')->only(['show']);
     Route::get('/home' ,'BlogController');
     Route::get('/' ,'BlogController')->name('home');
