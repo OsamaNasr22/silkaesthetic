@@ -4,21 +4,6 @@
             <h2 class="text-center">
                 {{category_name}}
             </h2>
-            <!-- <div class="our-work-nav text-center">
-             <ul class="list-inline nav-work" >
-                 <li class="active" @click="fetchProducts()">ALL</li>
-                 <li v-for="category in categories" @click="fetchProducts(category.link)">{{category.name}}</li>
-             </ul>
-         </div>
-             <div class="res-work text-center">
-                 <p>our work<i class="fa fa-arrow-down"></i></p>
-                 <ul>
-                     <li class="active" @click="fetchProducts()">ALL</li>
-                     <li v-for="category in categories" @click="fetchProducts(category.link)">{{category.name}}</li>
-                 </ul>
-
-             </div>-->
-
             <div class="products">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 text-center" v-for="product in products" >
@@ -32,7 +17,6 @@
                             </div>
                             <div class="image">
                                 <picture>
-
                                     <source media="(min-width:100px)  and (max-width : 599px)"      v-bind:srcset="product.cover[400]"     >
                                     <source media="(min-width : 600px) and (max-width: 991px)"      v-bind:srcset="product.cover[550]"     >
                                     <source media="(min-width : 992px) and (max-width: 1023px)"     v-bind:srcset="product.cover[750]"     >
@@ -61,7 +45,7 @@
                             </a>
                         </li>
 
-                        <li v-for="i in pagination.last_page" v-bind:class="[{active :(pagination.current_page == i)}]" @click.prevent="fetchProducts(`http://www.silkaesthetic.com/api/products/${category}?page=${i}`)"><a href="#">{{i}}</a></li>
+                        <li v-for="i in pagination.last_page" v-bind:class="[{active : pagination.current_page === i }]" @click.prevent="fetchProducts(`${url}?page=${i}`)"><a href="#">{{i}}</a></li>
 
                         <li   v-bind:class="[{disabled : !pagination.next_page}]">
 
@@ -90,35 +74,38 @@
                 category_id:this.category,
                 show: false,
                 products :[],
-                // categories:[],
                 category_name:'',
-                pagination : {}
-
-
+                pagination : {},
+                url:''
             }  ;
         },
-
         created(){
-            console.log(this.category_id);
-            // this.fetchCategories();
             this.fetchProducts();
         },
 
         methods:{
             fetchProducts(url= null){
                 let vm = this;
-                url = url || 'http://www.silkaesthetic.com/api/products/'+this.category_id;
-                fetch(url).then(res => res.json()).then( res => {
+                if (! url){
+                    if (this.category_id){
+                        this.url= 'http://www.silkaesthetic.com/api/products/'+this.category_id;
+                    }else {
+                        this.url ='http://www.silkaesthetic.com/api/products/'
+                    }
+                } else {
+                    this.url = url;
+                }
+                fetch(this.url).then(res => res.json()).then( res => {
                     this.products= res.data;
-                    this.category_name=res.data[0]['category_name']
                     vm.preparePagination(res.links,res.meta);
+                    this.category_name=(this.category_id)? res.data[0]['category_name']:'Our Products';
+                    if (this.category_id){
+                        this.url= 'http://www.silkaesthetic.com/api/products/'+this.category_id;
+                    }else {
+                        this.url ='http://www.silkaesthetic.com/api/products/'
+                    }
                 });
             } ,
-            // fetchCategories(){
-            //     fetch('api/categories').then(res => res.json()).then(res => {
-            //                     this.categories = res.data;
-            //     })
-            // },
             preparePagination(links,meta){
                 let pagination = {
                     first_page_link : links.first,
@@ -129,7 +116,6 @@
                     current_page:meta.current_page,
                     last_page:meta.last_page,
                     from:meta.from
-
                 }
                 this.pagination= pagination;
 

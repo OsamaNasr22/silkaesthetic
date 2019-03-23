@@ -21,14 +21,14 @@ class ProductController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('show');
+        $this->middleware('auth')->except('show','products');
     }
 
     public function index()
     {
         //
 
-        return view('dashboard.pages.allProduct',['products'=> Product::all()->toArray()]);
+        return view('dashboard.pages.allProduct',['products'=> Product::all()]);
     }
 
 
@@ -469,11 +469,19 @@ class ProductController extends Controller
     }
 
     public function products(){
+        $products = Product::inRandomOrder()->paginate(6);
+        if ($products->count()== 0) return redirect()->route('products.all');
+        foreach ($products as $product){
+            list($name,$ext)=explode('.',$product->cover);
+            $product->cover=[
+                'larger'=>asset('storage/product/'.$product->cover),
+                '400'=>  asset('storage/product/'.$name . '@' . 400 .'.' .$ext),
+                '550'=>  asset('storage/product/'.$name . '@' . 550 .'.' .$ext),
+                '750'=>  asset('storage/product/'.$name . '@' . 750 .'.' .$ext),
+                '1024'=> asset('storage/product/'.$name . '@' . 1024 .'.'.$ext),
+            ];
+        }
         $settings = (new  SettingController())->prepareAllSettings();
-        return view('blog.pages.all-products',compact('settings'));
+        return view('blog.pages.all-products',compact('settings','products'));
     }
-//    private function action(Product $product ,$type= 'add'){
-//        if ($)
-//    }
-
 }

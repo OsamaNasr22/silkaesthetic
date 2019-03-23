@@ -19,9 +19,14 @@
                 <div class="form-group">
                     <input type="text" name="category_name" class="form-control input-lg" placeholder="Edit category name" value="{{$category['name']}}">
                 </div>
-                <label class="label label-success">Cover</label>
+                 <label class="label label-success" title="this image will be show in categories section in home page">Cover</label>
                 <div class="form-group">
-                    <input type="file" name="cover" class="form-control" >
+                    <input type="file" name="cover" title="this image will be show in categories section in home page" class="form-control" >
+                </div>
+
+                <label class="label label-success" title="this image will be show in Category page">Slide Image</label>
+                <div class="form-group">
+                    <input type="file" name="slide" class="form-control" >
                 </div>
                 <input type="hidden" value="" name="deletedOption" id="optionDeleted">
                 <div id="containerOptions">

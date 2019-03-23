@@ -43,14 +43,16 @@
                                     <div role="tabpanel" class="tab-pane {{$key==0?'active':''}}" id="option{{$option['id']}}">
                                         <div class="media">
                                             <div class="row">
+                                                @if($option['image'])
                                                 <div class="media-left">
-                                                    @if($option['image'])
+                                                    
                                                         <a href="#">
                                                             <img class="media-object img-responsive" src="{{asset('storage/extra_images/'.$option['image'])}}" alt="...">
                                                         </a>
-                                                        @endif
+                                                     
 
                                                 </div>
+                                                   @endif
                                                 <div class="media-body">
                                                     {!! html_entity_decode($option['value']) !!}
                                                 </div>
