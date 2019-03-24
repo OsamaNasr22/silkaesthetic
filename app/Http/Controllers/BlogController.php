@@ -43,7 +43,6 @@ class BlogController extends Controller
             'message'=>'ksdnk',
         ];
 
-
         Mail::to('info@silkaesthetic.com')->send(new  SendMessage($data));
     }
 
