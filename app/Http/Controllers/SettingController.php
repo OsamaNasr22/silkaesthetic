@@ -21,11 +21,14 @@ class SettingController extends Controller
     {
         //
         $settings= Setting::find(1);
-        $settings->extra_options= $this->returnOptions( $settings->extra_options);
-
         if (! $settings){
             $settings = new Setting();
             $settings->save();
+            $settings->extra_options= $this->returnOptions( $settings->extra_options);
+
+        }else{
+            $settings->extra_options= $this->returnOptions( $settings->extra_options);
+
         }
         return view('dashboard.pages.settings',compact('settings'));
     }
@@ -121,7 +124,7 @@ class SettingController extends Controller
      */
     public function prepareAllSettings(){
         $settings= Setting::all()->first();
-        if (! $settings->toArray()) return [];
+        if (! (array)$settings) return [];
         $settings->extra_options=$this->returnOptions($settings->extra_options);
         return $settings;
    }

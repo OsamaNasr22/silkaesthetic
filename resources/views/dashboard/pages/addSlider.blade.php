@@ -25,6 +25,7 @@
               <div class="form-group">
                   <select name="type" class="form-control">
                       <option value="slider" title="add to slider">slider</option>
+                      <option value="phone" title="add to slider">slider for phone</option>
                       <option value="extra">extra images</option>
                   </select>
               </div>

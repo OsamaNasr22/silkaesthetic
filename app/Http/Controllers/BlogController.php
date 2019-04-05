@@ -23,9 +23,10 @@ class BlogController extends Controller
         $item = (new CategoryController())->prepareCategory($item);
         }
         $settings = (new  SettingController())->prepareAllSettings();
-        $sliders =(new SliderController())->getSliderType();
+        $slidersForWeb =(new SliderController())->getSliderType('slider');
+        $slidersForPhone =(new SliderController())->getSliderType('phone');
 //        dd($sliders);
-        return view('blog.pages.home',compact('categories','settings','sliders'));
+        return view('blog.pages.home',compact('categories','settings','slidersForWeb','slidersForPhone'));
     }
     public function categories(){
         return new CategoryCollection(Category::all());

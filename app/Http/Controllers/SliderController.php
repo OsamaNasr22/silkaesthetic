@@ -19,7 +19,6 @@ class SliderController extends Controller
     {
         //
         $sliders= Slider::all()->toArray();
-//        $this->getSliderType();
         return  view('dashboard.pages.sliders',compact('sliders'));
     }
 
@@ -51,13 +50,13 @@ class SliderController extends Controller
         $fullImagePath=Storage::putFile('public/banners',$request->file('image'));
         //create 4 images for different screen size
 
-        if ($request['type']=='slider'){
+      /*  if ($request['type']=='slider'){
             $fileImage= new File(storage_path('app/'.$fullImagePath));
             $this->makeResize($fileImage,400);
             $this->makeResize($fileImage,550);
             $this->makeResize($fileImage,750);
             $this->makeResize($fileImage,1024);
-        }
+        }*/
 
         $image = explode('/',$fullImagePath);
         $slider = new Slider();
@@ -84,7 +83,7 @@ class SliderController extends Controller
         if ($sliderImage=$slider->image  ){
 
             Storage::delete('public/banners/'.$slider->image);
-            if ($slider->type =='slider'){
+            /*if ($slider->type =='slider'){
                 list($name,$extension)= explode('.',$sliderImage);
                 //deleted the different resolution images
                 $deleted=[
@@ -94,15 +93,15 @@ class SliderController extends Controller
                     'public/banners/'.$name . '@'. 1024 . ".".$extension,
                 ];
                 Storage::delete($deleted);
-            }
+            }*/
         };
         return   $slider->delete() ?  redirect()->back()->with(['success'=>'Banner deleted successfully'])
             : redirect()->back()->with(['failed'=>'Try again, the process failed']);
     }
 
-    public function getSliderType(){
-        $slider= Slider::where('type','slider')->get();
-        foreach ($slider as $item){
+    public function getSliderType($type){
+        $slider= Slider::where('type',$type)->get();
+      /*  foreach ($slider as $item){
            list($name,$ext)=explode('.',$item->image);
            $item->imageResoulutions=[
             '400'=> $name . '@' . 400 .'.'.$ext,
@@ -110,9 +109,8 @@ class SliderController extends Controller
              '750'=>$name . '@' . 750 .'.'.$ext,
              '1024'=>$name . '@' . 1024 .'.'.$ext,
            ];
-        }
-//
-//        dd($slider);
+        }*/
+
         return $slider;
     }
     private function makeResize(File $fileImage,$width,$height=null,$quality=80){
