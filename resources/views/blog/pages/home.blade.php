@@ -96,10 +96,10 @@
 
                                         <div class="image">
                                             <picture>
-                                                <source media="(min-width:100px)  and (max-width : 599px)" srcset="{{asset('storage/product/'.$category->coverResolutions[400])}} ">
-                                                <source media="(min-width : 600px) and (max-width: 991px)" srcset="{{asset('storage/product/'.$category->coverResolutions[550])}}">
-                                                <source media="(min-width : 992px) and (max-width: 1023px)" srcset="{{asset('storage/product/'.$category->coverResolutions[750])}}">
-                                                <source media="(min-width  : 1024px) and (max-width: 1200px)" srcset="{{asset('storage/product/'.$category->coverResolutions[1024])}}">
+                                                {{--<source media="(min-width:100px)  and (max-width : 599px)" srcset="{{asset('storage/product/'.$category->coverResolutions[400])}} ">--}}
+                                                {{--<source media="(min-width : 600px) and (max-width: 991px)" srcset="{{asset('storage/product/'.$category->coverResolutions[550])}}">--}}
+                                                {{--<source media="(min-width : 992px) and (max-width: 1023px)" srcset="{{asset('storage/product/'.$category->coverResolutions[750])}}">--}}
+                                                {{--<source media="(min-width  : 1024px) and (max-width: 1200px)" srcset="{{asset('storage/product/'.$category->coverResolutions[1024])}}">--}}
                                                 <img src="{{asset('storage/product/'.$category->cover)}}" class="img-responsive">
                                             </picture>
                                         </div>

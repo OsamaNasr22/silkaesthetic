@@ -71,13 +71,13 @@ class CategoryController extends Controller
             $fullImageUrl=Storage::putFile('public/product',$image);
 
             //create instance of image file
-            $imageFile= new File(storage_path('app/'.$fullImageUrl));
-
-            //make different resolution for different screen size
-            $this->makeResize($imageFile,400);
-            $this->makeResize($imageFile,550);
-            $this->makeResize($imageFile,750);
-            $this->makeResize($imageFile,1024);
+//            $imageFile= new File(storage_path('app/'.$fullImageUrl));
+//
+//            //make different resolution for different screen size
+//            $this->makeResize($imageFile,400);
+//            $this->makeResize($imageFile,550);
+//            $this->makeResize($imageFile,750);
+//            $this->makeResize($imageFile,1024);
 
 
             $image = explode('/',$fullImageUrl);
@@ -91,13 +91,13 @@ class CategoryController extends Controller
             $fullImageUrl=Storage::putFile('public/product',$image);
 
             //create instance of image file
-            $imageFile= new File(storage_path('app/'.$fullImageUrl));
-
-            //make different resolution for different screen size
-            $this->makeResize($imageFile,400);
-            $this->makeResize($imageFile,550);
-            $this->makeResize($imageFile,750);
-            $this->makeResize($imageFile,1024);
+//            $imageFile= new File(storage_path('app/'.$fullImageUrl));
+//
+//            //make different resolution for different screen size
+//            $this->makeResize($imageFile,400);
+//            $this->makeResize($imageFile,550);
+//            $this->makeResize($imageFile,750);
+//            $this->makeResize($imageFile,1024);
             $image = explode('/',$fullImageUrl);
             $category->slide= last($image); // get the image name without the full path
         }
@@ -189,30 +189,30 @@ class CategoryController extends Controller
             //delete old cover
             if ($category->cover)
             {
-                list($name, $ext)= explode('.',$category->cover);
-                // prepare all cover images for deleted
-                $deletedImages= [
-                    'public/product/'.$category->cover,
-                    'public/product/'.$name . '@'. '400' . '.'.$ext,
-                    'public/product/'.$name . '@'. '550' . '.'.$ext,
-                    'public/product/'.$name . '@'. '750' . '.'.$ext,
-                    'public/product/'.$name . '@'. '1024' . '.'.$ext,
-
-                ];
-                Storage::delete($deletedImages);
+//                list($name, $ext)= explode('.',$category->cover);
+//                // prepare all cover images for deleted
+//                $deletedImages= [
+//                    'public/product/'.$category->cover,
+//                    'public/product/'.$name . '@'. '400' . '.'.$ext,
+//                    'public/product/'.$name . '@'. '550' . '.'.$ext,
+//                    'public/product/'.$name . '@'. '750' . '.'.$ext,
+//                    'public/product/'.$name . '@'. '1024' . '.'.$ext,
+//
+//                ];
+                Storage::delete($category->cover);
             }
 
             //store image and return the full path of it
             $fullImageUrl=Storage::putFile('public/product',$image);
 
-            //create instance of image file
-            $imageFile= new File(storage_path('app/'.$fullImageUrl));
-
-            //make different resolution for different screen size
-            $this->makeResize($imageFile,400);
-            $this->makeResize($imageFile,550);
-            $this->makeResize($imageFile,750);
-            $this->makeResize($imageFile,1024);
+//            //create instance of image file
+//            $imageFile= new File(storage_path('app/'.$fullImageUrl));
+//
+//            //make different resolution for different screen size
+//            $this->makeResize($imageFile,400);
+//            $this->makeResize($imageFile,550);
+//            $this->makeResize($imageFile,750);
+//            $this->makeResize($imageFile,1024);
 
 
             //add new one
@@ -224,30 +224,30 @@ class CategoryController extends Controller
             //delete old slide
             if ($category->slide)
             {
-                list($name, $ext)= explode('.',$category->slide);
-                // prepare all cover images for deleted
-                $deletedImages= [
-                    'public/product/'.$category->slide,
-                    'public/product/'.$name . '@'. '400' . '.'.$ext,
-                    'public/product/'.$name . '@'. '550' . '.'.$ext,
-                    'public/product/'.$name . '@'. '750' . '.'.$ext,
-                    'public/product/'.$name . '@'. '1024' . '.'.$ext,
-
-                ];
-                Storage::delete($deletedImages);
+//                list($name, $ext)= explode('.',$category->slide);
+//                // prepare all cover images for deleted
+//                $deletedImages= [
+//                    'public/product/'.$category->slide,
+//                    'public/product/'.$name . '@'. '400' . '.'.$ext,
+//                    'public/product/'.$name . '@'. '550' . '.'.$ext,
+//                    'public/product/'.$name . '@'. '750' . '.'.$ext,
+//                    'public/product/'.$name . '@'. '1024' . '.'.$ext,
+//
+//                ];
+                Storage::delete($category->slide);
             }
 
             //store image and return the full path of it
             $fullImageUrl=Storage::putFile('public/product',$image);
 
-            //create instance of image file
-            $imageFile= new File(storage_path('app/'.$fullImageUrl));
-
-            //make different resolution for different screen size
-            $this->makeResize($imageFile,400);
-            $this->makeResize($imageFile,550);
-            $this->makeResize($imageFile,750);
-            $this->makeResize($imageFile,1024);
+//            //create instance of image file
+//            $imageFile= new File(storage_path('app/'.$fullImageUrl));
+//
+//            //make different resolution for different screen size
+//            $this->makeResize($imageFile,400);
+//            $this->makeResize($imageFile,550);
+//            $this->makeResize($imageFile,750);
+//            $this->makeResize($imageFile,1024);
 
 
             //add new one
@@ -335,35 +335,35 @@ class CategoryController extends Controller
         //delete category cover
         if($category->cover)
         {
-            list($name, $ext)= explode('.',$category->cover);
-
-            // prepare all cover images for deleted
-            $deletedImages= [
-                'public/product/'.$category->cover,
-                'public/product/'.$name . '@'. '400' . '.'.$ext,
-                'public/product/'.$name . '@'. '550' . '.'.$ext,
-                'public/product/'.$name . '@'. '750' . '.'.$ext,
-                'public/product/'.$name . '@'. '1024' . '.'.$ext,
-
-            ];
-            Storage::delete($deletedImages);
+//            list($name, $ext)= explode('.',$category->cover);
+//
+//            // prepare all cover images for deleted
+//            $deletedImages= [
+//                'public/product/'.$category->cover,
+//                'public/product/'.$name . '@'. '400' . '.'.$ext,
+//                'public/product/'.$name . '@'. '550' . '.'.$ext,
+//                'public/product/'.$name . '@'. '750' . '.'.$ext,
+//                'public/product/'.$name . '@'. '1024' . '.'.$ext,
+//
+//            ];
+            Storage::delete($category->cover);
         }
 
         //delete category cover
         if($category->slide)
         {
-            list($name, $ext)= explode('.',$category->slide);
-
-            // prepare all cover images for deleted
-            $deletedImages= [
-                'public/product/'.$category->slide,
-                'public/product/'.$name . '@'. '400' . '.'.$ext,
-                'public/product/'.$name . '@'. '550' . '.'.$ext,
-                'public/product/'.$name . '@'. '750' . '.'.$ext,
-                'public/product/'.$name . '@'. '1024' . '.'.$ext,
-
-            ];
-            Storage::delete($deletedImages);
+//            list($name, $ext)= explode('.',$category->slide);
+//
+//            // prepare all cover images for deleted
+//            $deletedImages= [
+//                'public/product/'.$category->slide,
+//                'public/product/'.$name . '@'. '400' . '.'.$ext,
+//                'public/product/'.$name . '@'. '550' . '.'.$ext,
+//                'public/product/'.$name . '@'. '750' . '.'.$ext,
+//                'public/product/'.$name . '@'. '1024' . '.'.$ext,
+//
+//            ];
+            Storage::delete($category->slide);
         }
         return ($category->delete())? redirect()->back()->with(['success'=>'category deleted successfully'])
             : redirect()->back()->with(['failed'=>'Try again, the process failed']);
@@ -404,25 +404,25 @@ class CategoryController extends Controller
     public function prepareCategory(Category $category){
         $options=$category->options->toArray();
         $category->options=$options;
-        if ($category->cover){
-            list($name,$ext)=explode('.',$category->cover);
-            $category->coverResolutions= [
-                '400'=> $name . '@' . 400 .'.'.$ext,
-                '550'=>$name . '@' . 550 .'.'.$ext,
-                '750'=>$name . '@' . 750 .'.'.$ext,
-                '1024'=>$name . '@' . 1024 .'.'.$ext,
-            ];
-        }
-
-        if ($category->slide){
-            list($name,$ext)=explode('.',$category->slide);
-            $category->slideResolutions= [
-                '400'=> $name . '@' . 400 .'.'.$ext,
-                '550'=>$name . '@' . 550 .'.'.$ext,
-                '750'=>$name . '@' . 750 .'.'.$ext,
-                '1024'=>$name . '@' . 1024 .'.'.$ext,
-            ];
-        }
+//        if ($category->cover){
+//            list($name,$ext)=explode('.',$category->cover);
+//            $category->coverResolutions= [
+//                '400'=> $name . '@' . 400 .'.'.$ext,
+//                '550'=>$name . '@' . 550 .'.'.$ext,
+//                '750'=>$name . '@' . 750 .'.'.$ext,
+//                '1024'=>$name . '@' . 1024 .'.'.$ext,
+//            ];
+//        }
+//
+//        if ($category->slide){
+//            list($name,$ext)=explode('.',$category->slide);
+//            $category->slideResolutions= [
+//                '400'=> $name . '@' . 400 .'.'.$ext,
+//                '550'=>$name . '@' . 550 .'.'.$ext,
+//                '750'=>$name . '@' . 750 .'.'.$ext,
+//                '1024'=>$name . '@' . 1024 .'.'.$ext,
+//            ];
+//        }
         return $category;
     }
 }
