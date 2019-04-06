@@ -8,7 +8,7 @@
             WE ALWAYS HERE FOR YOU    <i class="fa fa-chevron-right"></i>
         </h5>
         @include('blog.includes.nav')
-        <h3 class="text-center">WELCOME</h3>
+        {{--<h3 class="text-center">WELCOME</h3>--}}
     </header>
     <main>
        {{--<our-work v-bind:category="{!! $category['id'] !!}"></our-work>--}}
@@ -32,11 +32,11 @@
                                         </div>
                                         <div class="image">
                                             <picture>
-                                                <source media="(min-width:100px)  and (max-width : 599px)"      srcset="{{$product->cover[400]}}"     >
+                                      {{--       --}}{{--   <source media="(min-width:100px)  and (max-width : 599px)"      srcset="{{$product->cover[400]}}"     >
                                                 <source media="(min-width : 600px) and (max-width: 991px)"      srcset="{{$product->cover[550]}}"     >
                                                 <source media="(min-width : 992px) and (max-width: 1023px)"     srcset="{{$product->cover[750]}}"     >
-                                                <source media="(min-width  : 1024px) and (max-width: 1200px)"   srcset="{{$product->cover[1024]}}"    >
-                                                <img src="{{$product->cover['larger']}}" class="img-responsive">
+                                                <source media="(min-width  : 1024px) and (max-width: 1200px)"   srcset="{{$product->cover[1024]}}" --}}{{--   >--}}
+                                                <img src="{{asset('storage/product/'.$product->cover)}}" class="img-responsive">
                                             </picture>
 
                                         </div>

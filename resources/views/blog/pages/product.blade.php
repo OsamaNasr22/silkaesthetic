@@ -7,18 +7,20 @@
             WE ALWAYS HERE FOR YOU    <i class="fa fa-chevron-right"></i>
         </h5>
         @include('blog.includes.nav')
-        <h3 class="text-center">WELCOME</h3>
+        {{--<h3 class="text-center">WELCOME</h3>--}}
     </header>
 
     <main>
-        @if(isset($product['imagesResolution'][0]))
+        @if(isset($product['images'][0]))
             <div class="category_cover">
                 <picture>
-                    <source media="(min-width:100px)  and (max-width : 599px)"      srcset="{{$product['imagesResolution'][0][400]}} " class="source">
-                    <source media="(min-width : 600px) and (max-width: 991px)"      srcset="{{$product['imagesResolution'][0][550]}}" class="source">
+                    @if(isset($product['imagesForPhone'][0]))
+                    <source media="(min-width:100px)  and (max-width : 600px)"      srcset="{{asset('storage/product/'.$product['imagesForPhone'][0]['image_url'])}} " class="source">
+                    @endif
+                 {{--   <source media="(min-width : 600px) and (max-width: 991px)"      srcset="{{$product['imagesResolution'][0][550]}}" class="source">
                     <source media="(min-width : 992px) and (max-width: 1023px)"     srcset="{{$product['imagesResolution'][0][750]}}" class="source">
-                    <source media="(min-width  : 1024px) and (max-width: 1200px)"   srcset="{{$product['imagesResolution'][0][1024]}}" class="source">
-                    <img src="{{$product['imagesResolution'][0]['larger']}}" class="img-responsive" id="currentImage">
+                    <source media="(min-width  : 1024px) and (max-width: 1200px)"   srcset="{{$product['imagesResolution'][0][1024]}}" class="source">--}}
+                    <img src="{{asset('storage/product/'.$product['images'][0]['image_url'])}}" class="img-responsive" id="currentImage">
                 </picture>
 
             </div>
@@ -30,15 +32,17 @@
                 <ul id="content-slider" class="content-slider">
 
 
-                    @forelse($product['imagesResolution'] as $key =>$image)
+                    @forelse($product['images'] as $key =>$image)
 
                         <li class="image">
                             <picture>
-                                <source media="(min-width:100px)  and (max-width : 599px)"      srcset="{{$image[400]}} ">
-                                <source media="(min-width : 600px) and (max-width: 991px)"      srcset="{{$image[550]}}">
+                                @if(isset($product['imagesForPhone'][$key]))
+                                    <source media="(min-width:100px)  and (max-width : 599px)"      srcset="{{asset('storage/product/'.$product['imagesForPhone'][$key]['image_url'])}} ">
+                                @endif
+ {{--                               <source media="(min-width : 600px) and (max-width: 991px)"      srcset="{{$image[550]}}">
                                 <source media="(min-width : 992px) and (max-width: 1023px)"     srcset="{{$image[750]}}">
-                                <source media="(min-width  : 1024px) and (max-width: 1200px)"   srcset="{{$image[1024]}}">
-                                <img  class=" {{$key == 0 ? 'active selected':''}}" src="{{$image['larger']}}">
+                                <source media="(min-width  : 1024px) and (max-width: 1200px)"   srcset="{{$image[1024]}}">--}}
+                                <img  class=" {{$key == 0 ? 'active selected':''}}" src="{{asset('storage/product/'.$image['image_url'])}}">
 
                             </picture>
                         </li>
@@ -67,7 +71,9 @@
             <div class="extra_images">
                 <div class="container">
                     <div class="row">
+{{--
                         <h2 class="extra_heading">| Look more!</h2>
+--}}
                         @forelse($product['extra_imagesResolution'] as $image)
                             <div class="col-xs-12 col-md-6">
                                 <picture>

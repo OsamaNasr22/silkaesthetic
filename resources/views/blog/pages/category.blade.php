@@ -8,7 +8,7 @@
             WE ALWAYS HERE FOR YOU    <i class="fa fa-chevron-right"></i>
         </h5>
         @include('blog.includes.nav')
-        <h3 class="text-center">WELCOME</h3>
+        {{--<h3 class="text-center">WELCOME</h3>--}}
     </header>
     <main>
 

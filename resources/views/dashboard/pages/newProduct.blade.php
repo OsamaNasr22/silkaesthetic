@@ -31,6 +31,10 @@
                 <div class="form-group">
                     <input class="form-control" type="file" name="image[]" multiple>
                 </div>
+                <label class="label label-primary">product images(for phone)</label>
+                <div class="form-group">
+                    <input class="form-control" type="file" name="imageForPhone[]" multiple>
+                </div>
                 <label class="label label-primary">extra images</label>
                 <div class="form-group">
                     <input class="form-control" type="file" name="extraImages[]" multiple>

@@ -17,6 +17,7 @@
                                 <li><a href="http://www.silkaesthetic.com/">Home</a></li>
                                 <li><a href="http://www.silkaesthetic.com/#about">About</a></li>
                                 <li><a href="http://www.silkaesthetic.com/#categories">Categories</a></li>
+                                <li><a href="{{route('products.all')}}">Our Products</a></li>
                                 <li><a href="http://www.silkaesthetic.com/#contact-us">Contact us</a></li>
                             </ul>
                         </div>

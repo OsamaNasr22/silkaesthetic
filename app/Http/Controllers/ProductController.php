@@ -28,7 +28,7 @@ class ProductController extends Controller
     {
         //
 
-        return view('dashboard.pages.allProduct',['products'=> Product::all()]);
+        return view('dashboard.pages.allProduct',['products'=> Product::with('images')->with('category')->get()]);
     }
 
 
@@ -77,17 +77,16 @@ class ProductController extends Controller
 
         //add cover if exists
         if ($cover = $request->file('cover')){
-
             //store image and return the full path of it
             $fullImageUrl=Storage::putFile('public/product', $cover);
             //create instance of image file
-            $imageFile= new File(storage_path('app/'.$fullImageUrl));
-
-            //make different resolution for different screen size
-            $this->makeResize($imageFile,400);
-            $this->makeResize($imageFile,550);
-            $this->makeResize($imageFile,750);
-            $this->makeResize($imageFile,1024);
+//            $imageFile= new File(storage_path('app/'.$fullImageUrl));
+//
+//            //make different resolution for different screen size
+//            $this->makeResize($imageFile,400);
+//            $this->makeResize($imageFile,550);
+//            $this->makeResize($imageFile,750);
+//            $this->makeResize($imageFile,1024);
 
             $coverImg= explode('/',$fullImageUrl);
             $product->cover = last($coverImg);
@@ -132,17 +131,29 @@ class ProductController extends Controller
                     $fullImageUrl=Storage::putFile('public/product', $images[$i]);
                     $productImg= explode('/',$fullImageUrl);
                     $img->image_url = last($productImg);
+                    $img->type= 1;
                     $product->images()->save($img);
-                    if ($img->image_url){
-                        //create instance of image file
-                        $imageFile= new File(storage_path('app/'.$fullImageUrl));
-                        //make different resolution for different screen size
-                        $this->makeResize($imageFile,400);
-                        $this->makeResize($imageFile,550);
-                        $this->makeResize($imageFile,750);
-                        $this->makeResize($imageFile,1024);
-                    }
+//                    if ($img->image_url){
+//                        //create instance of image file
+//                        $imageFile= new File(storage_path('app/'.$fullImageUrl));
+//                        //make different resolution for different screen size
+//                        $this->makeResize($imageFile,400);
+//                        $this->makeResize($imageFile,550);
+//                        $this->makeResize($imageFile,750);
+//                        $this->makeResize($imageFile,1024);
+//                    }
                 }
+            }
+            if ($images= $request->file('imageForPhone')){
+                for ($i=0;$i<count($images);$i++){
+                    $img= new Image();
+                    $fullImageUrl=Storage::putFile('public/product', $images[$i]);
+                    $productImg= explode('/',$fullImageUrl);
+                    $img->image_url = last($productImg);
+                    $img->type=2;
+                    $product->images()->save($img);
+                }
+
             }
 
             return redirect()->back()->with(['success' => 'product added successfully']);
@@ -180,15 +191,15 @@ class ProductController extends Controller
     {
         //
         static::$id= $product->id;
-        $images= $product->images->toArray();
-
-        for($i=0 ; $i<count($images); $i++){
-            $images[$i]['image_url']= asset("storage/product/" .$images[$i]['image_url']) ;
-        }
+//        $images= $product->images->toArray();
+//
+//        for($i=0 ; $i<count($images); $i++){
+//            $images[$i]['image_url']= asset("storage/product/" .$images[$i]['image_url']) ;
+//        }
         $data= $this->prepareProduct($product);
 
-
-        return view('dashboard.pages.editProduct',['product'=>$data ,'categories'=>Category::all()->toArray() ,'images'=>$images]);
+//            dd($data);
+        return view('dashboard.pages.editProduct',['product'=>$data ,'categories'=>Category::all()->toArray()]);
     }
 
     /**
@@ -223,20 +234,41 @@ class ProductController extends Controller
                 foreach ($ids as $id){
                     $image= Image::find($id);
                     if ($image){
-                        list($name,$ext)=explode('.',$image->image_url);
+                     /*   list($name,$ext)=explode('.',$image->image_url);
                         $deletedImages=[
                             'public/product/'.$image->image_url,
                             'public/product/'.$name .'@'. 400 . '.'.$ext,
                             'public/product/'.$name .'@'. 550 . '.'.$ext,
                             'public/product/'.$name .'@'. 750 . '.'.$ext,
                             'public/product/'.$name .'@'. 1024 . '.'.$ext,
-                        ];
-                        Storage::delete($deletedImages);
+                        ];*/
+                        Storage::delete('public/product/'.$image->image_url);
                         $image->delete();
                     }
                 }
 
             }
+
+        if (strlen($request['deleteImagesForPhone'])>0){
+
+            $ids= explode(',',$request['deleteImagesForPhone']);
+            foreach ($ids as $id){
+                $image= Image::find($id);
+                if ($image){
+                 /*   list($name,$ext)=explode('.',$image->image_url);
+                    $deletedImages=[
+                        'public/product/'.$image->image_url,
+                        'public/product/'.$name .'@'. 400 . '.'.$ext,
+                        'public/product/'.$name .'@'. 550 . '.'.$ext,
+                        'public/product/'.$name .'@'. 750 . '.'.$ext,
+                        'public/product/'.$name .'@'. 1024 . '.'.$ext,
+                    ];*/
+                    Storage::delete('public/product/'.$image->image_url);
+                    $image->delete();
+                }
+            }
+
+        }
 
             if (strlen($request['deleteExtraImages'])>0){
                 $image= explode(',',$request['deleteExtraImages']);
@@ -259,29 +291,29 @@ class ProductController extends Controller
         //add cover if exists
             if ($cover = $request->file('cover')){
             if ($product->cover){
-                list($name,$ext)=explode('.',$product->cover);
+               /* list($name,$ext)=explode('.',$product->cover);
                 $deletedImages =[
                     'public/product/'.$product->cover,
                     'public/product/'.$name .'@'. 400 . '.'.$ext,
                     'public/product/'.$name .'@'. 550 . '.'.$ext,
                     'public/product/'.$name .'@'. 750 . '.'.$ext,
                     'public/product/'.$name .'@'. 1024 . '.'.$ext,
-                ];
+                ];*/
 
-                Storage::delete($deletedImages);
+                Storage::delete('public/product/'.$product->cover);
             }
 
             //store image and return the full path of it
             $fullImageUrl=Storage::putFile('public/product', $cover);
 
-            //create instance of image file
+           /* //create instance of image file
             $imageFile= new File(storage_path('app/'.$fullImageUrl));
 
             //make different resolution for different screen size
             $this->makeResize($imageFile,400);
             $this->makeResize($imageFile,550);
             $this->makeResize($imageFile,750);
-            $this->makeResize($imageFile,1024);
+            $this->makeResize($imageFile,1024);*/
 
             $coverImg= explode('/',$fullImageUrl);
             $product->cover = last($coverImg);
@@ -324,8 +356,9 @@ class ProductController extends Controller
                     $fullImageUrl=Storage::putFile('public/product', $images[$i]);
                     $productImg= explode('/',$fullImageUrl);
                     $img->image_url = last($productImg);
+                    $img->type=1;
                     $product->images()->save($img);
-                    if ($img->image_url){
+                /*    if ($img->image_url){
                         //create instance of image file
                         $imageFile= new File(storage_path('app/'.$fullImageUrl));
                         //make different resolution for different screen size
@@ -333,9 +366,29 @@ class ProductController extends Controller
                         $this->makeResize($imageFile,550);
                         $this->makeResize($imageFile,750);
                         $this->makeResize($imageFile,1024);
-                    }
+                    }*/
                 }
             }
+                if ($images= $request->file('imageForPhone')){
+                    for ($i = 0; $i < count($images); $i++) {
+                        $img = new Image();
+                        //store image and return the full path of it
+                        $fullImageUrl=Storage::putFile('public/product', $images[$i]);
+                        $productImg= explode('/',$fullImageUrl);
+                        $img->image_url = last($productImg);
+                        $img->type=2;
+                        $product->images()->save($img);
+                        /*    if ($img->image_url){
+                                //create instance of image file
+                                $imageFile= new File(storage_path('app/'.$fullImageUrl));
+                                //make different resolution for different screen size
+                                $this->makeResize($imageFile,400);
+                                $this->makeResize($imageFile,550);
+                                $this->makeResize($imageFile,750);
+                                $this->makeResize($imageFile,1024);
+                            }*/
+                    }
+                }
                 return redirect()->back()->with(['success' => 'product updated successfully']);
             }else{
 
@@ -376,27 +429,27 @@ class ProductController extends Controller
         }
         //if product has images catch them in deleted array
         foreach ($product->images->toArray() as $image){
-            list($name,$ext)= explode('.',$image['image_url']);
+//            list($name,$ext)= explode('.',$image['image_url']);
             $deleted=array_merge($deleted,
                 [
                     'public/product/'.$image['image_url'],
-                    'public/product/'.$name . '@'. 400 .'.'.$ext,
-                    'public/product/'.$name . '@'. 550 .'.'.$ext,
-                    'public/product/'.$name . '@'. 750 .'.'.$ext,
-                    'public/product/'.$name . '@'. 1024 .'.'.$ext,
+//                    'public/product/'.$name . '@'. 400 .'.'.$ext,
+//                    'public/product/'.$name . '@'. 550 .'.'.$ext,
+//                    'public/product/'.$name . '@'. 750 .'.'.$ext,
+//                    'public/product/'.$name . '@'. 1024 .'.'.$ext,
                 ]);
         }
 
         // catch product cover in deleted array
-        list($name,$ext)= explode('.',$product->cover);
+/*        list($name,$ext)= explode('.',$product->cover);*/
 
         $deleted=array_merge($deleted,
             [
                 'public/product/'.$product->cover,
-                'public/product/'.$name . '@'. 400 .'.'.$ext,
+               /* 'public/product/'.$name . '@'. 400 .'.'.$ext,
                 'public/product/'.$name . '@'. 550 .'.'.$ext,
                 'public/product/'.$name . '@'. 750 .'.'.$ext,
-                'public/product/'.$name . '@'. 1024 .'.'.$ext,
+                'public/product/'.$name . '@'. 1024 .'.'.$ext,*/
             ]);
             //delete all images in deleted array
         Storage::delete($deleted);
@@ -410,7 +463,7 @@ class ProductController extends Controller
      * @return array
      */
     private function prepareProduct(Product $product){
-
+        $product->load('images');
         $data= $product->toArray();
         //get the extra images
         $data['extra_imagesResolution']=[];
@@ -426,7 +479,7 @@ class ProductController extends Controller
            }
        }
 
-       //get the cover images
+/*       //get the cover images
        list($name,$ext)= explode('.',$data['cover']);
 
         $data['cover']= [
@@ -435,12 +488,17 @@ class ProductController extends Controller
            '550'=>asset("storage/product/" . $name . '@' . 550 .'.' .$ext),
            '750'=>asset("storage/product/" . $name . '@' . 750 .'.' .$ext),
            '1024'=>asset("storage/product/" . $name . '@' . 1024 .'.' .$ext),
-        ];
+        ];*/
 
 
         //get the product images
 
-       foreach ($product->images->toArray() as $item){
+
+
+        $data['images']= $product->images()->where('type',1)->get()->toArray();
+        $data['imagesForPhone']=$product->images()->where('type',2)->get()->toArray();
+
+   /*    foreach ($product->images->toArray() as $item){
            list($name,$ext)= explode('.',$item['image_url']);
            $data['imagesResolution'][]=[
                'larger'=>asset('storage/product/'.$item['image_url']),
@@ -452,7 +510,7 @@ class ProductController extends Controller
        }
 
 
-       $data['images']=$product->images->toArray();
+       $data['images']=$product->images->toArray();*/
 
         return $data;
     }
@@ -471,7 +529,7 @@ class ProductController extends Controller
     public function products(){
         $products = Product::inRandomOrder()->paginate(6);
         if ($products->count()== 0) return redirect()->route('products.all');
-        foreach ($products as $product){
+      /*  foreach ($products as $product){
             list($name,$ext)=explode('.',$product->cover);
             $product->cover=[
                 'larger'=>asset('storage/product/'.$product->cover),
@@ -480,7 +538,7 @@ class ProductController extends Controller
                 '750'=>  asset('storage/product/'.$name . '@' . 750 .'.' .$ext),
                 '1024'=> asset('storage/product/'.$name . '@' . 1024 .'.'.$ext),
             ];
-        }
+        }*/
         $settings = (new  SettingController())->prepareAllSettings();
         return view('blog.pages.all-products',compact('settings','products'));
     }

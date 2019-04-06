@@ -199,7 +199,7 @@ class CategoryController extends Controller
 //                    'public/product/'.$name . '@'. '1024' . '.'.$ext,
 //
 //                ];
-                Storage::delete($category->cover);
+                Storage::delete('public/product/'.$category->cover);
             }
 
             //store image and return the full path of it
@@ -234,7 +234,7 @@ class CategoryController extends Controller
 //                    'public/product/'.$name . '@'. '1024' . '.'.$ext,
 //
 //                ];
-                Storage::delete($category->slide);
+                Storage::delete('public/product/'.$category->slide);
             }
 
             //store image and return the full path of it
@@ -346,7 +346,7 @@ class CategoryController extends Controller
 //                'public/product/'.$name . '@'. '1024' . '.'.$ext,
 //
 //            ];
-            Storage::delete($category->cover);
+            Storage::delete( 'public/product/'.$category->cover);
         }
 
         //delete category cover
@@ -363,7 +363,7 @@ class CategoryController extends Controller
 //                'public/product/'.$name . '@'. '1024' . '.'.$ext,
 //
 //            ];
-            Storage::delete($category->slide);
+            Storage::delete('public/product/'.$category->slide);
         }
         return ($category->delete())? redirect()->back()->with(['success'=>'category deleted successfully'])
             : redirect()->back()->with(['failed'=>'Try again, the process failed']);
@@ -373,8 +373,9 @@ class CategoryController extends Controller
 
         if ( ! $category->products->toArray()) return redirect()->back();
         $products = Product::inRandomOrder()->paginate(6);
-        if ($products->count()== 0) return redirect()->back();
 
+        if ($products->count()== 0) return redirect()->back();
+/*
         foreach ($products as $product){
             list($name,$ext)=explode('.',$product->cover);
             $product->cover=[
@@ -384,8 +385,10 @@ class CategoryController extends Controller
                 '750'=>  asset('storage/product/'.$name . '@' . 750 .'.' .$ext),
                 '1024'=> asset('storage/product/'.$name . '@' . 1024 .'.'.$ext),
             ];
-        }
+        }*/
         $settings = (new  SettingController())->prepareAllSettings();
+
+//        dd($products);
 
         return view('blog.pages.products',compact('category','settings','products'));
     }
